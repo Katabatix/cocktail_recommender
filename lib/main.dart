@@ -1,171 +1,119 @@
 import 'package:flutter/material.dart';
+import 'diy/diy_main.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const CocktailRecommender());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class CocktailRecommender extends StatefulWidget {
+  const CocktailRecommender({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
+  @override
+  State<CocktailRecommender> createState() => _CocktailRecommenderState();
+}
+
+class _CocktailRecommenderState extends State<CocktailRecommender> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Home',
-      debugShowCheckedModeBanner: false,
+      home: MainPage(),
+      // initialRoute: '/',
+      // routes: {
+      //   '/': (context) => const Page1(),
+      //   '/DIY': (context) => const Page2(),
+      //   '/Discover': (context) => const Page3(),
+      //   '/Settings': (context) => const Page4(),
+      // },
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          backgroundColor: Colors.grey,
+          elevation: 10,
+          selectedLabelStyle: TextStyle(
+              color: Color.fromARGB(255, 255, 255, 255),
+              fontFamily: 'Montserrat',
+              fontSize: 14.0),
+          unselectedLabelStyle: TextStyle(
+              color: Colors.black, fontFamily: 'Montserrat', fontSize: 12.0),
+          selectedItemColor: Color.fromARGB(255, 255, 255, 255),
+          unselectedItemColor: Colors.black,
+          showUnselectedLabels: true,
+        ),
       ),
-      home: const HomePage(),
     );
   }
 }
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class MainPage extends StatefulWidget {
+  MainPage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<MainPage> createState() => _MainPageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  int pageIndex = 0;
-
-  final pages = [
-    const Page1(), //cocktail recommender
-    const Page2(), //DIY
-    const Page3(), //Discover
-    const Page4(), //Retail
+class _MainPageState extends State<MainPage> {
+  int _currentIndex = 0;
+  final _pages = [
+    const Home(),
+    const DiyMain(),
+    const DiscoverMain(),
+    const SettingsMain(),
   ];
-
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
-      body: pages[pageIndex],
-      bottomNavigationBar: Container(
-        height: 60,
-        decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor,
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
+      body: _pages[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        items: const [
+          BottomNavigationBarItem(
+            label: 'Home',
+            icon: Icon(Icons.home),
           ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            IconButton(
-              enableFeedback: false,
-              onPressed: () {
-                setState(() {
-                  pageIndex = 0;
-                });
-              },
-              icon: pageIndex == 0
-                  ? const Icon(
-                Icons.home_filled,
-                color: Colors.white,
-                size: 35,
-              )
-                  : const Icon(
-                Icons.home_outlined,
-                color: Colors.white,
-                size: 35,
-              ),
-            ),
-            IconButton(
-              enableFeedback: false,
-              onPressed: () {
-                setState(() {
-                  pageIndex = 1;
-                });
-              },
-              icon: pageIndex == 1
-                  ? const Icon(
-                Icons.work_rounded,
-                color: Colors.white,
-                size: 35,
-              )
-                  : const Icon(
-                Icons.work_outline_outlined,
-                color: Colors.white,
-                size: 35,
-              ),
-            ),
-            IconButton(
-              enableFeedback: false,
-              onPressed: () {
-                setState(() {
-                  pageIndex = 2;
-                });
-              },
-              icon: pageIndex == 2
-                  ? const Icon(
-                Icons.widgets_rounded,
-                color: Colors.white,
-                size: 35,
-              )
-                  : const Icon(
-                Icons.widgets_outlined,
-                color: Colors.white,
-                size: 35,
-              ),
-            ),
-            IconButton(
-              enableFeedback: false,
-              onPressed: () {
-                setState(() {
-                  pageIndex = 3;
-                });
-              },
-              icon: pageIndex == 3
-                  ? const Icon(
-                Icons.person,
-                color: Colors.white,
-                size: 35,
-              )
-                  : const Icon(
-                Icons.person_outline,
-                color: Colors.white,
-                size: 35,
-              ),
-            ),
-          ],
-        ),
+          BottomNavigationBarItem(
+            label: 'DIY',
+            icon: Icon(Icons.list),
+          ),
+          BottomNavigationBarItem(
+            label: 'Discover',
+            icon: Icon(Icons.map),
+          ),
+          BottomNavigationBarItem(
+            label: 'Settings',
+            icon: Icon(Icons.settings),
+          ),
+        ],
+        currentIndex: _currentIndex,
+        onTap: (int index) {
+          setState(
+            () {
+              _currentIndex = index;
+            },
+          );
+        },
       ),
     );
   }
 }
 
-class Page1 extends StatelessWidget {
-  const Page1({Key? key}) : super(key: key);
+class Home extends StatelessWidget {
+  const Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: const Color(0xffC4DFCB),
-      child: Center(
-        child: Text(
-          "Page Number 1",
-          style: TextStyle(
-            color: Colors.green[900],
-            fontSize: 45,
-            fontWeight: FontWeight.w500,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Cocktail Recommender - Home'),
+      ),
+      body: Container(
+        color: const Color(0xffC4DFCB),
+        child: Center(
+          child: Text(
+            "Home",
+            style: TextStyle(
+              color: Colors.green[900],
+              fontSize: 45,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
       ),
@@ -173,20 +121,25 @@ class Page1 extends StatelessWidget {
   }
 }
 
-class Page2 extends StatelessWidget {
-  const Page2({Key? key}) : super(key: key);
+class DiscoverMain extends StatelessWidget {
+  const DiscoverMain({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: const Color(0xffC4DFCB),
-      child: Center(
-        child: Text(
-          "Page Number 2",
-          style: TextStyle(
-            color: Colors.green[900],
-            fontSize: 45,
-            fontWeight: FontWeight.w500,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Cocktail Recommender - Discover'),
+      ),
+      body: Container(
+        color: const Color(0xffC4DFCB),
+        child: Center(
+          child: Text(
+            "Discover",
+            style: TextStyle(
+              color: Colors.green[900],
+              fontSize: 45,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
       ),
@@ -194,45 +147,28 @@ class Page2 extends StatelessWidget {
   }
 }
 
-class Page3 extends StatelessWidget {
-  const Page3({Key? key}) : super(key: key);
+class SettingsMain extends StatelessWidget {
+  const SettingsMain({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: const Color(0xffC4DFCB),
-      child: Center(
-        child: Text(
-          "Page Number 3",
-          style: TextStyle(
-            color: Colors.green[900],
-            fontSize: 45,
-            fontWeight: FontWeight.w500,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Cocktail Recommender - Settings'),
+      ),
+      body: Container(
+        color: const Color(0xffC4DFCB),
+        child: Center(
+          child: Text(
+            "Setting",
+            style: TextStyle(
+              color: Colors.green[900],
+              fontSize: 45,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
       ),
     );
   }
 }
-
-class Page4 extends StatelessWidget {
-  const Page4({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: const Color(0xffC4DFCB),
-      child: Center(
-        child: Text(
-          "Page Number 4",
-          style: TextStyle(
-            color: Colors.green[900],
-            fontSize: 45,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
