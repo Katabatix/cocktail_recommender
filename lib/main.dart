@@ -16,14 +16,7 @@ class _CocktailRecommenderState extends State<CocktailRecommender> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MainPage(),
-      // initialRoute: '/',
-      // routes: {
-      //   '/': (context) => const Page1(),
-      //   '/DIY': (context) => const Page2(),
-      //   '/Discover': (context) => const Page3(),
-      //   '/Settings': (context) => const Page4(),
-      // },
+      home: const MainPage(),
       theme: ThemeData(
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           backgroundColor: Colors.grey,
@@ -44,7 +37,7 @@ class _CocktailRecommenderState extends State<CocktailRecommender> {
 }
 
 class MainPage extends StatefulWidget {
-  MainPage({Key? key}) : super(key: key);
+  const MainPage({Key? key}) : super(key: key);
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -54,7 +47,7 @@ class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
   final _pages = [
     const Home(),
-    const DiyMain(),
+    const DiyPage(),
     const DiscoverMain(),
     const SettingsMain(),
   ];

@@ -1,8 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:cocktail_recommender/diy/diy_router.dart';
 
-class DiyMain extends StatelessWidget {
+class DiyPage extends StatelessWidget {
+  const DiyPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      // home: DiyMain(),
+      initialRoute: 'diy/main',
+      onGenerateRoute: DiyRouter.generateRoute,
+    );
+  }
+}
+
+class DiyMain extends StatefulWidget {
   const DiyMain({Key? key}) : super(key: key);
 
+  @override
+  State<DiyMain> createState() => _DiyMainState();
+}
+
+class _DiyMainState extends State<DiyMain> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,8 +30,11 @@ class DiyMain extends StatelessWidget {
       ),
       body: Container(
         color: const Color(0xffC4DFCB),
-        child: const Center(
-          child: SearchField(),
+        child: Column(
+          children: <Widget>[
+            const SearchField(),
+            Expanded(child: RecipieList()),
+          ],
         ),
       ),
     );
@@ -21,6 +43,23 @@ class DiyMain extends StatelessWidget {
 
 class SearchField extends StatelessWidget {
   const SearchField({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+      child: Row(
+        children: const <Widget>[
+          Expanded(child: RecipieSearchBar()),
+          ButtonVault(),
+        ],
+      ),
+    );
+  }
+}
+
+class RecipieSearchBar extends StatelessWidget {
+  const RecipieSearchBar({Key? key}) : super(key: key);
 
   static const List<String> _searchAutoCompleteOptions = <String>[
     'Vodka',
@@ -36,15 +75,153 @@ class SearchField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Autocomplete(optionsBuilder: (TextEditingValue textEditingValue) {
-      if (textEditingValue.text == '') {
-        return const Iterable<String>.empty();
-      }
-      return _searchAutoCompleteOptions.where((String option) {
-        return option.contains(textEditingValue.text.toLowerCase());
-      });
-    }, onSelected: (String selection) {
-      debugPrint('You just selected: $selection');
-    });
+    return Autocomplete(
+      optionsBuilder: (TextEditingValue textEditingValue) {
+        if (textEditingValue.text == '') {
+          return const Iterable<String>.empty();
+        }
+        return _searchAutoCompleteOptions.where((String option) {
+          String lowOption = option.toLowerCase();
+          return lowOption.contains(textEditingValue.text.toLowerCase());
+        });
+      },
+      onSelected: (String selection) {
+        debugPrint('You just selected: $selection');
+      },
+    );
+  }
+}
+
+class ButtonVault extends StatefulWidget {
+  const ButtonVault({Key? key}) : super(key: key);
+
+  @override
+  State<ButtonVault> createState() => _ButtonVaultState();
+}
+
+class _ButtonVaultState extends State<ButtonVault> {
+  void routeToVault() {
+    debugPrint('[Button Vault] Routing to vault');
+    Navigator.of(context).pushNamed(
+      'diy/vault',
+      arguments: 'This is from Button Vault',
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(5),
+      child: Stack(
+        children: <Widget>[
+          Positioned.fill(
+            child: Container(
+              decoration: const BoxDecoration(color: Colors.blueGrey),
+            ),
+          ),
+          TextButton(
+            child: const Icon(Icons.cabin),
+            onPressed: routeToVault,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class RecipieList extends StatefulWidget {
+  RecipieList({Key? key}) : super(key: key);
+
+  @override
+  State<RecipieList> createState() => _RecipieListState();
+}
+
+class _RecipieListState extends State<RecipieList> {
+  int tempLength = 30;
+
+  List<Widget> constructList() {
+    List<Widget> outputList = [];
+    for (int i = 0; i < tempLength; i++) {
+      String name = 'Sample Drink ' + i.toString();
+      outputList
+          .add(RecipieListItem(data: RecipieListItemData(recipieName: name)));
+    }
+    return outputList;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomScrollView(
+      slivers: [
+        SliverList(
+          delegate: SliverChildListDelegate(
+            constructList(),
+          ),
+        ),
+      ],
+    );
+  }
+
+  // Widget build(BuildContext context) {
+  //   return ListView(
+  //     padding: const EdgeInsets.all(8),
+  //     children: constructList(),
+  //   );
+  // }
+}
+
+class RecipieListItemData {
+  final String recipieName;
+  final List<String> recipieIngredients;
+  final String iconURL;
+
+  const RecipieListItemData({
+    this.recipieName = 'Sample Drink',
+    this.recipieIngredients = const ['a', 'b', 'c'],
+    this.iconURL =
+        'https://cdn.icon-icons.com/icons2/2596/PNG/512/check_one_icon_155665.png',
+  });
+}
+
+class RecipieListItem extends StatelessWidget {
+  final RecipieListItemData data;
+
+  const RecipieListItem({Key? key, this.data = const RecipieListItemData()})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: InkWell(
+        splashColor: Colors.blue.withAlpha(30),
+        onTap: () {
+          Navigator.of(context).pushNamed('diy/recipie', arguments: data);
+        },
+        child: SizedBox(
+          height: 70,
+          child: Row(
+            children: <Widget>[
+              const SizedBox(width: 8),
+              Image.network(
+                data.iconURL,
+                width: 50,
+                height: 50,
+              ),
+              const SizedBox(width: 8),
+              Text(data.recipieName),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class RecipiePage extends StatelessWidget {
+  const RecipiePage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }
