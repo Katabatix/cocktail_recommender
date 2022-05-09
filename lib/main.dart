@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'diy/diy_main.dart';
+import 'DatabaseHelper.dart';
 
 void main() {
   runApp(const CocktailRecommender());
@@ -7,7 +8,6 @@ void main() {
 
 class CocktailRecommender extends StatefulWidget {
   const CocktailRecommender({Key? key}) : super(key: key);
-
   @override
   State<CocktailRecommender> createState() => _CocktailRecommenderState();
 }
@@ -58,8 +58,10 @@ class _MainPageState extends State<MainPage> {
     const DiscoverMain(),
     const SettingsMain(),
   ];
+
   @override
   Widget build(BuildContext context) {
+    print("test print");
     return Scaffold(
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
