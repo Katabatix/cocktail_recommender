@@ -28,8 +28,10 @@ class DBHelper {
         "CREATE TABLE IF NOT EXISTS  bars (id INTEGER PRIMARY KEY, name TEXT NOT NULL, description TEXT NOT NULL, contact TEXT NOT NULL, address TEXT NOT NULL);");
     await db.execute(
         "CREATE TABLE IF NOT EXISTS cocktails_bars ( cocktails_id INTEGER, bars_id INTEGER, FOREIGN KEY(cocktails_id) REFERENCES bars(id), FOREIGN KEY(bars_id) REFERENCES cocktails(id));");
-    // await db.execute(
-    //     '''INSERT INTO cocktails(id,name,description,ingredients,) VALUES ('name','description','contact','address')''');
+    await db.transaction((txn) async {
+      return await txn.rawInsert(
+          "INSERT INTO cocktails(id,name,description,ingredients) VALUES ('1','random_cocktail','random_description','random_ingredients')");
+    });
     print("Created tables");
   }
 
@@ -42,6 +44,12 @@ class DBHelper {
       List empty = List.generate(1, (index) => index);
       return empty;
     }
+  }
+
+  void testAdd() async {
+    var dbClient = await db;
+    await dbClient!.execute(
+        '''INSERT INTO cocktails(id,name,description,ingredients,) VALUES ('1','random_cocktail','random_description','random_contact','address')''');
   }
   // void saveEmployee(Employee employee) async {
   //   var dbClient = await db;
