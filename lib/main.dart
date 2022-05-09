@@ -13,8 +13,19 @@ class CocktailRecommender extends StatefulWidget {
 }
 
 class _CocktailRecommenderState extends State<CocktailRecommender> {
+  late DBHelper db;
+  late Future<List> test;
+  @override
+  initState() {
+    print('setting init state');
+    super.initState();
+    db = DBHelper();
+    test = db.testing();
+  }
+
   @override
   Widget build(BuildContext context) {
+    print(test);
     return MaterialApp(
       home: MainPage(),
       // initialRoute: '/',

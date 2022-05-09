@@ -35,7 +35,7 @@ class DBHelper {
 
   Future<List> testing() async {
     var dbClient = await db;
-    List<Map> list = await dbClient!.rawQuery('SELECT * FROM Employee');
+    List<Map> list = await dbClient!.rawQuery('SELECT * FROM cocktails');
     if (list != null) {
       return list;
     } else {
