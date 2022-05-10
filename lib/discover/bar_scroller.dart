@@ -15,7 +15,7 @@ class _BarScrollerState extends State<BarScroller> {
 
   void _createBarItems(){
     for (var i = 0; i < 30; i++){
-      barInfo.add(BarInfo("Name${i}", "location${i}", i%6, i, MenuInfo([MenuItem("Martini", "100 HKD")])));
+      barInfo.add(BarInfo("Name$i", "location$i", i%6, i, MenuInfo([MenuItem("Martini", "100 HKD")])));
     }
   }
 

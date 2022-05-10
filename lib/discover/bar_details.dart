@@ -28,7 +28,7 @@ class BarDetails extends StatelessWidget {
           Column(
             children: [
               Padding(
-                padding: EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(10.0),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
                   child: Image.asset('assets/images/bar0.jpg'),
@@ -79,7 +79,7 @@ class BarDetails extends StatelessWidget {
             ],
           ),
           Padding(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child:TextButton(
               onPressed: () {
                 Navigator.pushNamed(
@@ -104,9 +104,9 @@ class BarDetails extends StatelessWidget {
 
 class ReviewIcons extends StatelessWidget {
   // const ReviewIcons({Key? key}) : super(key: key);
-  ReviewIcons(this.rating);
+  ReviewIcons(this.rating, {Key? key}) : super(key: key);
 
-  final rating;
+  final int rating;
 
   final children = <Widget>[];
 

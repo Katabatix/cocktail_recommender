@@ -23,7 +23,7 @@ class MenuDetails extends StatelessWidget {
     final args = ModalRoute.of(context)!.settings.arguments as MenuInfo;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Menu'),
+        title: const Text('Menu'),
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(8.0),
