@@ -3,6 +3,7 @@ import 'package:cocktail_recommender/discover/menu_details.dart';
 import 'package:flutter/material.dart';
 import 'diy/diy_main.dart';
 import 'discover/discover_main.dart';
+import 'DatabaseHelper.dart';
 
 void main() {
   runApp(const CocktailRecommender());
@@ -10,14 +11,24 @@ void main() {
 
 class CocktailRecommender extends StatefulWidget {
   const CocktailRecommender({Key? key}) : super(key: key);
-
   @override
   State<CocktailRecommender> createState() => _CocktailRecommenderState();
 }
 
 class _CocktailRecommenderState extends State<CocktailRecommender> {
+  late DBHelper db;
+  late Future<List> test;
+  @override
+  initState() {
+    print('setting init state');
+    super.initState();
+    db = DBHelper();
+    test = db.testing();
+  }
+
   @override
   Widget build(BuildContext context) {
+    print(test);
     return MaterialApp(
       initialRoute: '/',
       routes: {
@@ -63,10 +74,56 @@ class _MainPageState extends State<MainPage> {
     const SettingsMain(),
   ];
 
+  late DBHelper db;
+  late Future<List> test;
+  @override
+  initState() {
+    print('setting init state');
+    super.initState();
+    db = DBHelper();
+    test = db.testing();
+  }
+
+  Future<List> fetchTestingFromDatabase() async {
+    var dbHelper = DBHelper();
+    Future<List> test = dbHelper.testing();
+    return test;
+  }
+
+  void addElementToDatabase() async {}
   @override
   Widget build(BuildContext context) {
+    print("test print");
     return Scaffold(
-      body: _pages[_currentIndex],
+      //body:_pages[_currentIndex],
+      body: Column(children: [
+        FutureBuilder<List>(
+          future: fetchTestingFromDatabase(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              print("HAS DATA");
+              print(snapshot.data);
+              return Container(
+                  height: 200,
+                  child: ListView.builder(
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (context, index) {
+                        print("SNAPSHOT INDEX");
+                        print(snapshot.data?[index]);
+                        return Container(
+                            child: Text(snapshot.data?[index]["name"] +
+                                snapshot.data?[index]["description"] +
+                                snapshot.data?[index]["ingredients"]));
+                      }));
+            } else {
+              return Container(
+                child: Text("No data"),
+              );
+            }
+          },
+        ),
+        //FloatingActionButton(onPressed: onPressed)
+      ]),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: const [
