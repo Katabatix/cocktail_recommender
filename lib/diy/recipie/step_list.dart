@@ -40,19 +40,25 @@ class RecipieStepListItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              '\tStep ' + id.toString(),
-              style: const TextStyle(
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
+            Padding(
+              padding: const EdgeInsets.only(top: 8, left: 8),
+              child: Text(
+                'Step ' + id.toString(),
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-            Text(
-              '    ' + step,
-              style: const TextStyle(
-                  fontSize: 15,
-                  color: Colors.black54,
-                  overflow: TextOverflow.fade),
+            Padding(
+              padding: const EdgeInsets.only(top: 8, bottom: 8, left: 16),
+              child: Text(
+                step,
+                style: const TextStyle(
+                    fontSize: 15,
+                    color: Colors.black54,
+                    overflow: TextOverflow.fade),
+              ),
             ),
           ],
         ),

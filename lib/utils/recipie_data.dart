@@ -10,7 +10,8 @@ class RecipieData {
       RecipieIngredient(name: 'ing 1'),
       RecipieIngredient(name: 'ing 2', amount: 1),
       RecipieIngredient(name: 'ing 3', amount: 1),
-      RecipieIngredient(name: 'ing 4', amount: 1),
+      RecipieIngredient(
+          name: 'ing 444 444444444 444444 444444444444 444444', amount: 1),
       RecipieIngredient(name: 'ing 5', amount: 1),
       RecipieIngredient(name: 'ing 6', amount: 1),
       RecipieIngredient(name: 'ing 7', amount: 1),

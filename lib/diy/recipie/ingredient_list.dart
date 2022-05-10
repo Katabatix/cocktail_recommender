@@ -36,13 +36,28 @@ class IngredientListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 20,
+    return Card(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Text(ingredient.name),
-          Text(ingredient.amount.toString() + '/' + ingredient.unit),
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.only(
+                left: 8,
+                right: 8,
+                top: 4,
+                bottom: 4,
+              ),
+              child: Text(
+                ingredient.name,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: Text(ingredient.amount.toString() + '/' + ingredient.unit),
+          ),
         ],
       ),
     );

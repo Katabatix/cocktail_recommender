@@ -11,17 +11,16 @@ class DiyRecipiePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Sample Drink'),
-        ),
-        body: Column(
-          children: [
-            DiyRecipieTop(data: data),
-            const SizedBox(height: 10),
-            RecipieStepList(steps: data.steps)
-          ],
-        ) //Todo
-        );
+      appBar: AppBar(
+        title: Text(data.name),
+      ),
+      body: Column(
+        children: [
+          DiyRecipieTop(data: data),
+          RecipieStepList(steps: data.steps)
+        ],
+      ),
+    );
   }
 }
 
@@ -37,16 +36,18 @@ class DiyRecipieTop extends StatelessWidget {
     return Container(
       color: Colors.amber[100],
       child: Expanded(
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            IngredientList(ingredientList: data.ingredients),
-            SizedBox(width: MediaQuery.of(context).size.width / 8),
-            Image.network(
-              data.imageURL,
-              width: MediaQuery.of(context).size.width / 3,
-            )
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              IngredientList(ingredientList: data.ingredients),
+              Image.network(
+                data.imageURL,
+                width: MediaQuery.of(context).size.width / 3,
+              )
+            ],
+          ),
         ),
       ),
     );
