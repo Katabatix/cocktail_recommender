@@ -1,5 +1,9 @@
+import 'package:cocktail_recommender/discover/bar_details.dart';
+import 'package:cocktail_recommender/discover/menu_details.dart';
 import 'package:flutter/material.dart';
 import 'diy/diy_main.dart';
+import 'discover/discover_main.dart';
+import 'DatabaseHelper.dart';
 
 void main() {
   runApp(const CocktailRecommender());
@@ -7,16 +11,34 @@ void main() {
 
 class CocktailRecommender extends StatefulWidget {
   const CocktailRecommender({Key? key}) : super(key: key);
-
   @override
   State<CocktailRecommender> createState() => _CocktailRecommenderState();
 }
 
 class _CocktailRecommenderState extends State<CocktailRecommender> {
+  late DBHelper db;
+  late Future<List> test;
+  @override
+  initState() {
+    print('setting init state');
+    super.initState();
+    db = DBHelper();
+    test = db.testing();
+  }
+
   @override
   Widget build(BuildContext context) {
+    print(test);
     return MaterialApp(
-      home: const MainPage(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => MainPage(),
+        '/diy': (context) => const DiyMainPage(),
+        '/discover': (context) => const DiscoverMain(),
+        '/settings': (context) => const SettingsMain(),
+        BarDetails.routeName: (context) => const BarDetails(),
+        MenuDetails.routeName: (context) => const MenuDetails(),
+      },
       theme: ThemeData(
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           backgroundColor: Colors.grey,
@@ -51,10 +73,57 @@ class _MainPageState extends State<MainPage> {
     const DiscoverMain(),
     const SettingsMain(),
   ];
+
+  late DBHelper db;
+  late Future<List> test;
+  @override
+  initState() {
+    print('setting init state');
+    super.initState();
+    db = DBHelper();
+    test = db.testing();
+  }
+
+  Future<List> fetchTestingFromDatabase() async {
+    var dbHelper = DBHelper();
+    Future<List> test = dbHelper.testing();
+    return test;
+  }
+
+  void addElementToDatabase() async {}
   @override
   Widget build(BuildContext context) {
+    print("test print");
     return Scaffold(
-      body: _pages[_currentIndex],
+      //body:_pages[_currentIndex],
+      body: Column(children: [
+        FutureBuilder<List>(
+          future: fetchTestingFromDatabase(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              print("HAS DATA");
+              print(snapshot.data);
+              return Container(
+                  height: 200,
+                  child: ListView.builder(
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (context, index) {
+                        print("SNAPSHOT INDEX");
+                        print(snapshot.data?[index]);
+                        return Container(
+                            child: Text(snapshot.data?[index]["name"] +
+                                snapshot.data?[index]["description"] +
+                                snapshot.data?[index]["ingredients"]));
+                      }));
+            } else {
+              return Container(
+                child: Text("No data"),
+              );
+            }
+          },
+        ),
+        //FloatingActionButton(onPressed: onPressed)
+      ]),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: const [
@@ -102,32 +171,6 @@ class Home extends StatelessWidget {
         child: Center(
           child: Text(
             "Home",
-            style: TextStyle(
-              color: Colors.green[900],
-              fontSize: 45,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class DiscoverMain extends StatelessWidget {
-  const DiscoverMain({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Cocktail Recommender - Discover'),
-      ),
-      body: Container(
-        color: const Color(0xffC4DFCB),
-        child: Center(
-          child: Text(
-            "Discover",
             style: TextStyle(
               color: Colors.green[900],
               fontSize: 45,
