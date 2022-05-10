@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cocktail_recommender/diy/diy_router.dart';
+import 'package:cocktail_recommender/utils/recipie_data.dart';
 
 class DiyPage extends StatelessWidget {
   const DiyPage({Key? key}) : super(key: key);
@@ -8,20 +9,20 @@ class DiyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       // home: DiyMain(),
-      initialRoute: 'diy/main',
+      initialRoute: '/',
       onGenerateRoute: DiyRouter.generateRoute,
     );
   }
 }
 
-class DiyMain extends StatefulWidget {
-  const DiyMain({Key? key}) : super(key: key);
+class DiyMainPage extends StatefulWidget {
+  const DiyMainPage({Key? key}) : super(key: key);
 
   @override
-  State<DiyMain> createState() => _DiyMainState();
+  State<DiyMainPage> createState() => _DiyMainPageState();
 }
 
-class _DiyMainState extends State<DiyMain> {
+class _DiyMainPageState extends State<DiyMainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,7 +104,7 @@ class _ButtonVaultState extends State<ButtonVault> {
   void routeToVault() {
     debugPrint('[Button Vault] Routing to vault');
     Navigator.of(context).pushNamed(
-      'diy/vault',
+      '/vault',
       arguments: 'This is from Button Vault',
     );
   }
@@ -143,8 +144,7 @@ class _RecipieListState extends State<RecipieList> {
     List<Widget> outputList = [];
     for (int i = 0; i < tempLength; i++) {
       String name = 'Sample Drink ' + i.toString();
-      outputList
-          .add(RecipieListItem(data: RecipieListItemData(recipieName: name)));
+      outputList.add(RecipieListItem(data: RecipieData(name: name)));
     }
     return outputList;
   }
@@ -170,23 +170,23 @@ class _RecipieListState extends State<RecipieList> {
   // }
 }
 
-class RecipieListItemData {
-  final String recipieName;
-  final List<String> recipieIngredients;
-  final String iconURL;
+// class RecipieListItemData {
+//   final String recipieName;
+//   final List<String> recipieIngredients;
+//   final String iconURL;
 
-  const RecipieListItemData({
-    this.recipieName = 'Sample Drink',
-    this.recipieIngredients = const ['a', 'b', 'c'],
-    this.iconURL =
-        'https://cdn.icon-icons.com/icons2/2596/PNG/512/check_one_icon_155665.png',
-  });
-}
+//   const RecipieListItemData({
+//     this.recipieName = 'Sample Drink',
+//     this.recipieIngredients = const ['a', 'b', 'c'],
+//     this.iconURL =
+//         'https://cdn.icon-icons.com/icons2/2596/PNG/512/check_one_icon_155665.png',
+//   });
+// }
 
 class RecipieListItem extends StatelessWidget {
-  final RecipieListItemData data;
+  final RecipieData data;
 
-  const RecipieListItem({Key? key, this.data = const RecipieListItemData()})
+  const RecipieListItem({Key? key, this.data = const RecipieData()})
       : super(key: key);
 
   @override
@@ -195,7 +195,7 @@ class RecipieListItem extends StatelessWidget {
       child: InkWell(
         splashColor: Colors.blue.withAlpha(30),
         onTap: () {
-          Navigator.of(context).pushNamed('diy/recipie', arguments: data);
+          Navigator.of(context).pushNamed('/recipie', arguments: data);
         },
         child: SizedBox(
           height: 70,
@@ -203,12 +203,12 @@ class RecipieListItem extends StatelessWidget {
             children: <Widget>[
               const SizedBox(width: 8),
               Image.network(
-                data.iconURL,
+                data.imageURL,
                 width: 50,
                 height: 50,
               ),
               const SizedBox(width: 8),
-              Text(data.recipieName),
+              Text(data.name),
             ],
           ),
         ),
