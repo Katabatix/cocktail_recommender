@@ -39,7 +39,7 @@ class RecipieData {
   String toString() {
     return 'name: ' +
         name +
-        ', ingredients ' +
+        ', ingredients: ' +
         ingredients.toString() +
         ', steps: ' +
         steps.toString();
