@@ -1,5 +1,8 @@
+import 'package:cocktail_recommender/discover/bar_details.dart';
+import 'package:cocktail_recommender/discover/menu_details.dart';
 import 'package:flutter/material.dart';
 import 'diy/diy_main.dart';
+import 'discover/discover_main.dart';
 import 'DatabaseHelper.dart';
 
 void main() {
@@ -27,14 +30,15 @@ class _CocktailRecommenderState extends State<CocktailRecommender> {
   Widget build(BuildContext context) {
     print(test);
     return MaterialApp(
-      home: MainPage(),
-      // initialRoute: '/',
-      // routes: {
-      //   '/': (context) => const Page1(),
-      //   '/DIY': (context) => const Page2(),
-      //   '/Discover': (context) => const Page3(),
-      //   '/Settings': (context) => const Page4(),
-      // },
+      initialRoute: '/',
+      routes: {
+        '/': (context) => MainPage(),
+        '/diy': (context) => const DiyMain(),
+        '/discover': (context) => const DiscoverMain(),
+        '/settings': (context) => const SettingsMain(),
+        BarDetails.routeName: (context) => const BarDetails(),
+        MenuDetails.routeName: (context) => const MenuDetails(),
+      },
       theme: ThemeData(
         bottomNavigationBarTheme: const BottomNavigationBarThemeData(
           backgroundColor: Colors.grey,
@@ -55,7 +59,7 @@ class _CocktailRecommenderState extends State<CocktailRecommender> {
 }
 
 class MainPage extends StatefulWidget {
-  MainPage({Key? key}) : super(key: key);
+  const MainPage({Key? key}) : super(key: key);
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -167,32 +171,6 @@ class Home extends StatelessWidget {
         child: Center(
           child: Text(
             "Home",
-            style: TextStyle(
-              color: Colors.green[900],
-              fontSize: 45,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class DiscoverMain extends StatelessWidget {
-  const DiscoverMain({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Cocktail Recommender - Discover'),
-      ),
-      body: Container(
-        color: const Color(0xffC4DFCB),
-        child: Center(
-          child: Text(
-            "Discover",
             style: TextStyle(
               color: Colors.green[900],
               fontSize: 45,
