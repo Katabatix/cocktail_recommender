@@ -33,9 +33,9 @@ class _CocktailRecommenderState extends State<CocktailRecommender> {
       initialRoute: '/',
       routes: {
         '/': (context) => MainPage(),
-        '/diy': (context) => const DiyMainPage(),
-        '/discover': (context) => const DiscoverMain(),
-        '/settings': (context) => const SettingsMain(),
+        // '/diy': (context) => const DiyMainPage(),
+        // '/discover': (context) => const DiscoverMain(),
+        // '/settings': (context) => const SettingsMain(),
         BarDetails.routeName: (context) => const BarDetails(),
         MenuDetails.routeName: (context) => const MenuDetails(),
       },
@@ -76,19 +76,19 @@ class _MainPageState extends State<MainPage> {
 
   late DBHelper db;
   late Future<List> test;
-  @override
-  initState() {
-    print('setting init state');
-    super.initState();
-    db = DBHelper();
-    test = db.testing();
-  }
-
-  Future<List> fetchTestingFromDatabase() async {
-    var dbHelper = DBHelper();
-    Future<List> test = dbHelper.testing();
-    return test;
-  }
+  // @override
+  // initState() {
+  //   print('setting init state');
+  //   super.initState();
+  //   db = DBHelper();
+  //   test = db.testing();
+  // }
+  //
+  // Future<List> fetchTestingFromDatabase() async {
+  //   var dbHelper = DBHelper();
+  //   Future<List> test = dbHelper.testing();
+  //   return test;
+  // }
 
   void addElementToDatabase() async {}
   @override
@@ -96,34 +96,7 @@ class _MainPageState extends State<MainPage> {
     print("test print");
     return Scaffold(
       //body:_pages[_currentIndex],
-      body: Column(children: [
-        FutureBuilder<List>(
-          future: fetchTestingFromDatabase(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              print("HAS DATA");
-              print(snapshot.data);
-              return Container(
-                  height: 200,
-                  child: ListView.builder(
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (context, index) {
-                        print("SNAPSHOT INDEX");
-                        print(snapshot.data?[index]);
-                        return Container(
-                            child: Text(snapshot.data?[index]["name"] +
-                                snapshot.data?[index]["description"] +
-                                snapshot.data?[index]["ingredients"]));
-                      }));
-            } else {
-              return Container(
-                child: Text("No data"),
-              );
-            }
-          },
-        ),
-        //FloatingActionButton(onPressed: onPressed)
-      ]),
+      body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: const [
