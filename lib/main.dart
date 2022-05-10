@@ -33,7 +33,7 @@ class _CocktailRecommenderState extends State<CocktailRecommender> {
       initialRoute: '/',
       routes: {
         '/': (context) => MainPage(),
-        '/diy': (context) => const DiyMain(),
+        '/diy': (context) => const DiyMainPage(),
         '/discover': (context) => const DiscoverMain(),
         '/settings': (context) => const SettingsMain(),
         BarDetails.routeName: (context) => const BarDetails(),
@@ -69,7 +69,7 @@ class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
   final _pages = [
     const Home(),
-    const DiyMain(),
+    const DiyPage(),
     const DiscoverMain(),
     const SettingsMain(),
   ];
