@@ -6,6 +6,7 @@ import 'package:path_provider/path_provider.dart';
 
 class DBHelper {
   static Database? _db;
+  static Future<List>? test;
 
   Future<Database?> get db async {
     if (_db != null) return _db;
