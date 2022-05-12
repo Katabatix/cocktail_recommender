@@ -3,10 +3,10 @@ import 'dart:io' as io;
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
+import 'utils/cocktail.dart';
 
 class DBHelper {
   static Database? _db;
-  static Future<List>? test;
 
   Future<Database?> get db async {
     if (_db != null) return _db;
@@ -24,34 +24,36 @@ class DBHelper {
   void _onCreate(Database db, int version) async {
     // When creating the db, create the table
     await db.execute(
-        "CREATE TABLE IF NOT EXISTS cocktails (id INTEGER PRIMARY KEY, name TEXT NOT NULL, description TEXT NOT NULL, ingredients TEXT NOT NULL);");
+        "CREATE TABLE IF NOT EXISTS cocktails (id INTEGER PRIMARY KEY, name TEXT NOT NULL, description TEXT NOT NULL, ingredients TEXT NOT NULL, recipe TEXT NOT NULL, imageURL TEXT NOT NULL);");
     await db.execute(
-        "CREATE TABLE IF NOT EXISTS  bars (id INTEGER PRIMARY KEY, name TEXT NOT NULL, description TEXT NOT NULL, contact TEXT NOT NULL, address TEXT NOT NULL);");
+        "CREATE TABLE IF NOT EXISTS  bars (id INTEGER PRIMARY KEY, name TEXT NOT NULL, description TEXT NOT NULL, contact TEXT NOT NULL, address TEXT NOT NULL, imageURL TEXT NOT NULL);");
     await db.execute(
         "CREATE TABLE IF NOT EXISTS cocktails_bars ( cocktails_id INTEGER, bars_id INTEGER, FOREIGN KEY(cocktails_id) REFERENCES bars(id), FOREIGN KEY(bars_id) REFERENCES cocktails(id));");
-    await db.transaction((txn) async {
-      return await txn.rawInsert(
-          "INSERT INTO cocktails(id,name,description,ingredients) VALUES ('1','random_cocktail','random_description','random_ingredients')");
-    });
+    // await db.transaction((txn) async {
+    //   return await txn.rawInsert(
+    //       "INSERT INTO cocktails(id,name,description,ingredients) VALUES ('1','random_cocktail','random_description','random_ingredients')");
+    // });
     print("Created tables");
   }
 
-  Future<List> testing() async {
+  Future<List<Cocktail>> getAllDrinks() async {
     var dbClient = await db;
-    List<Map> list = await dbClient!.rawQuery('SELECT * FROM cocktails');
-    if (list != null) {
-      return list;
-    } else {
-      List empty = List.generate(1, (index) => index);
-      return empty;
+    List<Cocktail> list = [];
+    List<Map> rawList = await dbClient!.rawQuery('SELECT * FROM cocktails');
+    if (rawList != null) {
+      rawList.forEach((cocktail) {
+        list.add(Cocktail(cocktail["name"], cocktail["description"],
+            cocktail["imageURL"], cocktail["ingredients"], cocktail["recipe"]));
+      });
     }
+    return list;
   }
 
-  void testAdd() async {
-    var dbClient = await db;
-    await dbClient!.execute(
-        '''INSERT INTO cocktails(id,name,description,ingredients,) VALUES ('1','random_cocktail','random_description','random_contact','address')''');
-  }
+  // void testAdd() async {
+  //   var dbClient = await db;
+  //   await dbClient!.execute(
+  //       '''INSERT INTO cocktails(id,name,description,ingredients,) VALUES ('1','random_cocktail','random_description','random_contact','address')''');
+  // }
   // void saveEmployee(Employee employee) async {
   //   var dbClient = await db;
   //   await dbClient.transaction((txn) async {
