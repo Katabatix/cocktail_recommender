@@ -1,7 +1,7 @@
 import 'package:cocktail_recommender/discover/bar_details.dart';
 import 'package:cocktail_recommender/discover/menu_details.dart';
 import 'package:flutter/material.dart';
-import 'diy/diy_main.dart';
+import 'diy/main/diy_main.dart';
 import 'discover/discover_main.dart';
 import 'DatabaseHelper.dart';
 
