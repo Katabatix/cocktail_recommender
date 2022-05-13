@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'diy/main/diy_main.dart';
 import 'discover/discover_main.dart';
 import 'DatabaseHelper.dart';
+import 'package:cocktail_recommender/tinder/tinder_main.dart';
 
 void main() {
   runApp(const CocktailRecommender());
@@ -71,7 +72,8 @@ class _MainPageState extends State<MainPage> {
     const Home(),
     const DiyPage(),
     const DiscoverMain(),
-    const SettingsMain(),
+    // const SettingsMain(),
+    TinderPage(),
   ];
 
   late DBHelper db;
