@@ -21,82 +21,88 @@ class BarDetails extends StatelessWidget {
     final args = ModalRoute.of(context)!.settings.arguments as BarInfo;
     return Scaffold(
       appBar: AppBar(
-        title: Text(args.name),
+        title: Text(args.name, style: const TextStyle(color: Colors.white)),
       ),
-      body: Column(
-        children: [
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
-                  child: Image.asset('assets/images/bar0.jpg'),
-                ),
-              ),
-              const SizedBox(
-                height: 10.0,
-              ),
-              Text(
-                args.name,
-                style: const TextStyle(
-                  fontFamily: 'Merriweather',
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 1,
-                ),
-              ),
-              const SizedBox(
-                height: 20.0,
-              ),
-              Row(
-                children: [
-                  ReviewIcons(args.rating),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-                    child: TextButton(
-                      onPressed: () {}, //TODO: Add routing to ReviewDetails
-                      child: const Text(
-                        'See Reviews',
-                        style: TextStyle(
-                          fontSize: 20,
-                        )
-                      )
-                    ),
+      body: Container(
+        child: Column(
+          children: [
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: Image.asset('assets/images/bar0.jpg'),
                   ),
-                ],
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              ),
-              const SizedBox(
-                height: 20.0,
-              ),
-              Text(
-                args.location,
-                style: const TextStyle(
-                  fontSize: 20,
                 ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10),
-            child:TextButton(
-              onPressed: () {
-                Navigator.pushNamed(
-                    context,
-                    MenuDetails.routeName,
-                    arguments: args.menu,
-                );
-              },
-              child: const Text('See Menu',
-                style: TextStyle(
-                  fontSize: 20.0,
+                const SizedBox(
+                  height: 10.0,
+                ),
+                Text(
+                  args.name,
+                  style: const TextStyle(
+                    fontFamily: 'Merriweather',
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1,
+                  ),
+                ),
+                const SizedBox(
+                  height: 20.0,
+                ),
+                Row(
+                  children: [
+                    ReviewIcons(args.rating),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+                      child: TextButton(
+                        onPressed: () {}, //Add routing to ReviewDetails
+                        child: const Text(
+                          'See Reviews',
+                          style: TextStyle(
+                            color: Colors.black, //THEME LATER
+                            fontSize: 20,
+                          )
+                        )
+                      ),
+                    ),
+                  ],
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                ),
+                const SizedBox(
+                  height: 20.0,
+                ),
+                Text(
+                  args.location,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface,
+                    fontSize: 20,
+                  ),
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child:TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(
+                      context,
+                      MenuDetails.routeName,
+                      arguments: args.menu,
+                  );
+                },
+                child: const Text('See Menu',
+                  style: TextStyle(
+                    color: Colors.black, //THEME LATER
+                    fontSize: 20.0,
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          ],
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        ),
+        color: Colors.white, //THEME LATER
       ),
     );
   }
