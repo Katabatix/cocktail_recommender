@@ -1,11 +1,9 @@
-import 'package:cocktail_recommender/discover/bar_details.dart';
-import 'package:cocktail_recommender/discover/menu_details.dart';
-import 'package:cocktail_recommender/recommender/recommender_questionnaire.dart';
 import 'package:flutter/material.dart';
-import 'diy/main/diy_main.dart';
-import 'discover/discover_main.dart';
-// import 'DatabaseHelper.dart';
-import 'home/home.dart';
+import 'package:cocktail_recommender/utils/router.dart';
+import 'package:cocktail_recommender/utils/theme.dart';
+import 'package:cocktail_recommender/utils/global_vars.dart' as global;
+import 'package:provider/provider.dart';
+import 'DatabaseHelper.dart';
 
 void main() {
   runApp(const CocktailRecommender());
@@ -18,54 +16,25 @@ class CocktailRecommender extends StatefulWidget {
 }
 
 class _CocktailRecommenderState extends State<CocktailRecommender> {
-  // late DBHelper db;
-  // late Future<List> test;
-  // @override
-  // initState() {
-  //   print('setting init state');
-  //   super.initState();
-  //   db = DBHelper();
-  //   test = db.testing();
-  // }
+  int _currentIndex = 0;
+  late DBHelper db;
+  late Future<List> test;
+  @override
+  initState() {
+    debugPrint('setting init state');
+    super.initState();
+    db = DBHelper();
+    test = db.testing();
+  }
 
   @override
   Widget build(BuildContext context) {
     // print(test);
-    return MaterialApp(
-      initialRoute: '/',
-      routes: {
-        '/': (context) => MainPage(),
-        BarDetails.routeName: (context) => const BarDetails(),
-        MenuDetails.routeName: (context) => const MenuDetails(),
-        RecommenderQuestionnaireMain.routeName: (context) => const RecommenderQuestionnaireMain(),
-      },
-      theme: ThemeData(
-        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-          backgroundColor: Colors.grey,
-          elevation: 10,
-          selectedLabelStyle: TextStyle(
-              color: Color.fromARGB(255, 255, 255, 255),
-              fontFamily: 'Montserrat',
-              fontSize: 14.0),
-          unselectedLabelStyle: TextStyle(
-              color: Colors.black, fontFamily: 'Montserrat', fontSize: 12.0),
-          selectedItemColor: Color.fromARGB(255, 255, 255, 255),
-          unselectedItemColor: Colors.black,
-          showUnselectedLabels: true,
-        ),
-        colorScheme: ColorScheme(
-          brightness: Brightness.light,
-          primary: Colors.deepPurple.shade400,
-          onPrimary: Colors.grey.shade900,
-          secondary: Colors.indigo.shade900,
-          onSecondary: Colors.white,
-          error: Colors.red,
-          onError: Colors.black,
-          background: Colors.blueGrey.shade100,
-          onBackground: Colors.grey.shade900,
-          surface: Colors.blueGrey.shade100,
-          onSurface: Colors.grey.shade900,
-        )
+    return ChangeNotifierProvider(
+      create: (context) => NavBarIndex(),
+      child: MaterialApp(
+        home: const MainPage(),
+        theme: getThemeData(),
       ),
     );
   }
@@ -79,16 +48,8 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int _currentIndex = 0;
-  final _pages = [
-    const Home(),
-    const DiyPage(),
-    const DiscoverMain(),
-    const SettingsMain(),
-  ];
-
-  // late DBHelper db;
-  // late Future<List> test;
+  late DBHelper db;
+  late Future<List> test;
   // @override
   // initState() {
   //   print('setting init state');
@@ -106,8 +67,10 @@ class _MainPageState extends State<MainPage> {
   void addElementToDatabase() async {}
   @override
   Widget build(BuildContext context) {
+    var currentIndex = context.watch<NavBarIndex>();
     return Scaffold(
-      body: _pages[_currentIndex],
+      body: Navigator(
+          key: global.navigatorKey, onGenerateRoute: MainRouter.generateRoute),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: const [
@@ -128,41 +91,44 @@ class _MainPageState extends State<MainPage> {
             icon: Icon(Icons.settings),
           ),
         ],
-        currentIndex: _currentIndex,
+        currentIndex: currentIndex.index,
         onTap: (int index) {
-          setState(
-            () {
-              _currentIndex = index;
-            },
-          );
+          currentIndex.updateIndex(index);
+          switch (index) {
+            case 0:
+              global.navigatorKey.currentState?.pushReplacementNamed('/');
+              break;
+            case 1:
+              global.navigatorKey.currentState?.pushReplacementNamed('/diy');
+              break;
+            case 2:
+              global.navigatorKey.currentState
+                  ?.pushReplacementNamed('/discover');
+              break;
+            case 3:
+              global.navigatorKey.currentState
+                  ?.pushReplacementNamed('/setting');
+              break;
+            default:
+              global.navigatorKey.currentState?.pushReplacementNamed('/error');
+              break;
+          }
+          // setState(() {
+          //   navBarIndex.updateIndex(index);
+          // });
         },
       ),
     );
   }
 }
 
-class SettingsMain extends StatelessWidget {
-  const SettingsMain({Key? key}) : super(key: key);
+class NavBarIndex extends ChangeNotifier {
+  int _index = 0;
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Cocktail Recommender - Settings'),
-      ),
-      body: Container(
-        color: const Color(0xffC4DFCB),
-        child: Center(
-          child: Text(
-            "Setting",
-            style: TextStyle(
-              color: Colors.green[900],
-              fontSize: 45,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ),
-      ),
-    );
+  int get index => _index;
+
+  void updateIndex(int newIndex) {
+    _index = newIndex;
+    notifyListeners();
   }
 }
