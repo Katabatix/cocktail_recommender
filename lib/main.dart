@@ -1,10 +1,12 @@
 import 'package:cocktail_recommender/discover/bar_details.dart';
 import 'package:cocktail_recommender/discover/menu_details.dart';
+import 'package:cocktail_recommender/recommender/recommender_questionnaire.dart';
 import 'package:flutter/material.dart';
 import 'diy/main/diy_main.dart';
 import 'discover/discover_main.dart';
+import 'tinder/tinder_main.dart';
 import 'DatabaseHelper.dart';
-import 'package:cocktail_recommender/tinder/tinder_main.dart';
+import 'home/home.dart';
 
 void main() {
   runApp(const CocktailRecommender());
@@ -21,7 +23,7 @@ class _CocktailRecommenderState extends State<CocktailRecommender> {
   late Future<List> test;
   @override
   initState() {
-    print('setting init state');
+    debugPrint('setting init state');
     super.initState();
     db = DBHelper();
     test = db.testing();
@@ -34,27 +36,38 @@ class _CocktailRecommenderState extends State<CocktailRecommender> {
       initialRoute: '/',
       routes: {
         '/': (context) => MainPage(),
-        // '/diy': (context) => const DiyMainPage(),
-        // '/discover': (context) => const DiscoverMain(),
-        // '/settings': (context) => const SettingsMain(),
         BarDetails.routeName: (context) => const BarDetails(),
         MenuDetails.routeName: (context) => const MenuDetails(),
+        RecommenderQuestionnaireMain.routeName: (context) =>
+            const RecommenderQuestionnaireMain(),
       },
       theme: ThemeData(
-        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-          backgroundColor: Colors.grey,
-          elevation: 10,
-          selectedLabelStyle: TextStyle(
-              color: Color.fromARGB(255, 255, 255, 255),
-              fontFamily: 'Montserrat',
-              fontSize: 14.0),
-          unselectedLabelStyle: TextStyle(
-              color: Colors.black, fontFamily: 'Montserrat', fontSize: 12.0),
-          selectedItemColor: Color.fromARGB(255, 255, 255, 255),
-          unselectedItemColor: Colors.black,
-          showUnselectedLabels: true,
-        ),
-      ),
+          bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+            backgroundColor: Colors.grey,
+            elevation: 10,
+            selectedLabelStyle: TextStyle(
+                color: Color.fromARGB(255, 255, 255, 255),
+                fontFamily: 'Montserrat',
+                fontSize: 14.0),
+            unselectedLabelStyle: TextStyle(
+                color: Colors.black, fontFamily: 'Montserrat', fontSize: 12.0),
+            selectedItemColor: Color.fromARGB(255, 255, 255, 255),
+            unselectedItemColor: Colors.black,
+            showUnselectedLabels: true,
+          ),
+          colorScheme: ColorScheme(
+            brightness: Brightness.light,
+            primary: Colors.deepPurple.shade400,
+            onPrimary: Colors.grey.shade900,
+            secondary: Colors.indigo.shade900,
+            onSecondary: Colors.white,
+            error: Colors.red,
+            onError: Colors.black,
+            background: Colors.blueGrey.shade100,
+            onBackground: Colors.grey.shade900,
+            surface: Colors.blueGrey.shade100,
+            onSurface: Colors.grey.shade900,
+          )),
     );
   }
 }
@@ -95,7 +108,6 @@ class _MainPageState extends State<MainPage> {
   void addElementToDatabase() async {}
   @override
   Widget build(BuildContext context) {
-    print("test print");
     return Scaffold(
       //body:_pages[_currentIndex],
       body: _pages[_currentIndex],
@@ -127,32 +139,6 @@ class _MainPageState extends State<MainPage> {
             },
           );
         },
-      ),
-    );
-  }
-}
-
-class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Cocktail Recommender - Home'),
-      ),
-      body: Container(
-        color: const Color(0xffC4DFCB),
-        child: Center(
-          child: Text(
-            "Home",
-            style: TextStyle(
-              color: Colors.green[900],
-              fontSize: 45,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ),
       ),
     );
   }

@@ -14,7 +14,7 @@ class _DiscoverMainState extends State<DiscoverMain> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cocktail Recommender - Discover'),
+        title: const Text('Cocktail Recommender - Discover', style: TextStyle(color: Colors.white),),
       ),
       body: const BarScroller(),
     );
