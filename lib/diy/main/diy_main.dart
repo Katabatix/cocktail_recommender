@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:cocktail_recommender/diy/diy_router.dart';
 import 'package:cocktail_recommender/diy/main/main_recipie_list.dart';
 import 'package:cocktail_recommender/diy/main/main_search_field.dart';
 import 'package:provider/provider.dart';
+import 'package:cocktail_recommender/main.dart';
 
 class DiyPage extends StatelessWidget {
   const DiyPage({Key? key}) : super(key: key);
@@ -11,10 +11,8 @@ class DiyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => DiyRecipieQuery(),
-      child: const MaterialApp(
-        // home: DiyMain(),
-        initialRoute: '/',
-        onGenerateRoute: DiyRouter.generateRoute,
+      child: const Scaffold(
+        body: DiyMainPage(),
       ),
     );
   }
@@ -30,6 +28,7 @@ class DiyMainPage extends StatefulWidget {
 class _DiyMainPageState extends State<DiyMainPage> {
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) => _afterBuild(context));
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cocktail Recommender - DIY'),
@@ -44,6 +43,11 @@ class _DiyMainPageState extends State<DiyMainPage> {
         ),
       ),
     );
+  }
+
+  void _afterBuild(BuildContext context) {
+    var navBarIndex = context.read<NavBarIndex>();
+    navBarIndex.updateIndex(1);
   }
 }
 

@@ -3,7 +3,7 @@ import 'package:cocktail_recommender/diy/vault/vault_ingredient_list.dart';
 import 'package:provider/provider.dart';
 
 class DiyVaultPage extends StatefulWidget {
-  const DiyVaultPage({Key? key}) : super(key: key);
+  DiyVaultPage({Key? key}) : super(key: key);
 
   @override
   State<DiyVaultPage> createState() => _DiyVaultPageState();
@@ -15,6 +15,7 @@ class _DiyVaultPageState extends State<DiyVaultPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Vault'),
+        automaticallyImplyLeading: true,
       ),
       body: ChangeNotifierProvider(
         create: (context) => VaultIngredientQuery(),

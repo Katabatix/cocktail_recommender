@@ -2,6 +2,7 @@ import 'package:swipe_cards/swipe_cards.dart';
 import 'package:flutter/material.dart';
 import 'package:cocktail_recommender/utils/drink_data.dart';
 import 'package:cocktail_recommender/utils/recipie_data.dart';
+import 'package:cocktail_recommender/utils/global_vars.dart' as global;
 
 class TinderPage extends StatefulWidget {
   TinderPage({Key? key}) : super(key: key);
@@ -95,6 +96,13 @@ class _TinderPageState extends State<TinderPage> {
     );
   }
 
+  void _stackFinished() {
+    for (DrinkData drink in _preferredDrinkDataList) {
+      debugPrint('[Tinder] List: ${drink.id} ${drink.name}');
+    }
+    global.navigatorKey.currentState?.pushReplacementNamed('/diy');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -108,11 +116,7 @@ class _TinderPageState extends State<TinderPage> {
             child: SwipeCards(
               matchEngine: _matchEngine,
               itemBuilder: _swipeCardItemBuilder,
-              onStackFinished: () {
-                for (DrinkData drink in _preferredDrinkDataList) {
-                  debugPrint('[Tinder] List: ${drink.id} ${drink.name}');
-                }
-              },
+              onStackFinished: _stackFinished,
             ),
           ),
           Flexible(
