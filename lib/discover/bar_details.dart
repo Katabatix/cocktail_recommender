@@ -50,34 +50,34 @@ class BarDetails extends StatelessWidget {
                 const SizedBox(
                   height: 20.0,
                 ),
-                Row(
-                  children: [
-                    ReviewIcons(args.rating),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-                      child: TextButton(
-                        onPressed: () {}, //Add routing to ReviewDetails
-                        child: const Text(
-                          'See Reviews',
-                          style: TextStyle(
-                            color: Colors.black, //THEME LATER
-                            fontSize: 20,
-                          )
-                        )
-                      ),
-                    ),
-                  ],
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                ),
-                const SizedBox(
-                  height: 20.0,
-                ),
                 Text(
                   args.location,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.onSurface,
                     fontSize: 20,
                   ),
+                ),
+                const SizedBox(
+                  height: 20.0,
+                ),
+                Row(
+                  children: [
+                    ReviewIcons(args.rating),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+                      child: TextButton(
+                          onPressed: () {}, //Add routing to ReviewDetails
+                          child: const Text(
+                              'See Reviews',
+                              style: TextStyle(
+                                color: Colors.black, //THEME LATER
+                                fontSize: 20,
+                              )
+                          )
+                      ),
+                    ),
+                  ],
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 ),
               ],
             ),

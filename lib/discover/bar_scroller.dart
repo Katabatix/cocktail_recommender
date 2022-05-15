@@ -11,8 +11,11 @@ class BarScroller extends StatefulWidget {
 
 class _BarScrollerState extends State<BarScroller> {
 
+
+
   List<BarInfo> barInfo = [];
 
+  //replace with getting from DB
   void _createBarItems(){
     for (var i = 0; i < 30; i++){
       barInfo.add(BarInfo("Name$i", "location$i", i%6, i, MenuInfo([MenuItem("Martini", "100 HKD")])));

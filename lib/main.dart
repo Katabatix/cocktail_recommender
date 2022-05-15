@@ -4,7 +4,7 @@ import 'package:cocktail_recommender/recommender/recommender_questionnaire.dart'
 import 'package:flutter/material.dart';
 import 'diy/main/diy_main.dart';
 import 'discover/discover_main.dart';
-import 'DatabaseHelper.dart';
+// import 'DatabaseHelper.dart';
 import 'home/home.dart';
 
 void main() {
@@ -18,19 +18,19 @@ class CocktailRecommender extends StatefulWidget {
 }
 
 class _CocktailRecommenderState extends State<CocktailRecommender> {
-  late DBHelper db;
-  late Future<List> test;
-  @override
-  initState() {
-    print('setting init state');
-    super.initState();
-    db = DBHelper();
-    test = db.testing();
-  }
+  // late DBHelper db;
+  // late Future<List> test;
+  // @override
+  // initState() {
+  //   print('setting init state');
+  //   super.initState();
+  //   db = DBHelper();
+  //   test = db.testing();
+  // }
 
   @override
   Widget build(BuildContext context) {
-    print(test);
+    // print(test);
     return MaterialApp(
       initialRoute: '/',
       routes: {
@@ -87,8 +87,8 @@ class _MainPageState extends State<MainPage> {
     const SettingsMain(),
   ];
 
-  late DBHelper db;
-  late Future<List> test;
+  // late DBHelper db;
+  // late Future<List> test;
   // @override
   // initState() {
   //   print('setting init state');
@@ -107,7 +107,6 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //body:_pages[_currentIndex],
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
