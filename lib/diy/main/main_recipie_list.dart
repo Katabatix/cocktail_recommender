@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cocktail_recommender/utils/recipie_data.dart';
+import 'package:cocktail_recommender/utils/drink_data.dart';
 import 'package:provider/provider.dart';
 import 'package:cocktail_recommender/diy/main/diy_main.dart';
+import 'package:cocktail_recommender/utils/global_vars.dart' as global;
 
 class RecipieList extends StatefulWidget {
   RecipieList({Key? key}) : super(key: key);
@@ -11,19 +13,28 @@ class RecipieList extends StatefulWidget {
 }
 
 class _RecipieListState extends State<RecipieList> {
-  final int _tempLength = 30;
-  static List<RecipieData> _dataList = <RecipieData>[];
+  // static List<RecipieData> _dataList = <RecipieData>[];
+  List<DrinkData> _dataList = <DrinkData>[];
   bool initialized = false;
 
   void _getDataListFromDB() {
-    for (int i = 0; i < _tempLength; i++) {
+    for (int i = 0; i < 30; i++) {
       String name = 'Sample Drink ' + i.toString();
-      _dataList.add(RecipieData(name: name));
+      DrinkData drink = DrinkData(
+        name: name,
+        id: i,
+        imageUrl:
+            'https://cdn.icon-icons.com/icons2/2596/PNG/512/check_one_icon_155665.png',
+        recipie: RecipieData(name: name),
+        description: 'Description for $name',
+        tags: ['tag1', 'tag2', 'tag3'],
+      );
+      _dataList.add(drink);
     }
   }
 
   List<Widget> _filterList({String query = ''}) {
-    List<RecipieData> filteredList = [];
+    List<DrinkData> filteredList = [];
     for (int index = 0; index < _dataList.length; index++) {
       if (_dataList[index].name.contains(query)) {
         filteredList.add(_dataList[index]);
@@ -32,7 +43,7 @@ class _RecipieListState extends State<RecipieList> {
     return _createList(filteredList);
   }
 
-  List<Widget> _createList(List<RecipieData> dataList) {
+  List<Widget> _createList(List<DrinkData> dataList) {
     List<Widget> outputList = [];
     for (int i = 0; i < dataList.length; i++) {
       outputList.add(RecipieListItem(data: dataList[i]));
@@ -62,10 +73,12 @@ class _RecipieListState extends State<RecipieList> {
 }
 
 class RecipieListItem extends StatelessWidget {
-  final RecipieData data;
+  final DrinkData data;
 
-  const RecipieListItem({Key? key, this.data = const RecipieData()})
-      : super(key: key);
+  const RecipieListItem({
+    Key? key,
+    required this.data,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +86,8 @@ class RecipieListItem extends StatelessWidget {
       child: InkWell(
         splashColor: Colors.blue.withAlpha(30),
         onTap: () {
-          Navigator.of(context).pushNamed('/recipie', arguments: data);
+          global.navigatorKey.currentState
+              ?.pushNamed('/diy/recipie', arguments: data.recipie);
         },
         child: SizedBox(
           height: 70,
@@ -81,7 +95,7 @@ class RecipieListItem extends StatelessWidget {
             children: <Widget>[
               const SizedBox(width: 8),
               Image.network(
-                data.imageURL,
+                data.imageUrl,
                 width: 50,
                 height: 50,
               ),
