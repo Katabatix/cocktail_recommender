@@ -23,7 +23,7 @@ class _CocktailRecommenderState extends State<CocktailRecommender> {
     debugPrint('setting init state');
     super.initState();
     db = DBHelper();
-    test = db.testing();
+    test = db.getAllDrinks();
   }
 
   @override
