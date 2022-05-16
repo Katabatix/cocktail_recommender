@@ -11,7 +11,7 @@ class DiyRouter {
     switch (settings.name) {
       case '/':
         debugPrint('[DiyRouter] Routing to /');
-        return MaterialPageRoute(builder: (_) => const DiyMainPage());
+        return MaterialPageRoute(builder: (_) => DiyMainPage());
       case '/vault':
         debugPrint('[DiyRouter] Routing to /vault');
         return MaterialPageRoute(builder: (_) => DiyVaultPage());

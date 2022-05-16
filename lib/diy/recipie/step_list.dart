@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:cocktail_recommender/utils/recipie_data.dart';
 
 class RecipieStepList extends StatelessWidget {
   final List<String> steps;

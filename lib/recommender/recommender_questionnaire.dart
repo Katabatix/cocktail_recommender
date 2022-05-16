@@ -7,10 +7,12 @@ class RecommenderQuestionnaireMain extends StatefulWidget {
   static const routeName = '/recommender';
 
   @override
-  State<RecommenderQuestionnaireMain> createState() => _RecommenderQuestionnaireMainState();
+  State<RecommenderQuestionnaireMain> createState() =>
+      _RecommenderQuestionnaireMainState();
 }
 
-class _RecommenderQuestionnaireMainState extends State<RecommenderQuestionnaireMain> {
+class _RecommenderQuestionnaireMainState
+    extends State<RecommenderQuestionnaireMain> {
   List<String> tags = [];
   int _qNumber = 0;
 
@@ -18,7 +20,7 @@ class _RecommenderQuestionnaireMainState extends State<RecommenderQuestionnaireM
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Recommend Me A Drink"),
+        title: const Text("Recommend Me A Drink"),
       ),
       body: Column(
         children: [
@@ -53,103 +55,87 @@ class _Question extends StatelessWidget {
   _Question(this._qNum, {required this.callback});
 
   static List<QuestionPrompt> questionPrompts = [
-    QuestionPrompt(
-      "How are you feeling?",
-      [
-        "Looking for a good time!",
-        "Overwhelming giddiness",
-        "Feeling a little quieter",
-        "Stressed out",
-      ],
-      [
-        "Happy",
-        "Excited",
-        "Sad",
-        "Stressed",
-      ]
-    ),
-    QuestionPrompt(
-      "How are you feeling?1",
-      [
-        "Looking for a good time!",
-        "Overwhelming giddiness",
-        "Feeling a little quieter",
-        "Stressed out",
-      ],
-      [
-        "Happy",
-        "Excited",
-        "Sad",
-        "Stressed",
-      ]
-    ),
-    QuestionPrompt(
-      "How are you feeling?2",
-      [
-        "Looking for a good time!",
-        "Overwhelming giddiness",
-        "Feeling a little quieter",
-        "Stressed out",
-      ],
-      [
-        "Happy",
-        "Excited",
-        "Sad",
-        "Stressed",
-      ]
-    ),
-    QuestionPrompt(
-      "How are you feeling?3",
-      [
-        "Looking for a good time!",
-        "Overwhelming giddiness",
-        "Feeling a little quieter",
-        "Stressed out",
-      ],
-      [
-        "Happy",
-        "Excited",
-        "Sad",
-        "Stressed",
-      ]
-    ),
+    QuestionPrompt("How are you feeling?", [
+      "Looking for a good time!",
+      "Overwhelming giddiness",
+      "Feeling a little quieter",
+      "Stressed out",
+    ], [
+      "Happy",
+      "Excited",
+      "Sad",
+      "Stressed",
+    ]),
+    QuestionPrompt("How are you feeling?1", [
+      "Looking for a good time!",
+      "Overwhelming giddiness",
+      "Feeling a little quieter",
+      "Stressed out",
+    ], [
+      "Happy",
+      "Excited",
+      "Sad",
+      "Stressed",
+    ]),
+    QuestionPrompt("How are you feeling?2", [
+      "Looking for a good time!",
+      "Overwhelming giddiness",
+      "Feeling a little quieter",
+      "Stressed out",
+    ], [
+      "Happy",
+      "Excited",
+      "Sad",
+      "Stressed",
+    ]),
+    QuestionPrompt("How are you feeling?3", [
+      "Looking for a good time!",
+      "Overwhelming giddiness",
+      "Feeling a little quieter",
+      "Stressed out",
+    ], [
+      "Happy",
+      "Excited",
+      "Sad",
+      "Stressed",
+    ]),
   ];
 
-  Widget makeButton(int buttonNum){
+  Widget makeButton(int buttonNum) {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: (
-            OutlinedButton(
-              onPressed: () => callback(questionPrompts[_qNum].tags[buttonNum]),
-              child: Text(questionPrompts[_qNum].responses[buttonNum],
-                style: const TextStyle(
-                  fontSize: 20,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              style: ButtonStyle(
-                padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(10),
-              ),
+        child: (OutlinedButton(
+          onPressed: () => callback(questionPrompts[_qNum].tags[buttonNum]),
+          child: Text(
+            questionPrompts[_qNum].responses[buttonNum],
+            style: const TextStyle(
+              fontSize: 20,
             ),
-          )
-        ),
+            textAlign: TextAlign.center,
+          ),
+          style: ButtonStyle(
+            padding: MaterialStateProperty.all<EdgeInsets>(
+              EdgeInsets.all(10),
+            ),
+          ),
+        )),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Center(
       child: Column(
         children: [
           SizedBox(height: 150),
           Column(
             children: [
-              Text(questionPrompts[_qNum].prompt, style: const TextStyle(
-                fontSize: 30,
-              )),
+              Text(questionPrompts[_qNum].prompt,
+                  style: const TextStyle(
+                    fontSize: 30,
+                  )),
               const SizedBox(height: 30),
               Row(
                 children: [
@@ -175,4 +161,3 @@ class _Question extends StatelessWidget {
     );
   }
 }
-
