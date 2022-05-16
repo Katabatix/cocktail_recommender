@@ -7,23 +7,24 @@ class DrinkData {
   RecipieData recipie;
   String description;
   List<String> tags;
+  int score;
 
-  DrinkData({
-    required this.name,
-    required this.id,
-    required this.imageUrl,
-    required this.recipie,
-    required this.description,
-    required this.tags,
-  });
+  DrinkData(
+      {required this.name,
+      required this.id,
+      required this.imageUrl,
+      required this.recipie,
+      required this.description,
+      required this.tags,
+      this.score = 0});
 
-  int rateTags(List<String> preferredTags) {
-    int score = 0;
+  void rateTags(List<String> preferredTags) {
+    int newScore = 0;
     for (String preferredTag in preferredTags) {
       if (tags.contains(preferredTag)) {
-        score++;
+        newScore++;
       }
     }
-    return score;
+    score = newScore;
   }
 }

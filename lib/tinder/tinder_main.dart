@@ -5,7 +5,10 @@ import 'package:cocktail_recommender/utils/recipie_data.dart';
 import 'package:cocktail_recommender/utils/global_vars.dart' as global;
 
 class TinderPage extends StatefulWidget {
-  TinderPage({Key? key}) : super(key: key);
+  final List<String> tagList;
+  TinderPage({Key? key, List<String>? tagList})
+      : tagList = tagList ?? <String>['tag1', 'tag2'],
+        super(key: key);
 
   @override
   State<TinderPage> createState() => _TinderPageState();
@@ -19,6 +22,7 @@ class _TinderPageState extends State<TinderPage> {
   @override
   void initState() {
     _getDrinkDataList();
+    _filterDrinkDataListWithTags();
     _initSwipeItems();
     _matchEngine = MatchEngine(swipeItems: _swipeItems);
     super.initState();
@@ -27,7 +31,7 @@ class _TinderPageState extends State<TinderPage> {
   void _getDrinkDataList() {
     for (int i = 0; i < 10; i++) {
       String name = "Sample Drink $i";
-      RecipieData recipie = RecipieData(name: name);
+      RecipieData recipie = const RecipieData();
       String url =
           'https://cdn.icon-icons.com/icons2/2596/PNG/512/check_one_icon_155665.png';
       List<String> tags = [
@@ -44,6 +48,20 @@ class _TinderPageState extends State<TinderPage> {
           tags: tags);
       _drinkDataList.add(drink);
     }
+  }
+
+  void _filterDrinkDataListWithTags() {
+    List<DrinkData> filteredList = <DrinkData>[];
+    for (DrinkData drink in _drinkDataList) {
+      drink.rateTags(widget.tagList);
+      if (drink.score > 0) {
+        filteredList.add(drink);
+      }
+    }
+    filteredList.sort((p1, p2) {
+      return Comparable.compare(p2.score, p1.score);
+    });
+    _drinkDataList = filteredList;
   }
 
   void _initSwipeItems() {
@@ -91,6 +109,10 @@ class _TinderPageState extends State<TinderPage> {
               textAlign: TextAlign.center,
             ),
           ),
+          Flexible(
+            flex: 1,
+            child: Text(_swipeItems[index].content.tags.join(', ').toString()),
+          )
         ],
       ),
     );
@@ -100,7 +122,28 @@ class _TinderPageState extends State<TinderPage> {
     for (DrinkData drink in _preferredDrinkDataList) {
       debugPrint('[Tinder] List: ${drink.id} ${drink.name}');
     }
-    global.navigatorKey.currentState?.pushReplacementNamed('/diy');
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+          title: const Text('It\'s time'),
+          content: const Text('You would like to DIY or BUY?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+                global.navigatorKey.currentState?.pushReplacementNamed(
+                  '/diy',
+                  arguments: _preferredDrinkDataList,
+                );
+              },
+              child: const Text('DIY'),
+            ),
+            TextButton(
+              onPressed: () {},
+              child: const Text('BUY'),
+            ),
+          ]),
+    );
   }
 
   @override

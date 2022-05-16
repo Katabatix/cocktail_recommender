@@ -16,7 +16,6 @@ class CocktailRecommender extends StatefulWidget {
 }
 
 class _CocktailRecommenderState extends State<CocktailRecommender> {
-  int _currentIndex = 0;
   late DBHelper db;
   late Future<List> test;
   @override
@@ -128,7 +127,10 @@ class NavBarIndex extends ChangeNotifier {
   int get index => _index;
 
   void updateIndex(int newIndex) {
-    _index = newIndex;
-    notifyListeners();
+    if (_index != newIndex) {
+      debugPrint('[NavBarIndex] index updated: $newIndex');
+      _index = newIndex;
+      notifyListeners();
+    }
   }
 }
