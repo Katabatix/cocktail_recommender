@@ -10,13 +10,13 @@ class BarScroller extends StatefulWidget {
 }
 
 class _BarScrollerState extends State<BarScroller> {
-
   List<BarInfo> barInfo = [];
 
-  void _createBarItems(){
-    for (var i = 0; i < 30; i++){
-      barInfo.add(BarInfo("Name$i", "location$i", i%6, i, MenuInfo([MenuItem("Martini", "100 HKD")])));
-    }
+  void _createBarItems() {
+    // for (var i = 0; i < 30; i++) {
+    //   barInfo.add(BarInfo("Name$i", "location$i", i % 6, i,
+    //       MenuInfo([MenuItem("Martini", "100 HKD")])));
+    // }
   }
 
   @override
@@ -29,11 +29,8 @@ class _BarScrollerState extends State<BarScroller> {
         return Card(
           child: ListTile(
             onTap: () {
-              Navigator.pushNamed(
-                  context,
-                  BarDetails.routeName,
-                  arguments: barInfo[i]
-              );
+              Navigator.pushNamed(context, BarDetails.routeName,
+                  arguments: barInfo[i]);
             },
             title: Text(barInfo[i].name),
             subtitle: Text(barInfo[i].location),

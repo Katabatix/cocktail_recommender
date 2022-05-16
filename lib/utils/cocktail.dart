@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'recipie_data.dart';
 
 class Cocktail {
@@ -7,12 +9,32 @@ class Cocktail {
   late List<String> ingredients;
   late List<String> steps;
 
-  Cocktail(_name, _description, _imageURL, _ingredientsString, _recipe) {
+  Cocktail(_name, _description, _ingredientsString, _recipe, _id) {
     name = _name;
     description = _description;
-    imageURL = _imageURL;
+    imageURL = "http://localhost:3000/images/high%20quality/cocktails/$_id.jpg";
     //parse ingredients
-    ingredients = _ingredientsString.split("|");
+    List<String> unformattedIngredients = _ingredientsString.split("|");
+    //in1(11)|in2(12)|in3(13)
+    unformattedIngredients.forEach((element) {
+      String ingredient = "";
+      String quantity = "";
+      int current = 0;
+      bool quantityMode = false;
+      while (current < element.length) {
+        if (element[current] == "(") {
+          quantityMode = true;
+        } else if (element[current] == "(") {
+          print("ended");
+        } else if (!quantityMode) {
+          ingredient += element[current];
+        } else {
+          quantity += element[current];
+        }
+        current += 1;
+      }
+    });
+
     //parse recipe
     steps = _recipe.split("|");
   }
