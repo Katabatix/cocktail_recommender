@@ -36,6 +36,7 @@ class VaultIngredientQuery extends ChangeNotifier {
   String get query => _query;
 
   void updateQuery(String newQuery) {
+    debugPrint('[VaultIngredientQuery] Query Updated: $newQuery');
     _query = newQuery;
     notifyListeners();
   }

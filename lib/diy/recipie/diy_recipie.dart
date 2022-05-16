@@ -35,19 +35,16 @@ class DiyRecipieTop extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.amber[100],
-      child: Expanded(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              IngredientList(ingredientList: data.ingredients),
-              Image.network(
-                data.imageURL,
-                width: MediaQuery.of(context).size.width / 3,
-              )
-            ],
-          ),
+      child: Padding(
+        padding: const EdgeInsets.only(top: 5, bottom: 5),
+        child: Row(
+          children: [
+            IngredientList(ingredientList: data.ingredients),
+            Image.network(
+              data.imageURL,
+              width: MediaQuery.of(context).size.width / 3,
+            )
+          ],
         ),
       ),
     );

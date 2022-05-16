@@ -6,7 +6,12 @@ import 'package:cocktail_recommender/diy/main/diy_main.dart';
 import 'package:cocktail_recommender/utils/global_vars.dart' as global;
 
 class RecipieList extends StatefulWidget {
-  RecipieList({Key? key}) : super(key: key);
+  final List<DrinkData> drinkList;
+  RecipieList({
+    Key? key,
+    List<DrinkData>? drinkList,
+  })  : drinkList = drinkList ?? <DrinkData>[],
+        super(key: key);
 
   @override
   State<RecipieList> createState() => _RecipieListState();
@@ -15,7 +20,6 @@ class RecipieList extends StatefulWidget {
 class _RecipieListState extends State<RecipieList> {
   // static List<RecipieData> _dataList = <RecipieData>[];
   List<DrinkData> _dataList = <DrinkData>[];
-  bool initialized = false;
 
   void _getDataListFromDB() {
     for (int i = 0; i < 30; i++) {
@@ -52,14 +56,18 @@ class _RecipieListState extends State<RecipieList> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    if (!initialized) {
+  void initState() {
+    if (widget.drinkList.isEmpty) {
       _getDataListFromDB();
-      initialized = true;
+    } else {
+      _dataList = widget.drinkList;
     }
+    super.initState();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     var query = context.watch<DiyRecipieQuery>();
-
     return CustomScrollView(
       slivers: [
         SliverList(

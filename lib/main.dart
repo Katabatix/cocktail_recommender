@@ -128,7 +128,10 @@ class NavBarIndex extends ChangeNotifier {
   int get index => _index;
 
   void updateIndex(int newIndex) {
-    _index = newIndex;
-    notifyListeners();
+    if (_index != newIndex) {
+      debugPrint('[NavBarIndex] index updated: $newIndex');
+      _index = newIndex;
+      notifyListeners();
+    }
   }
 }

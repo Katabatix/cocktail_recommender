@@ -6,6 +6,7 @@ import 'package:cocktail_recommender/diy/vault/diy_vault.dart';
 import 'package:cocktail_recommender/home/home.dart';
 import 'package:cocktail_recommender/discover/discover_main.dart';
 import 'package:cocktail_recommender/tinder/tinder_main.dart';
+import 'package:cocktail_recommender/utils/drink_data.dart';
 import 'package:cocktail_recommender/recommender/recommender_questionnaire.dart';
 
 class MainRouter {
@@ -17,8 +18,16 @@ class MainRouter {
         debugPrint('[Router] Routing to: /');
         return MaterialPageRoute(builder: (_) => const Home());
       case '/diy':
-        debugPrint('[Router] Routing to: /diy');
-        return MaterialPageRoute(builder: (_) => const DiyPage());
+        if (args != null) {
+          debugPrint('[Router] Routing to: /diy with arguments');
+          for (DrinkData drink in args as List<DrinkData>) {
+            debugPrint('[Router] Drink name: ${drink.name}');
+          }
+          return MaterialPageRoute(builder: (_) => DiyPage(drinkList: args));
+        } else {
+          debugPrint('[Router] Routing to: /diy without arguments');
+          return MaterialPageRoute(builder: (_) => DiyPage());
+        }
       case '/diy/vault':
         debugPrint('[Router] Routing to: /diy/vault');
         return MaterialPageRoute(builder: (_) => DiyVaultPage());
