@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:cocktail_recommender/utils/recipie_data.dart';
 import 'package:cocktail_recommender/diy/main/diy_main.dart';
 import 'package:cocktail_recommender/diy/recipie/diy_recipie.dart';
 import 'package:cocktail_recommender/diy/vault/diy_vault.dart';
@@ -34,7 +33,7 @@ class MainRouter {
       case '/diy/recipie':
         debugPrint('[Router] Routing to: /diy/recipie');
         return MaterialPageRoute(
-            builder: (_) => DiyRecipiePage(data: args as RecipieData));
+            builder: (_) => DiyRecipiePage(data: args as DrinkData));
       case '/discover':
         debugPrint('[Router] Routing to: /discover');
         return MaterialPageRoute(builder: (_) => const DiscoverMain());

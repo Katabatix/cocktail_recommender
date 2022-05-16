@@ -16,7 +16,6 @@ class CocktailRecommender extends StatefulWidget {
 }
 
 class _CocktailRecommenderState extends State<CocktailRecommender> {
-  int _currentIndex = 0;
   late DBHelper db;
   late Future<List> test;
   @override

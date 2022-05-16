@@ -29,7 +29,7 @@ class _RecipieListState extends State<RecipieList> {
         id: i,
         imageUrl:
             'https://cdn.icon-icons.com/icons2/2596/PNG/512/check_one_icon_155665.png',
-        recipie: RecipieData(name: name),
+        recipie: const RecipieData(),
         description: 'Description for $name',
         tags: ['tag1', 'tag2', 'tag3'],
       );
@@ -95,7 +95,7 @@ class RecipieListItem extends StatelessWidget {
         splashColor: Colors.blue.withAlpha(30),
         onTap: () {
           global.navigatorKey.currentState
-              ?.pushNamed('/diy/recipie', arguments: data.recipie);
+              ?.pushNamed('/diy/recipie', arguments: data);
         },
         child: SizedBox(
           height: 70,

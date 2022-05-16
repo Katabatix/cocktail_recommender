@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:cocktail_recommender/utils/recipie_data.dart';
 import 'package:cocktail_recommender/diy/recipie/ingredient_list.dart';
+import 'package:cocktail_recommender/utils/drink_data.dart';
 import 'package:cocktail_recommender/diy/recipie/step_list.dart';
 
 class DiyRecipiePage extends StatelessWidget {
-  final RecipieData data;
+  final DrinkData data;
 
   const DiyRecipiePage({Key? key, required this.data}) : super(key: key);
 
@@ -17,7 +17,7 @@ class DiyRecipiePage extends StatelessWidget {
       body: Column(
         children: [
           DiyRecipieTop(data: data),
-          RecipieStepList(steps: data.steps)
+          RecipieStepList(steps: data.recipie.steps)
         ],
       ),
     );
@@ -25,7 +25,7 @@ class DiyRecipiePage extends StatelessWidget {
 }
 
 class DiyRecipieTop extends StatelessWidget {
-  final RecipieData data;
+  final DrinkData data;
   const DiyRecipieTop({
     Key? key,
     required this.data,
@@ -39,9 +39,9 @@ class DiyRecipieTop extends StatelessWidget {
         padding: const EdgeInsets.only(top: 5, bottom: 5),
         child: Row(
           children: [
-            IngredientList(ingredientList: data.ingredients),
+            IngredientList(ingredientList: data.recipie.ingredients),
             Image.network(
-              data.imageURL,
+              data.imageUrl,
               width: MediaQuery.of(context).size.width / 3,
             )
           ],
