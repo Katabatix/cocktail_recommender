@@ -6,7 +6,7 @@ class BarInfo {
   String location;
   int rating;
   int id;
-  MenuInfo menu;
+  List<MenuItem> menu;
 
   BarInfo(this.name, this.location, this.rating, this.id, this.menu);
 }
