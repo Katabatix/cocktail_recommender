@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cocktail_recommender/utils/recipie_data.dart';
-import 'package:cocktail_recommender/diy/diy_main.dart';
+import 'package:cocktail_recommender/diy/main/diy_main.dart';
 import 'package:cocktail_recommender/diy/recipie/diy_recipie.dart';
+import 'package:cocktail_recommender/diy/vault/diy_vault.dart';
 
 class DiyRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -13,7 +14,7 @@ class DiyRouter {
         return MaterialPageRoute(builder: (_) => const DiyMainPage());
       case '/vault':
         debugPrint('[DiyRouter] Routing to /vault');
-        return _errorRoute();
+        return MaterialPageRoute(builder: (_) => DiyVaultPage());
       case '/recipie':
         debugPrint(
             '[DiyRouter] Routing to /recipie with data: ' + args.toString());

@@ -34,10 +34,19 @@ class _BarScrollerState extends State<BarScroller> {
             },
             title: Text(barInfo[i].name),
             subtitle: Text(barInfo[i].location),
+            trailing: ConstrainedBox(
+                constraints: const BoxConstraints(
+                minWidth: 44,
+                minHeight: 44,
+                maxWidth: 100,
+                maxHeight: 100,
+              ),
+              child: Image.asset('assets/bar_icons/bar$i.jpg', fit: BoxFit.cover),
+            ),
             isThreeLine: true,
           ),
         );
-      },
+      }
     );
   }
 }
