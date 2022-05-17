@@ -56,7 +56,7 @@ class IngredientListItem extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
-            child: Text(ingredient.amount.toString() + '/' + ingredient.unit),
+            child: Text(ingredient.amount.toString()),
           ),
         ],
       ),
