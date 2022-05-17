@@ -1,11 +1,11 @@
 class RecipieData {
-  final String name;
+  // final String name;
   final List<RecipieIngredient> ingredients;
-  final String imageURL;
+  // final String imageURL;
   final List<String> steps;
 
   const RecipieData({
-    this.name = 'Sample Drink',
+    // this.name = 'Sample Drink',
     this.ingredients = const [
       RecipieIngredient(name: 'ing 1'),
       RecipieIngredient(name: 'ing 2', amount: 1),
@@ -19,8 +19,7 @@ class RecipieData {
       RecipieIngredient(name: 'ing 9', amount: 1),
       RecipieIngredient(name: 'ing 10', unit: 'tons')
     ],
-    this.imageURL =
-        'https://cdn.icon-icons.com/icons2/2596/PNG/512/check_one_icon_155665.png',
+    // this.imageURL = 'https://cdn.icon-icons.com/icons2/2596/PNG/512/check_one_icon_155665.png',
     this.steps = const [
       'step1',
       'step2',
@@ -37,9 +36,7 @@ class RecipieData {
 
   @override
   String toString() {
-    return 'name: ' +
-        name +
-        ', ingredients: ' +
+    return 'ingredients: ' +
         ingredients.toString() +
         ', steps: ' +
         steps.toString();

@@ -3,23 +3,35 @@ import 'package:cocktail_recommender/diy/main/main_recipie_list.dart';
 import 'package:cocktail_recommender/diy/main/main_search_field.dart';
 import 'package:provider/provider.dart';
 import 'package:cocktail_recommender/main.dart';
+import 'package:cocktail_recommender/utils/drink_data.dart';
 
 class DiyPage extends StatelessWidget {
-  const DiyPage({Key? key}) : super(key: key);
+  final List<DrinkData> drinkList;
+  DiyPage({
+    Key? key,
+    List<DrinkData>? drinkList,
+  })  : drinkList = drinkList ?? <DrinkData>[],
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    debugPrint('DiyPage Builded');
     return ChangeNotifierProvider(
       create: (context) => DiyRecipieQuery(),
-      child: const Scaffold(
-        body: DiyMainPage(),
+      child: Scaffold(
+        body: DiyMainPage(drinkList: drinkList),
       ),
     );
   }
 }
 
 class DiyMainPage extends StatefulWidget {
-  const DiyMainPage({Key? key}) : super(key: key);
+  final List<DrinkData> drinkList;
+  DiyMainPage({
+    Key? key,
+    List<DrinkData>? drinkList,
+  })  : drinkList = drinkList ?? <DrinkData>[],
+        super(key: key);
 
   @override
   State<DiyMainPage> createState() => _DiyMainPageState();
@@ -38,7 +50,7 @@ class _DiyMainPageState extends State<DiyMainPage> {
         child: Column(
           children: <Widget>[
             const SearchField(),
-            Expanded(child: RecipieList()),
+            Expanded(child: RecipieList(drinkList: widget.drinkList)),
           ],
         ),
       ),
@@ -57,6 +69,7 @@ class DiyRecipieQuery extends ChangeNotifier {
   String get query => _query;
 
   void updateQuery(String newQuery) {
+    debugPrint('[DiyRecipieQuery] Query Updated: $newQuery');
     _query = newQuery;
     notifyListeners();
   }
