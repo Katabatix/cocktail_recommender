@@ -27,7 +27,9 @@ class _RecipieListState extends State<RecipieList> {
       DrinkData drink = DrinkData(
         name: name,
         id: i,
-        imageUrl:
+        highQualityImageUrl:
+            'https://cdn.icon-icons.com/icons2/2596/PNG/512/check_one_icon_155665.png',
+        lowQualityImageUrl:
             'https://cdn.icon-icons.com/icons2/2596/PNG/512/check_one_icon_155665.png',
         recipie: RecipieData(),
         description: 'Description for $name',
@@ -103,7 +105,7 @@ class RecipieListItem extends StatelessWidget {
             children: <Widget>[
               const SizedBox(width: 8),
               Image.network(
-                data.imageUrl,
+                data.lowQualityImageUrl,
                 width: 50,
                 height: 50,
               ),

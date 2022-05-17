@@ -4,7 +4,8 @@ import 'recipie_data.dart';
 class DrinkData {
   late String name;
   late int id;
-  late String imageUrl;
+  late String highQualityImageUrl;
+  late String lowQualityImageUrl;
   late RecipieData recipie;
   late String description;
   late List<String> tags;
@@ -14,7 +15,10 @@ class DrinkData {
       _name, _description, _ingredientsString, _recipeSteps, _id) {
     name = _name;
     description = _description;
-    imageUrl = "http://localhost:3000/images/high%20quality/cocktails/$_id.jpg";
+    highQualityImageUrl =
+        "http://localhost:3000/images/high%20quality/cocktails/$_id.jpg";
+    lowQualityImageUrl =
+        "http://localhost:3000/images/low%20quality/cocktails/$_id.jpg";
     List<String> unformattedIngredients = _ingredientsString.split("|");
     recipie = RecipieDatafromLongStrings(unformattedIngredients, _recipeSteps);
     tags = ["tag1", "tag2"];
@@ -24,7 +28,8 @@ class DrinkData {
   DrinkData(
       {required this.name,
       required this.id,
-      required this.imageUrl,
+      required this.highQualityImageUrl,
+      required this.lowQualityImageUrl,
       required this.recipie,
       required this.description,
       required this.tags,
@@ -68,8 +73,12 @@ class DrinkData {
     return recipie;
   }
 
-  String getImageURL() {
-    return imageUrl;
+  String getHighQualityImageURL() {
+    return highQualityImageUrl;
+  }
+
+  String getLowQualityImageURL() {
+    return lowQualityImageUrl;
   }
 
   void rateTags(List<String> preferredTags) {
