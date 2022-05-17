@@ -34,19 +34,16 @@ class Home extends StatelessWidget {
                       itemBuilder: (context, index) {
                         print("SNAPSHOT INDEX");
                         print(snapshot.data?[index]);
-                        return Container(
-                            child: Text(
+                        return Text(
                           snapshot.data?[index].getName(),
-                          style: TextStyle(color: Colors.amber),
-                        ));
+                          style: const TextStyle(color: Colors.amber),
+                        );
                         //  +
                         //     snapshot.data?[index]["description"] +
                         //     snapshot.data?[index]["ingredients"]));
                       }));
             } else {
-              return Container(
-                child: Text("No data"),
-              );
+              return const Text("No data");
             }
           },
         ),
