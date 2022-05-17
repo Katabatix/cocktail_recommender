@@ -44,6 +44,18 @@ class MainRouter {
         debugPrint('[Router] Routing to: /recommender');
         return MaterialPageRoute(
             builder: (_) => const RecommenderQuestionnaireMain());
+      case '/recommender/tinder':
+        if (args != null) {
+          debugPrint('[Router] Routing to: /recommender/tinder with arguments');
+          for (String tag in args as List<String>) {
+            debugPrint('[Router] tag: $tag');
+          }
+          return MaterialPageRoute(builder: (_) => TinderPage(tagList: args));
+        } else {
+          debugPrint(
+              '[Router] Routing to: /recommender/tinder without arguments');
+          return MaterialPageRoute(builder: (_) => TinderPage());
+        }
       default:
         debugPrint(
             '[DiyRouter] Routing to default with route: ${settings.name}');
