@@ -1,16 +1,14 @@
 import 'dart:async';
 import 'dart:io' as io;
 import 'package:cocktail_recommender/utils/drink_data.dart';
-import 'package:cocktail_recommender/utils/recipie_data.dart';
-import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
-import 'discover/bar_details.dart';
+import 'package:cocktail_recommender/discover/bar_details.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'discover/menu_details.dart' as menu;
+import '/discover/menu_details.dart' as menu;
 import 'package:flutter/src/widgets/platform_menu_bar.dart' hide MenuItem;
 
 //...

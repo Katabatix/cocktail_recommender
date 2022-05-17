@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cocktail_recommender/utils/drink_data.dart';
 import 'package:cocktail_recommender/utils/recipie_data.dart';
 import 'package:cocktail_recommender/utils/global_vars.dart' as global;
+import 'package:cocktail_recommender/utils/database_helper.dart';
 
 class TinderPage extends StatefulWidget {
   final List<String> tagList;
@@ -21,6 +22,7 @@ class _TinderPageState extends State<TinderPage> {
   late MatchEngine _matchEngine;
   @override
   void initState() {
+    debugPrint('[Tinder] initState');
     _getDrinkDataList();
     _filterDrinkDataListWithTags();
     _initSwipeItems();
@@ -29,26 +31,7 @@ class _TinderPageState extends State<TinderPage> {
   }
 
   void _getDrinkDataList() {
-    for (int i = 0; i < 10; i++) {
-      String name = "Sample Drink $i";
-      RecipieData recipie = RecipieData();
-      String url =
-          'https://cdn.icon-icons.com/icons2/2596/PNG/512/check_one_icon_155665.png';
-      List<String> tags = [
-        'tag' + (i + 0).toString(),
-        'tag' + (i + 1).toString(),
-        'tag' + (i + 2).toString(),
-      ];
-      DrinkData drink = DrinkData(
-          name: name,
-          id: i,
-          highQualityImageUrl: url,
-          lowQualityImageUrl: url,
-          recipie: recipie,
-          description: 'Description for $name',
-          tags: tags);
-      _drinkDataList.add(drink);
-    }
+    _drinkDataList = global.allDrinkList;
   }
 
   void _filterDrinkDataListWithTags() {
@@ -157,10 +140,13 @@ class _TinderPageState extends State<TinderPage> {
         children: [
           Flexible(
             flex: 9,
-            child: SwipeCards(
-              matchEngine: _matchEngine,
-              itemBuilder: _swipeCardItemBuilder,
-              onStackFinished: _stackFinished,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SwipeCards(
+                matchEngine: _matchEngine,
+                itemBuilder: _swipeCardItemBuilder,
+                onStackFinished: _stackFinished,
+              ),
             ),
           ),
           Flexible(

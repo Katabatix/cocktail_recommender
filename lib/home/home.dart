@@ -2,8 +2,9 @@ import 'package:cocktail_recommender/discover/menu_details.dart';
 import 'package:cocktail_recommender/recommender/recommender_questionnaire.dart';
 import 'package:cocktail_recommender/utils/drink_data.dart';
 import 'package:flutter/material.dart';
-import 'package:cocktail_recommender/DatabaseHelper.dart';
 import 'package:cocktail_recommender/utils/drink_data.dart';
+import 'package:cocktail_recommender/utils/database_helper.dart';
+import 'package:cocktail_recommender/utils/global_vars.dart' as global;
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
