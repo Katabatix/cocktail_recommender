@@ -103,11 +103,15 @@ class RecipieListItem extends StatelessWidget {
           height: 70,
           child: Row(
             children: <Widget>[
-              const SizedBox(width: 8),
-              Image.network(
-                data.lowQualityImageUrl,
-                width: 50,
-                height: 50,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: AspectRatio(
+                  aspectRatio: 1,
+                  child: Image.network(
+                    data.lowQualityImageUrl,
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
               const SizedBox(width: 8),
               Text(data.name),
