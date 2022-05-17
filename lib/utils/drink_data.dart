@@ -1,4 +1,5 @@
 import 'package:cocktail_recommender/utils/recipie_data.dart';
+import 'recipie_data.dart';
 
 class DrinkData {
   late String name;
@@ -71,13 +72,13 @@ class DrinkData {
     return imageUrl;
   }
 
-  int rateTags(List<String> preferredTags) {
-    int score = 0;
+  void rateTags(List<String> preferredTags) {
+    int newScore = 0;
     for (String preferredTag in preferredTags) {
       if (tags.contains(preferredTag)) {
-        score++;
+        newScore++;
       }
     }
-    return score;
+    score = newScore;
   }
 }

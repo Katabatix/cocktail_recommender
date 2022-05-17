@@ -1,8 +1,8 @@
 class RecipieData {
   // final String name;
-  List<RecipieIngredient> ingredients;
+  late List<RecipieIngredient> ingredients;
   // final String imageURL;
-  List<String> steps;
+  late List<String> steps;
 
   RecipieData({
     // this.name = 'Sample Drink',
@@ -35,7 +35,7 @@ class RecipieData {
 
   @override
   String toString() {
-    return ', ingredients: ' +
+    return 'ingredients: ' +
         ingredients.toString() +
         ', steps: ' +
         steps.toString();
