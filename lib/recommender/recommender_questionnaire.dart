@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 typedef void StringCallback(String tag);
 
@@ -15,24 +16,31 @@ class _RecommenderQuestionnaireMainState
     extends State<RecommenderQuestionnaireMain> {
   List<String> tags = [];
   int _qNumber = 0;
+  static const maxQNumber = 4;
 
   @override
   Widget build(BuildContext context) {
+    if(_qNumber >= maxQNumber) {
+      SchedulerBinding.instance?.addPostFrameCallback((_) {
+      Navigator.pushReplacementNamed(context, '/recommender/tinder', arguments: tags);
+      });
+    }
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Recommend Me A Drink"),
+        title: const Text("Recommend Me A Drink", style: TextStyle(color: Colors.white),),
       ),
       body: Column(
         children: [
-          _Question(
-            _qNumber,
-            callback: (tag) {
-              setState(() {
-                tags.add(tag);
-                _qNumber++;
-              });
-            },
-          ),
+          if(_qNumber < maxQNumber)
+            _Question(
+              _qNumber,
+              callback: (tag) {
+                setState(() {
+                  tags.add(tag);
+                  _qNumber++;
+                });
+              },
+            ),
         ],
       ),
     );
@@ -61,10 +69,10 @@ class _Question extends StatelessWidget {
       "Feeling a little quieter",
       "Stressed out",
     ], [
-      "Happy",
-      "Excited",
-      "Sad",
-      "Stressed",
+      "tag1",
+      "tag2",
+      "tag3",
+      "tag4",
     ]),
     QuestionPrompt("How are you feeling?1", [
       "Looking for a good time!",
@@ -72,10 +80,10 @@ class _Question extends StatelessWidget {
       "Feeling a little quieter",
       "Stressed out",
     ], [
-      "Happy",
-      "Excited",
-      "Sad",
-      "Stressed",
+      "tag1",
+      "tag2",
+      "tag3",
+      "tag4",
     ]),
     QuestionPrompt("How are you feeling?2", [
       "Looking for a good time!",
@@ -83,10 +91,10 @@ class _Question extends StatelessWidget {
       "Feeling a little quieter",
       "Stressed out",
     ], [
-      "Happy",
-      "Excited",
-      "Sad",
-      "Stressed",
+      "tag1",
+      "tag2",
+      "tag3",
+      "tag4",
     ]),
     QuestionPrompt("How are you feeling?3", [
       "Looking for a good time!",
@@ -94,10 +102,10 @@ class _Question extends StatelessWidget {
       "Feeling a little quieter",
       "Stressed out",
     ], [
-      "Happy",
-      "Excited",
-      "Sad",
-      "Stressed",
+      "tag1",
+      "tag2",
+      "tag3",
+      "tag4",
     ]),
   ];
 
@@ -129,7 +137,7 @@ class _Question extends StatelessWidget {
     return Center(
       child: Column(
         children: [
-          SizedBox(height: 150),
+          const SizedBox(height: 150),
           Column(
             children: [
               Text(questionPrompts[_qNum].prompt,
@@ -154,7 +162,7 @@ class _Question extends StatelessWidget {
             ],
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
           ),
-          SizedBox(height: 150),
+          const SizedBox(height: 150),
         ],
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       ),

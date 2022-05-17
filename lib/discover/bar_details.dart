@@ -12,16 +12,17 @@ class BarInfo {
 }
 
 class BarDetails extends StatelessWidget {
-  const BarDetails({Key? key}) : super (key: key);
+  final BarInfo data;
+  const BarDetails({Key? key, required this.data}) : super (key: key);
 
   static const routeName = '/discover/bardetails';
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as BarInfo;
+    debugPrint(data.name);
     return Scaffold(
       appBar: AppBar(
-        title: Text(args.name, style: const TextStyle(color: Colors.white)),
+        title: Text(data.name, style: const TextStyle(color: Colors.white)),
       ),
       body: Container(
         child: Column(
@@ -32,14 +33,14 @@ class BarDetails extends StatelessWidget {
                   padding: const EdgeInsets.all(10.0),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
-                    child: Image.asset('assets/images/bar0.jpg'),
+                    child: Image.network("http://10.0.2.2:3000/images/high%20quality/bars/${data.id+1}.jpg"),
                   ),
                 ),
                 const SizedBox(
                   height: 10.0,
                 ),
                 Text(
-                  args.name,
+                  data.name,
                   style: const TextStyle(
                     fontFamily: 'Merriweather',
                     fontSize: 40,
@@ -51,7 +52,7 @@ class BarDetails extends StatelessWidget {
                   height: 20.0,
                 ),
                 Text(
-                  args.location,
+                  data.location,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.onSurface,
                     fontSize: 20,
@@ -62,7 +63,7 @@ class BarDetails extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    ReviewIcons(args.rating),
+                    ReviewIcons(data.rating),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
                       child: TextButton(
@@ -88,7 +89,7 @@ class BarDetails extends StatelessWidget {
                   Navigator.pushNamed(
                       context,
                       MenuDetails.routeName,
-                      arguments: args.menu,
+                      arguments: data.menu,
                   );
                 },
                 child: const Text('See Menu',

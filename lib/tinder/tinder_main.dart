@@ -19,6 +19,7 @@ class _TinderPageState extends State<TinderPage> {
   List<DrinkData> _preferredDrinkDataList = <DrinkData>[];
   List<SwipeItem> _swipeItems = <SwipeItem>[];
   late MatchEngine _matchEngine;
+
   @override
   void initState() {
     _getDrinkDataList();
@@ -139,7 +140,12 @@ class _TinderPageState extends State<TinderPage> {
               child: const Text('DIY'),
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                global.navigatorKey.currentState?.pushReplacementNamed(
+                  '/discover',
+                  arguments: _preferredDrinkDataList,
+                );
+              },
               child: const Text('BUY'),
             ),
           ]),
