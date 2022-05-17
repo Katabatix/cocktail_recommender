@@ -6,7 +6,7 @@ class MenuItem {
   DrinkData drink;
   String price;
 
-  MenuInfo(this.drink, this.price);
+  MenuItem(this.drink, this.price);
 }
 
 class MenuDetails extends StatelessWidget {
@@ -16,18 +16,18 @@ class MenuDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as MenuItem;
+    final args = ModalRoute.of(context)!.settings.arguments as List<MenuItem>;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Menu', style: TextStyle(color: Colors.white),),
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(8.0),
-        itemCount: args.drinks.length,
+        itemCount: args.length,
         itemBuilder: (BuildContext context, int index) {
           return ListTile(
-            title: Text(args.drinks[index].name),
-            subtitle: Text(args.prices.firstWhere((price) => (price.id == args.drinks[index].id)).price),
+            title: Text(args[index].drink.name),
+            subtitle: Text(args[index].price),
             // trailing: ,
           );
         }

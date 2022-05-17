@@ -1,7 +1,3 @@
-import 'dart:html';
-
-import 'recipie_data.dart';
-
 class Cocktail {
   late String name;
   late String description;
