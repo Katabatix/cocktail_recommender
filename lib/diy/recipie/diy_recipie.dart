@@ -41,7 +41,7 @@ class DiyRecipieTop extends StatelessWidget {
           children: [
             IngredientList(ingredientList: data.recipie.ingredients),
             Image.network(
-              data.imageUrl,
+              data.lowQualityImageUrl,
               width: MediaQuery.of(context).size.width / 3,
             )
           ],

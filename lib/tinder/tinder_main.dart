@@ -42,7 +42,8 @@ class _TinderPageState extends State<TinderPage> {
       DrinkData drink = DrinkData(
           name: name,
           id: i,
-          imageUrl: url,
+          highQualityImageUrl: url,
+          lowQualityImageUrl: url,
           recipie: recipie,
           description: 'Description for $name',
           tags: tags);
@@ -89,7 +90,7 @@ class _TinderPageState extends State<TinderPage> {
             child: AspectRatio(
               aspectRatio: 1,
               child: Image.network(
-                _swipeItems[index].content.imageUrl,
+                _swipeItems[index].content.highQualityImageUrl,
                 fit: BoxFit.cover,
               ),
             ),
