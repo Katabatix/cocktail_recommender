@@ -1,13 +1,32 @@
+import 'package:cocktail_recommender/discover/menu_details.dart';
 import 'package:cocktail_recommender/recommender/recommender_questionnaire.dart';
+import 'package:cocktail_recommender/utils/drink_data.dart';
 import 'package:flutter/material.dart';
 import 'package:cocktail_recommender/DatabaseHelper.dart';
+import 'package:cocktail_recommender/utils/drink_data.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
-  Future<List> fetchTestingFromDatabase() async {
+  Future<List<String>> fetchTestingFromDatabase() async {
     var dbHelper = DBHelper();
-    Future<List> test = dbHelper.getAllDrinks();
-    return test;
+    MenuInfo test = await dbHelper.getMenuItemsWithBarId(0);
+    List<String> temp = [];
+    test.menu.forEach((element) {
+      String curr = element.drink.getName();
+      temp.add(curr);
+    });
+    return temp;
+  }
+
+  Future<List<String>> fetchTestingFromDatabaseAllDrinks() async {
+    var dbHelper = DBHelper();
+    List<DrinkData> test = await dbHelper.getAllDrinks();
+    List<String> temp = [];
+    test.forEach((element) {
+      String curr = element.getName();
+      temp.add(curr);
+    });
+    return temp;
   }
 
   @override
@@ -33,9 +52,9 @@ class Home extends StatelessWidget {
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
                         print("SNAPSHOT INDEX");
-                        print(snapshot.data?[index]);
+                        print(snapshot.data);
                         return Text(
-                          snapshot.data?[index].getName(),
+                          snapshot.data?[index],
                           style: const TextStyle(color: Colors.amber),
                         );
                         //  +

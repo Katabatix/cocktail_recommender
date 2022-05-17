@@ -42,16 +42,17 @@
             "name": "Bar 1",
             "description": "This one is really nice ajndsajoj wbfoqw joqw",
             "address": "3213 asmfi amsd dq mqwm diqwdp qmdiqw qwdqdm qp",
+            "rating": 5,
             "location": "abceofmqpefmq",
             "contact": "1212421412",
             "cocktails": [
                 {
                     "id":0,
-                    "price":50
+                    "price":"50 HKD"
                 },
                 {
                     "id":2,
-                    "price":75
+                    "price":"75 HKD"
                 }
             ]
         },
@@ -59,17 +60,18 @@
             "id":1,
             "name": "Bar 2",
             "description": "This one is really nice ajndsajoj wbfoqw joqw",
+            "rating": 4,
             "address": "3213 asmfi amsd dq mqwm diqwdp qmdiqw qwdqdm qp",
             "location": "abceofmqpefmq",
             "contact": "1212421412",
             "cocktails": [
                 {
                     "id":3,
-                    "price":50
+                    "price":"50 HKD"
                 },
                 {
                     "id":4,
-                    "price":75
+                    "price":"75 HKD"
                 }
             ]
         }
