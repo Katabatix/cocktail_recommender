@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cocktail_recommender/utils/drink_data.dart';
 
 class MenuInfo {
   List<MenuItem> menu;
@@ -7,10 +8,10 @@ class MenuInfo {
 }
 
 class MenuItem {
-  String itemName;
+  DrinkData drink;
   String price;
 
-  MenuItem(this.itemName, this.price);
+  MenuItem(this.drink, this.price);
 }
 
 class MenuDetails extends StatelessWidget {
@@ -23,18 +24,20 @@ class MenuDetails extends StatelessWidget {
     final args = ModalRoute.of(context)!.settings.arguments as MenuInfo;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Menu', style: TextStyle(color: Colors.white),),
+        title: const Text(
+          'Menu',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: ListView.builder(
-        padding: const EdgeInsets.all(8.0),
-        itemCount: args.menu.length,
-        itemBuilder: (BuildContext context, int index) {
-          return ListTile(
-            title: Text(args.menu[index].itemName),
-            subtitle: Text(args.menu[index].price),
-          );
-        }
-      ),
+          padding: const EdgeInsets.all(8.0),
+          itemCount: args.menu.length,
+          itemBuilder: (BuildContext context, int index) {
+            return ListTile(
+              title: Text(args.menu[index].drink.name),
+              subtitle: Text(args.menu[index].price),
+            );
+          }),
     );
   }
 }
