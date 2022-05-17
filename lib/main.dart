@@ -23,7 +23,7 @@ class _CocktailRecommenderState extends State<CocktailRecommender> {
     debugPrint('setting init state');
     super.initState();
     db = DBHelper();
-    test = db.getAllDrinks();
+    // test = db.getAllDrinks();
   }
 
   @override
@@ -106,7 +106,7 @@ class _MainPageState extends State<MainPage> {
               break;
             case 3:
               global.navigatorKey.currentState
-                  ?.pushReplacementNamed('/setting');
+                  ?.pushReplacementNamed('/recommender/tinder');
               break;
             default:
               global.navigatorKey.currentState?.pushReplacementNamed('/error');
