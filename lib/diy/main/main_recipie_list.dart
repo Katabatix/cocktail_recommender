@@ -29,7 +29,7 @@ class _RecipieListState extends State<RecipieList> {
         id: i,
         imageUrl:
             'https://cdn.icon-icons.com/icons2/2596/PNG/512/check_one_icon_155665.png',
-        recipie: const RecipieData(),
+        recipie: RecipieData(),
         description: 'Description for $name',
         tags: ['tag1', 'tag2', 'tag3'],
       );

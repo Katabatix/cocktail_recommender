@@ -1,10 +1,13 @@
 import 'dart:async';
 import 'dart:io' as io;
+import 'package:cocktail_recommender/utils/drink_data.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import 'utils/cocktail.dart';
 import 'package:flutter/services.dart';
+import 'dart:convert';
+import 'discover/bar_details.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 
@@ -82,13 +85,13 @@ class DBHelper {
     print("Created tables");
   }
 
-  Future<List<Cocktail>> getAllDrinks() async {
+  Future<List<DrinkData>> getAllDrinks() async {
     var dbClient = await db;
-    List<Cocktail> list = [];
+    List<DrinkData> list = [];
     List<Map> rawList = await dbClient!.rawQuery('SELECT * FROM cocktails');
     if (rawList != null) {
       rawList.forEach((cocktail) {
-        list.add(Cocktail(
+        list.add(DrinkData.fromBackend(
           cocktail["name"],
           cocktail["description"],
           cocktail["ingredients"],

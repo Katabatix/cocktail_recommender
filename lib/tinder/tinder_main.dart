@@ -31,7 +31,7 @@ class _TinderPageState extends State<TinderPage> {
   void _getDrinkDataList() {
     for (int i = 0; i < 10; i++) {
       String name = "Sample Drink $i";
-      RecipieData recipie = const RecipieData();
+      RecipieData recipie = RecipieData();
       String url =
           'https://cdn.icon-icons.com/icons2/2596/PNG/512/check_one_icon_155665.png';
       List<String> tags = [
