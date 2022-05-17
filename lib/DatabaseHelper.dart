@@ -10,12 +10,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 import 'discover/bar_details.dart';
+import 'dart:convert';
+import 'package:flutter/services.dart' show rootBundle;
 
+//...
 class DBHelper {
   static Database? _db;
 
   Future<Database?> get db async {
-    if (_db != null) return _db;
+    if (_db != null) return _db; //UNCOMMENT
     _db = await initDb();
     return _db;
   }
@@ -27,76 +30,59 @@ class DBHelper {
     return theDb;
   }
 
+  Future<Map<String, dynamic>> parseJsonFromAssets(String assetsPath) async {
+    print('--- Parse json from: $assetsPath');
+    Map<String, dynamic> temp = await rootBundle
+        .loadString(assetsPath)
+        .then((jsonStr) => jsonDecode(jsonStr));
+    return temp;
+  }
+
   void _onCreate(Database db, int version) async {
+    print("TRYING JSON PLEASE WORK");
+    Map<String, dynamic> dmap =
+        await parseJsonFromAssets('assets/test_json.json');
+    print(dmap);
+
     // When creating the db, create the table
     await db.execute(
-        "CREATE TABLE IF NOT EXISTS cocktails (id INTEGER PRIMARY KEY, name TEXT NOT NULL, description TEXT NOT NULL, ingredients TEXT NOT NULL, recipe TEXT NOT NULL, imageURL TEXT NOT NULL);");
+        "CREATE TABLE IF NOT EXISTS cocktails (id INTEGER PRIMARY KEY, name TEXT NOT NULL, description TEXT NOT NULL, ingredients TEXT NOT NULL, recipe TEXT NOT NULL);");
     await db.execute(
-        "CREATE TABLE IF NOT EXISTS  bars (id INTEGER PRIMARY KEY, name TEXT NOT NULL, description TEXT NOT NULL, contact TEXT NOT NULL, address TEXT NOT NULL, imageURL TEXT NOT NULL);");
+        "CREATE TABLE IF NOT EXISTS  bars (id INTEGER PRIMARY KEY, name TEXT NOT NULL, description TEXT NOT NULL, contact TEXT NOT NULL, address TEXT NOT NULL);");
     await db.execute(
         "CREATE TABLE IF NOT EXISTS cocktails_bars ( cocktails_id INTEGER, bars_id INTEGER, price INTEGER, FOREIGN KEY(cocktails_id) REFERENCES bars(id), FOREIGN KEY(bars_id) REFERENCES cocktails(id));");
 
-    io.File f = new io.File('./assets/csv/drinks.csv');
-    print("CSV to List");
-    final input = f.openRead();
-    final fields = await input
-        .transform(utf8.decoder)
-        .transform(new CsvToListConverter())
-        .toList();
-    print(fields);
-
-    var counter = 1;
-    fields.forEach((element) async {
+    await dmap["cocktails"].forEach((cocktail) async {
       await db.transaction((txn) async {
-        final String name = element[0];
-        final String descripton = element[1];
-        final String ingredients = element[2];
-        final String imageURL = element[3];
-        final String recipe = element[4];
+        final int id = cocktail["id"];
+        final String name = cocktail["name"];
+        final String descripton = cocktail["description"];
+        final String ingredients = cocktail["ingredients"];
+        final String recipe = cocktail["recipe"];
         return await txn.rawInsert(
-            "INSERT INTO cocktails(id,name,description,ingredients,recipe,imageURL) VALUES ('$counter','$name','$descripton','$ingredients','$recipe','$imageURL)");
+            "INSERT INTO cocktails(id,name,description,ingredients,recipe) VALUES ('$id','$name','$descripton','$ingredients','$recipe')");
       });
-      counter += 1;
     });
 
-    io.File f2 = new io.File('./assets/csv/bars.csv');
-    print("CSV to List");
-    final input2 = f2.openRead();
-    final fields2 = await input2
-        .transform(utf8.decoder)
-        .transform(new CsvToListConverter())
-        .toList();
-    print(fields2);
-    counter = 1;
-    fields2.forEach((element) async {
+    await dmap["bars"].forEach((bar) async {
       await db.transaction((txn) async {
-        final String name = element[0];
-        final String descripton = element[1];
-        final String contact = element[2];
-        String address = element[3];
-        address = address.replaceAll('*', ',');
-        final String imageURL = element[7];
-        return await txn.rawInsert(
-            "INSERT INTO bars(id,name,description,contact,address,imageURL) VALUES ('$counter','$name','$descripton','$contact','$address','$imageURL)");
+        final int id = bar["id"];
+        final String name = bar["name"];
+        final String descripton = bar["description"];
+        final String contact = bar["contact"];
+        String address = bar["address"];
+        await txn.rawInsert(
+            "INSERT INTO bars(id,name,description,contact,address) VALUES ('$id','$name','$descripton','$contact','$address')");
       });
-
-      final String drinksIds = element[5];
-      final String drinksPrices = element[6];
-      final List<String> drinkIdsSplit = drinksIds.split(' ');
-      final List<String> drinkPricesSplit = drinksPrices.split(' ');
-      if (drinkIdsSplit.length != drinkPricesSplit) {
-        print("improper data for bar id $counter");
-      }
-      for (int i = 0; i < drinkIdsSplit.length; ++i) {
-        await db.transaction((txn) async {
-          final int bar_id = counter;
-          final int cocktail_id = int.parse(drinkIdsSplit[i]);
-          final int price = int.parse(drinkPricesSplit[i]);
+      await db.transaction((txn) async {
+        bar["cocktails"].forEach((relatedCocktail) async {
+          final int bar_id = bar["id"];
+          final int cocktail_id = relatedCocktail["id"];
+          final int price = relatedCocktail["price"];
           return await txn.rawInsert(
-              "INSERT INTO cocktails_bars(cocktails_id,bars_id,price) VALUES ('$cocktail_id','$bar_id','$price'");
+              "INSERT INTO cocktails_bars(cocktails_id,bars_id,price) VALUES ('$cocktail_id','$bar_id','$price')");
         });
-      }
-      counter += 1;
+      });
     });
     print("Created tables");
   }
