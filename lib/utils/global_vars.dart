@@ -1,6 +1,7 @@
 library globals;
 
 import 'package:flutter/material.dart';
+import 'package:cocktail_recommender/utils/drink_data.dart';
 
-int botNavBarCurrentIndex = 0;
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+List<DrinkData> allDrinkList = <DrinkData>[];

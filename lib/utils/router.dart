@@ -7,6 +7,7 @@ import 'package:cocktail_recommender/discover/discover_main.dart';
 import 'package:cocktail_recommender/tinder/tinder_main.dart';
 import 'package:cocktail_recommender/utils/drink_data.dart';
 import 'package:cocktail_recommender/recommender/recommender_questionnaire.dart';
+import 'package:cocktail_recommender/utils/global_vars.dart' as global;
 
 class MainRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -25,7 +26,8 @@ class MainRouter {
           return MaterialPageRoute(builder: (_) => DiyPage(drinkList: args));
         } else {
           debugPrint('[Router] Routing to: /diy without arguments');
-          return MaterialPageRoute(builder: (_) => DiyPage());
+          return MaterialPageRoute(
+              builder: (_) => DiyPage(drinkList: global.allDrinkList));
         }
       case '/diy/vault':
         debugPrint('[Router] Routing to: /diy/vault');

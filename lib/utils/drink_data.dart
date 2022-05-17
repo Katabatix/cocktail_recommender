@@ -1,5 +1,6 @@
 import 'package:cocktail_recommender/utils/recipie_data.dart';
 import 'recipie_data.dart';
+import 'package:flutter/material.dart';
 
 class DrinkData {
   late String name;
@@ -11,14 +12,22 @@ class DrinkData {
   late List<String> tags;
   late int score;
 
+  @override
+  String toString() {
+    return "name: $name, id: ${id.toString()}, highQualityImageUrl: $highQualityImageUrl, lowQualityImageUrl: $lowQualityImageUrl";
+  }
+
   DrinkData.fromBackend(
       _name, _description, _ingredientsString, _recipeSteps, _id) {
     name = _name;
+    id = _id;
     description = _description;
     highQualityImageUrl =
-        "http://localhost:3000/images/high%20quality/cocktails/$_id.jpg";
+        "http://10.0.2.2:3000/images/high%20quality/cocktails/$_id.jpg";
+    // "http://10.0.2.2:3000/images/high%20quality/cocktails/1.jpg";
     lowQualityImageUrl =
-        "http://localhost:3000/images/low%20quality/cocktails/$_id.jpg";
+        "http://10.0.2.2:3000/images/low%20quality/cocktails/$_id.jpg";
+    // "http://10.0.2.2:3000/images/low%20quality/cocktails/1.jpg";
     List<String> unformattedIngredients = _ingredientsString.split("|");
     recipie = RecipieDatafromLongStrings(unformattedIngredients, _recipeSteps);
     tags = ["tag1", "tag2"];

@@ -4,10 +4,10 @@ import 'package:cocktail_recommender/utils/drink_data.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
-import 'utils/cocktail.dart';
+import 'cocktail.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
-import 'discover/bar_details.dart';
+import '../discover/bar_details.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 
