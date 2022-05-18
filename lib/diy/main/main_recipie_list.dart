@@ -52,7 +52,7 @@ class _RecipieListState extends State<RecipieList> {
             'https://cdn.icon-icons.com/icons2/2596/PNG/512/check_one_icon_155665.png',
         recipie: RecipieData(),
         description: 'Description for $name',
-        tags: ['tag1', 'tag2', 'tag3'],
+        tags: 'tag1 tag2 tag3',
       );
       _dataList.add(drink);
     }
