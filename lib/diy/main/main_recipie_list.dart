@@ -1,4 +1,5 @@
 import 'package:cocktail_recommender/diy/vault/vault_ingredient_list.dart';
+import 'package:cocktail_recommender/utils/database_helper.dart';
 import 'package:cocktail_recommender/utils/vault_ingredient_data.dart';
 import 'package:flutter/material.dart';
 import 'package:cocktail_recommender/utils/recipie_data.dart';
@@ -82,7 +83,10 @@ class _RecipieListState extends State<RecipieList> {
   List<Widget> _createList(List<DrinkData> dataList) {
     List<Widget> outputList = [];
     for (int i = 0; i < dataList.length; i++) {
-      outputList.add(RecipieListItem(data: dataList[i]));
+      outputList.add(RecipieListItem(
+        data: dataList[i],
+        vaultIngredients: listOfVaultItems,
+      ));
     }
     return outputList;
   }
@@ -143,10 +147,12 @@ class _RecipieListState extends State<RecipieList> {
 
 class RecipieListItem extends StatelessWidget {
   final DrinkData data;
+  List<String> vaultIngredients;
 
-  const RecipieListItem({
+  RecipieListItem({
     Key? key,
     required this.data,
+    required this.vaultIngredients,
   }) : super(key: key);
 
   @override
@@ -178,6 +184,10 @@ class RecipieListItem extends StatelessWidget {
           ),
         ),
       ),
+      color: data.recipie.ingredients.any((rIngredient) => vaultIngredients
+              .any((vIngredient) => vIngredient == rIngredient.name))
+          ? Colors.white
+          : Colors.pink[200],
     );
   }
 }

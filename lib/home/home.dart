@@ -114,7 +114,7 @@ class Home extends StatelessWidget {
             if (snapshot.hasData) {
               print("HAS DATA");
               print(snapshot.data);
-              return Container(
+              return SizedBox(
                   height: 200,
                   child: ListView.builder(
                       itemCount: snapshot.data!.length,
