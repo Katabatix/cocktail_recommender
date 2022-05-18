@@ -61,8 +61,7 @@ class _BarScrollerState extends State<BarScroller> {
                     maxHeight: 100,
                   ),
                   child: Image.network(
-                      "http://10.0.2.2:3000/images/low%20quality/bars/${barInfo[i]
-                          .id + 1}.jpg"),
+                      "http://10.0.2.2:3000/images/low%20quality/bars/${barInfo[i].id + 1}.jpg"),
                 ),
                 isThreeLine: true,
               ),

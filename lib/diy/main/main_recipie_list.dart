@@ -1,3 +1,6 @@
+import 'package:cocktail_recommender/diy/recipie/ingredient_list.dart';
+import 'package:cocktail_recommender/utils/database_helper.dart';
+import 'package:cocktail_recommender/utils/vault_ingredient_data.dart';
 import 'package:flutter/material.dart';
 import 'package:cocktail_recommender/utils/recipie_data.dart';
 import 'package:cocktail_recommender/utils/drink_data.dart';
@@ -20,6 +23,8 @@ class RecipieList extends StatefulWidget {
 class _RecipieListState extends State<RecipieList> {
   // static List<RecipieData> _dataList = <RecipieData>[];
   List<DrinkData> _dataList = <DrinkData>[];
+  List<VaultIngredientData> vaultIngredients = [];
+
 
   void _getDataListFromDB() {
     for (int i = 0; i < 30; i++) {
@@ -52,9 +57,14 @@ class _RecipieListState extends State<RecipieList> {
   List<Widget> _createList(List<DrinkData> dataList) {
     List<Widget> outputList = [];
     for (int i = 0; i < dataList.length; i++) {
-      outputList.add(RecipieListItem(data: dataList[i]));
+      outputList.add(RecipieListItem(data: dataList[i], vaultIngredients: vaultIngredients,));
     }
     return outputList;
+  }
+
+  void getVaultIngredients() {
+    var dbHelper = DBHelper();
+    dbHelper.getAllIngredients().then((ingredients) => vaultIngredients = ingredients);
   }
 
   @override
@@ -64,6 +74,7 @@ class _RecipieListState extends State<RecipieList> {
     } else {
       _dataList = widget.drinkList;
     }
+    getVaultIngredients();
     super.initState();
   }
 
@@ -84,10 +95,12 @@ class _RecipieListState extends State<RecipieList> {
 
 class RecipieListItem extends StatelessWidget {
   final DrinkData data;
+  List<VaultIngredientData> vaultIngredients;
 
-  const RecipieListItem({
+  RecipieListItem({
     Key? key,
     required this.data,
+    required this.vaultIngredients,
   }) : super(key: key);
 
   @override
@@ -119,7 +132,9 @@ class RecipieListItem extends StatelessWidget {
           ),
         ),
       ),
-      color: data.recipie.ingredients == false ? Colors.white: Colors.pink[200],
+      color: data.recipie.ingredients.any((rIngredient) =>
+        vaultIngredients.any((vIngredient) => vIngredient.name == rIngredient.name)
+      ) == true ? Colors.white: Colors.pink[200],
     );
   }
 }
