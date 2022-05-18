@@ -8,10 +8,11 @@ class BarInfo {
   late int rating;
   late int id;
   late String contact;
-  late MenuInfo menu;
+  late List<MenuItem> menu;
 
   BarInfo(this.name, this.description, this.location, this.rating, this.id,
       this.contact, this.menu);
+
   BarInfo.fromBackendWithoutMenu(
       _name, _description, _location, _rating, _contact, _id) {
     name = _name;
@@ -21,6 +22,7 @@ class BarInfo {
     id = _id;
     contact = _contact;
   }
+
   BarInfo.withMenu(_name, _description, _location, _rating, _id, _menuItems) {
     name = _name;
     description = _description;
@@ -28,6 +30,7 @@ class BarInfo {
     rating = _rating;
     id = _id;
   }
+
   String getName() {
     return name;
   }
@@ -36,16 +39,17 @@ class BarInfo {
 }
 
 class BarDetails extends StatelessWidget {
-  const BarDetails({Key? key}) : super(key: key);
+  final BarInfo data;
+  const BarDetails({Key? key, required this.data}) : super (key: key);
 
   static const routeName = '/discover/bardetails';
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as BarInfo;
+    debugPrint(data.name);
     return Scaffold(
       appBar: AppBar(
-        title: Text(args.name, style: const TextStyle(color: Colors.white)),
+        title: Text(data.name, style: const TextStyle(color: Colors.white)),
       ),
       body: Container(
         child: Column(
@@ -56,14 +60,14 @@ class BarDetails extends StatelessWidget {
                   padding: const EdgeInsets.all(10.0),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
-                    child: Image.asset('assets/images/bar0.jpg'),
+                    child: Image.network("http://10.0.2.2:3000/images/high%20quality/bars/${data.id+1}.jpg", height: 250,),
                   ),
                 ),
                 const SizedBox(
                   height: 10.0,
                 ),
                 Text(
-                  args.name,
+                  data.name,
                   style: const TextStyle(
                     fontFamily: 'Merriweather',
                     fontSize: 40,
@@ -72,33 +76,36 @@ class BarDetails extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  height: 20.0,
-                ),
-                Row(
-                  children: [
-                    ReviewIcons(args.rating),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-                      child: TextButton(
-                          onPressed: () {}, //Add routing to ReviewDetails
-                          child: const Text('See Reviews',
-                              style: TextStyle(
-                                color: Colors.black, //THEME LATER
-                                fontSize: 20,
-                              ))),
-                    ),
-                  ],
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                ),
-                const SizedBox(
-                  height: 20.0,
+                  height: 10.0,
                 ),
                 Text(
-                  args.location,
+                  data.location,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.onSurface,
                     fontSize: 20,
                   ),
+                ),
+                const SizedBox(
+                  height: 20.0,
+                ),
+                Row(
+                  children: [
+                    ReviewIcons(data.rating),
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+                    //   child: TextButton(
+                    //       onPressed: () {}, //Add routing to ReviewDetails
+                    //       child: const Text(
+                    //           'See Reviews',
+                    //           style: TextStyle(
+                    //             color: Colors.black, //THEME LATER
+                    //             fontSize: 20,
+                    //           )
+                    //       )
+                    //   ),
+                    // ),
+                  ],
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 ),
               ],
             ),
@@ -107,9 +114,9 @@ class BarDetails extends StatelessWidget {
               child: TextButton(
                 onPressed: () {
                   Navigator.pushNamed(
-                    context,
-                    MenuDetails.routeName,
-                    arguments: args.menu,
+                      context,
+                      MenuDetails.routeName,
+                      arguments: data.menu,
                   );
                 },
                 child: const Text(

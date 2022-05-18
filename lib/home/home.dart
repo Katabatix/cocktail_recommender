@@ -2,20 +2,18 @@ import 'package:cocktail_recommender/discover/menu_details.dart';
 import 'package:cocktail_recommender/recommender/recommender_questionnaire.dart';
 import 'package:cocktail_recommender/utils/drink_data.dart';
 import 'package:flutter/material.dart';
-import 'package:cocktail_recommender/utils/drink_data.dart';
 import 'package:cocktail_recommender/utils/database_helper.dart';
-import 'package:cocktail_recommender/utils/global_vars.dart' as global;
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
   Future<List<String>> fetchTestingFromDatabase() async {
     var dbHelper = DBHelper();
-    MenuInfo test = await dbHelper.getMenuItemsWithBarId(0);
+    List<MenuItem> test = await dbHelper.getMenuItemsWithBarId(0);
     List<String> temp = [];
-    test.menu.forEach((element) {
+    for (var element in test) {
       String curr = element.drink.getName();
       temp.add(curr);
-    });
+    }
     return temp;
   }
 

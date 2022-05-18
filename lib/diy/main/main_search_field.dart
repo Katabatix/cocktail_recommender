@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cocktail_recommender/diy/main/diy_main.dart';
-import 'package:cocktail_recommender/utils/global_vars.dart' as global;
 
 class SearchField extends StatelessWidget {
   const SearchField({Key? key}) : super(key: key);
@@ -47,7 +46,10 @@ class ButtonVault extends StatefulWidget {
 class _ButtonVaultState extends State<ButtonVault> {
   void routeToVault() {
     debugPrint('[Button Vault] Routing to vault');
-    global.navigatorKey.currentState?.pushNamed('/diy/vault');
+    Navigator.of(context).pushNamed(
+      '/vault',
+      arguments: 'This is from Button Vault',
+    );
   }
 
   @override
