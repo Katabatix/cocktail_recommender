@@ -8,9 +8,11 @@ import 'package:cocktail_recommender/utils/drink_data.dart';
 
 class DiyPage extends StatelessWidget {
   final List<DrinkData> drinkList;
+  bool updateBottomNavBar;
   DiyPage({
     Key? key,
     List<DrinkData>? drinkList,
+    this.updateBottomNavBar = false,
   })  : drinkList = drinkList ?? <DrinkData>[],
         super(key: key);
 
@@ -20,7 +22,10 @@ class DiyPage extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => DiyRecipieQuery(),
       child: Scaffold(
-        body: DiyMainPage(drinkList: drinkList),
+        body: DiyMainPage(
+          drinkList: drinkList,
+          updateBottomNavBar: updateBottomNavBar,
+        ),
       ),
     );
   }
@@ -28,9 +33,11 @@ class DiyPage extends StatelessWidget {
 
 class DiyMainPage extends StatefulWidget {
   final List<DrinkData> drinkList;
+  bool updateBottomNavBar;
   DiyMainPage({
     Key? key,
     List<DrinkData>? drinkList,
+    this.updateBottomNavBar = false,
   })  : drinkList = drinkList ?? <DrinkData>[],
         super(key: key);
 
@@ -41,7 +48,10 @@ class DiyMainPage extends StatefulWidget {
 class _DiyMainPageState extends State<DiyMainPage> {
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance!.addPostFrameCallback((_) => _afterBuild(context));
+    if (widget.updateBottomNavBar) {
+      WidgetsBinding.instance!
+          .addPostFrameCallback((_) => _afterBuild(context));
+    }
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cocktail Recommender - DIY'),

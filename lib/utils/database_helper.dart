@@ -10,7 +10,7 @@ import 'dart:convert';
 import 'package:cocktail_recommender/discover/bar_details.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import '/discover/menu_details.dart' as menu;
-import 'package:flutter/src/widgets/platform_menu_bar.dart' hide MenuItem;
+// import 'package:flutter/src/widgets/platform_menu_bar.dart' hide MenuItem;
 import 'package:cocktail_recommender/utils/vault_ingredient_data.dart';
 
 //...
