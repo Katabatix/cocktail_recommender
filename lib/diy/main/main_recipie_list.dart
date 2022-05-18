@@ -42,7 +42,10 @@ class _RecipieListState extends State<RecipieList> {
   List<Widget> _filterList({String query = ''}) {
     List<DrinkData> filteredList = [];
     for (int index = 0; index < _dataList.length; index++) {
-      if (_dataList[index].name.contains(query)) {
+      if (_dataList[index]
+          .comibnedFieldsForSearch
+          .toLowerCase()
+          .contains(query.toLowerCase())) {
         filteredList.add(_dataList[index]);
       }
     }
