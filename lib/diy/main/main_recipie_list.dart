@@ -29,7 +29,7 @@ class _RecipieListState extends State<RecipieList> {
 
   List<String> listOfVaultItems = [];
 
-  void _fetchVaultDataList() async {
+  Future<String> _fetchVaultDataList() async {
     print("FETCH VAULT TRIGGERED");
     listOfVaultItems = [];
     var dbHelper = DBHelper();
@@ -40,6 +40,7 @@ class _RecipieListState extends State<RecipieList> {
     }
     print("LIST IN FETCH");
     print(listOfVaultItems);
+    return listOfVaultItems.isNotEmpty ? listOfVaultItems[0] : "no data";
   }
 
   void _getDataListFromDB() {
@@ -111,6 +112,7 @@ class _RecipieListState extends State<RecipieList> {
   bool queryingFromVault = false;
 
   void toggleVault() async {
+    String temp = await _fetchVaultDataList();
     print("TOGGLE TRIGGERD");
     print("LIST OF VAULT ITEMS");
     for (var x in listOfVaultItems) {
@@ -130,7 +132,7 @@ class _RecipieListState extends State<RecipieList> {
 
   @override
   Widget build(BuildContext context) {
-    _fetchVaultDataList();
+    //_fetchVaultDataList();
     var query = context.watch<DiyRecipieQuery>();
     return CustomScrollView(
       slivers: [
