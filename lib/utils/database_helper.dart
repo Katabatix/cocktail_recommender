@@ -172,7 +172,6 @@ class DBHelper {
     List<VaultIngredientData> list = [];
     List<Map> rawList =
         await dbClient!.rawQuery("SELECT * FROM vault_ingredients");
-    print(rawList);
     if (rawList != null) {
       rawList.forEach((ing) {
         list.add(VaultIngredientData(
@@ -182,8 +181,6 @@ class DBHelper {
             iconUrl: ing["iconUrl"]));
       });
     }
-    print("LIST IS");
-    print(list);
     return list;
   }
 

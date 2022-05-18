@@ -29,6 +29,11 @@ class _VaultIngredientListState extends State<VaultIngredientList> {
     //   VaultIngredientData(name: 'ingredient 10', id: 10, status: true),
     // ];
   }
+  void _updateListInDB() {
+    var db = DBHelper();
+    db.saveAllIngredients(_dataList);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -41,11 +46,12 @@ class _VaultIngredientListState extends State<VaultIngredientList> {
     _dataList = await futureList;
   }
 
-  void _handleItemStateChanged(int id) {
+  void _handleItemStateChanged(int id) async {
     setState(() {
       _dataList[_getIndexFromID(id)].status =
           !_dataList[_getIndexFromID(id)].status;
     });
+    _updateListInDB();
   }
 
   int _getIndexFromID(int id) {
@@ -200,12 +206,12 @@ class _VaultIngredientListItemButtonState
           Positioned.fill(
             child: Container(
               decoration: BoxDecoration(
-                  color: widget.data.status ? Colors.green : Colors.red),
+                  color: !widget.data.status ? Colors.green : Colors.red),
             ),
           ),
           TextButton(
             child: Icon(
-                widget.data.status
+                !widget.data.status
                     ? Icons.add_circle_outline_rounded
                     : Icons.remove_circle_outline_rounded,
                 color: Colors.white),

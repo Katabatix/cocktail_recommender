@@ -2,17 +2,17 @@
     "cocktails":[
         {
             "id":1,
-            "name": "Drink 1",
-            "description": "This one is really nice ajndsajoj wbfoqw joqw",
-            "ingredients": "Whiskey(30ml|Lemon(2 wedges|Honey(1tbsp|Soda(150ml",
-            "recipe": "Do step 1| do step 2| do step 3| do step 4"
+            "name": "Scotch on the Rocks",
+            "description": "Scotch whisky served with ice: a classic",
+            "ingredients": "Scotch whisky(2 oz",
+            "recipe": "Fill a rocks glass to the top with ice cubes|Pour in 2 oz of Scotch whisky"
         },
         {
             "id":2,
-            "name": "Drink 2",
-            "description": "This 2 is really nice ajndsajoj wbfoqw joqw",
-            "ingredients": "Whiskey(30ml|Lemon(2 wedges|Honey(1tbsp|Soda(150ml",
-            "recipe": "Do step 1| do step 2| do step 3| do step 4"
+            "name": "Cosmopolitan",
+            "description": "Lipsmackingly sweet and sour, the Cosmopolitan cocktail of vodka, cranberry, orange liqueur and citrus is a good-time in a glass.",
+            "ingredients": "Vodka(2 oz|Cointreau(1 oz|Cranberry Juice(1/2 oz|Fresh Sour Mix(1/2 oz|Lemon Twist (1",
+            "recipe": "Shake ingredients in a cocktail shaker with ice and strain into a cocktail glass.|To make the garnish: hold a 3cm round piece of orange zest about 10cm above your cosmo and very carefully wave it over a lit match or lighter flame. Bend the outer edge of the zest in towards the flame so that the orange oils are released, then drop the zest into your drink."
         },
         {
             "id":3,
@@ -79,7 +79,7 @@
     "vault_ingredients":[
         {
             "id":1,
-            "name":"whiskey",
+            "name":"Scotch whisky",
             "isThere": false,
             "iconUrl":"https://cdn.britannica.com/71/192771-050-CEF9CEC3/Glass-scotch-whiskey-ice.jpg"
         },
