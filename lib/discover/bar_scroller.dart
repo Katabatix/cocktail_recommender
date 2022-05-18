@@ -18,6 +18,7 @@ class _BarScrollerState extends State<BarScroller> {
   @mustCallSuper
   void initState(){
     getAllBars();
+    super.initState();
   }
 
   Future<List> getDrinksFromDB() async {

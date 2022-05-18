@@ -119,6 +119,7 @@ class RecipieListItem extends StatelessWidget {
           ),
         ),
       ),
+      color: data.recipie.ingredients == false ? Colors.white: Colors.pink[200],
     );
   }
 }
