@@ -1,6 +1,7 @@
 import 'package:cocktail_recommender/discover/menu_details.dart';
 import 'package:cocktail_recommender/recommender/recommender_questionnaire.dart';
 import 'package:cocktail_recommender/utils/drink_data.dart';
+import 'package:cocktail_recommender/utils/vault_ingredient_data.dart';
 import 'package:flutter/material.dart';
 import 'package:cocktail_recommender/utils/drink_data.dart';
 import 'package:cocktail_recommender/utils/database_helper.dart';
@@ -10,10 +11,10 @@ class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
   Future<List<String>> fetchTestingFromDatabase() async {
     var dbHelper = DBHelper();
-    MenuInfo test = await dbHelper.getMenuItemsWithBarId(0);
+    List<VaultIngredientData> test = await dbHelper.getAllIngredients();
     List<String> temp = [];
-    test.menu.forEach((element) {
-      String curr = element.drink.getName();
+    test.forEach((element) {
+      String curr = element.name;
       temp.add(curr);
     });
     return temp;
