@@ -5,35 +5,40 @@
             "name": "Drink 1",
             "description": "This one is really nice ajndsajoj wbfoqw joqw",
             "ingredients": "Whiskey(30ml|Lemon(2 wedges|Honey(1tbsp|Soda(150ml",
-            "recipe": "Do step 1| do step 2| do step 3| do step 4"
+            "recipe": "Do step 1| do step 2| do step 3| do step 4",
+            "tags": ["excited","calm","happy"]
         },
         {
             "id":2,
             "name": "Drink 2",
             "description": "This 2 is really nice ajndsajoj wbfoqw joqw",
             "ingredients": "Whiskey(30ml|Lemon(2 wedges|Honey(1tbsp|Soda(150ml",
-            "recipe": "Do step 1| do step 2| do step 3| do step 4"
+            "recipe": "Do step 1| do step 2| do step 3| do step 4",
+            "tags": ["sad","formal","casual"]
         },
         {
             "id":3,
             "name": "Drink 3",
             "description": "This one is really nice ajndsajoj wbfoqw joqw",
             "ingredients": "Whiskey(30ml|Lemon(2 wedges|Honey(1tbsp|Soda(150ml",
-            "recipe": "Do step 1| do step 2| do step 3| do step 4"
+            "recipe": "Do step 1| do step 2| do step 3| do step 4",
+            "tags": ["modern","oldschool","excited"]
         },
         {
             "id":4,
             "name": "Drink 4",
             "description": "This one is really nice ajndsajoj wbfoqw joqw",
             "ingredients": "Whiskey(30ml|Lemon(2 wedges|Honey(1tbsp|Soda(150ml",
-            "recipe": "Do step 1| do step 2| do step 3| do step 4"
+            "recipe": "Do step 1| do step 2| do step 3| do step 4",
+            "tags": ["sad","formal","oldschool"]
         },
         {
             "id":5,
             "name": "Drink 5 hahaho",
             "description": "This one is really nice ajndsajoj wbfoqw joqw",
             "ingredients": "Whiskey(30ml|Lemon(2 wedges|Honey(1tbsp|Soda(150ml",
-            "recipe": "Do step 1| do step 2| do step 3| do step 4"
+            "recipe": "Do step 1| do step 2| do step 3| do step 4",
+            "tags": ["sad","modern","excited"]
         }    
     ],
     "bars":[

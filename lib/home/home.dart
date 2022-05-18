@@ -11,7 +11,8 @@ class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
   Future<List<String>> fetchTestingFromDatabase() async {
     var dbHelper = DBHelper();
-    List<VaultIngredientData> test = await dbHelper.getAllIngredients();
+    List<DrinkData> test =
+        await dbHelper.getCocktailWithTags(["modern", "sad", 'excited']);
     List<String> temp = [];
     test.forEach((element) {
       String curr = element.name;
@@ -54,7 +55,7 @@ class Home extends StatelessWidget {
           'step10'
         ]),
         description: "description",
-        tags: ["tags"]));
+        tags: "tags"));
 
     testDrinks.add(DrinkData(
         name: "name",
@@ -87,7 +88,7 @@ class Home extends StatelessWidget {
           'step10'
         ]),
         description: "description",
-        tags: ["tags"]));
+        tags: "tags"));
     List<BarInfo> test = await dbHelper.getAllBarsWithDrinksIds(testDrinks);
     List<String> temp = [];
     test.forEach((element) {
@@ -109,7 +110,7 @@ class Home extends StatelessWidget {
       ),
       body: Column(children: [
         FutureBuilder<List>(
-          future: fetchTestingFromDatabase2(),
+          future: fetchTestingFromDatabase(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               print("HAS DATA");
