@@ -47,7 +47,7 @@
             "contact": "1212421412",
             "cocktails": [
                 {
-                    "id":0,
+                    "id":1,
                     "price":"50 HKD"
                 },
                 {
@@ -74,6 +74,26 @@
                     "price":"75 HKD"
                 }
             ]
+        }
+    ],
+    "vault_ingredients":[
+        {
+            "id":1,
+            "name":"whiskey",
+            "isThere": false,
+            "iconUrl":"https://cdn.britannica.com/71/192771-050-CEF9CEC3/Glass-scotch-whiskey-ice.jpg"
+        },
+        {
+            "id":2,
+            "name":"vodka",
+            "isThere": false,
+            "iconUrl":"https://cdn.britannica.com/71/192771-050-CEF9CEC3/Glass-scotch-whiskey-ice.jpg"
+        },
+        {
+            "id":3,
+            "name": "gin",
+            "isThere": false,
+            "iconUrl":"https://cdn.britannica.com/71/192771-050-CEF9CEC3/Glass-scotch-whiskey-ice.jpg"
         }
     ]
 }

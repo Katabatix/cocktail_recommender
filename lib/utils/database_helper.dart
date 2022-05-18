@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io' as io;
 import 'package:cocktail_recommender/utils/drink_data.dart';
+import 'package:cocktail_recommender/utils/recipie_data.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
@@ -10,6 +11,7 @@ import 'package:cocktail_recommender/discover/bar_details.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import '/discover/menu_details.dart' as menu;
 import 'package:flutter/src/widgets/platform_menu_bar.dart' hide MenuItem;
+import 'package:cocktail_recommender/utils/vault_ingredient_data.dart';
 
 //...
 class DBHelper {
@@ -47,6 +49,20 @@ class DBHelper {
         "CREATE TABLE IF NOT EXISTS  bars (id INTEGER PRIMARY KEY, name TEXT NOT NULL, description TEXT NOT NULL, contact TEXT NOT NULL, address TEXT NOT NULL, rating INTEGER NOT NULL);");
     await db.execute(
         "CREATE TABLE IF NOT EXISTS cocktails_bars ( cocktails_id INTEGER NOT NULL, bars_id INTEGER, price STRING NOT NULL, FOREIGN KEY(cocktails_id) REFERENCES bars(id), FOREIGN KEY(bars_id) REFERENCES cocktails(id));");
+    await db.execute(
+        "CREATE TABLE IF NOT EXISTS vault_ingredients ( id INTEGER NOT NULL, name STRING NOT NULL, isThere BOOLEAN NOT NULL, iconUrl STRING NOT NULL);");
+
+    await dmap["vault_ingredients"].forEach((ingredient) async {
+      await db.transaction((txn) async {
+        final int id = ingredient["id"];
+        final String name = ingredient["name"];
+        final bool isThere = ingredient["isThere"];
+        final String iconUrl = ingredient["iconUrl"];
+        print("inserting" + name);
+        return await txn.rawInsert(
+            "INSERT INTO vault_ingredients(id,name,isThere,iconUrl) VALUES ('$id','$name','$isThere','$iconUrl')");
+      });
+    });
 
     await dmap["cocktails"].forEach((cocktail) async {
       await db.transaction((txn) async {
@@ -154,5 +170,38 @@ class DBHelper {
       });
     }
     return list[0];
+  }
+
+  Future<List<VaultIngredientData>> getAllIngredients() async {
+    var dbClient = await db;
+    List<VaultIngredientData> list = [];
+    List<Map> rawList =
+        await dbClient!.rawQuery("SELECT * FROM vault_ingredients");
+    if (rawList != null) {
+      rawList.forEach((ing) {
+        list.add(VaultIngredientData(
+            id: ing["id"],
+            name: ing["name"],
+            status: ing["status"],
+            iconUrl: ing["iconUrl"]));
+      });
+    }
+    return list;
+  }
+
+  void saveAllIngredients(List<VaultIngredientData> newData) async {
+    var dbClient = await db;
+    await dbClient!.rawQuery("DELETE FROM vault_ingredients");
+    newData.forEach((element) async {
+      await dbClient.transaction((txn) async {
+        final int id = element.id;
+        final String name = element.name;
+        final bool isThere = element.status;
+        final String iconUrl = element.iconUrl;
+        print("inserting" + name);
+        return await txn.rawInsert(
+            "INSERT INTO vault_ingredients(id,name,isThere,iconUrl) VALUES ('$id','$name','$isThere','$iconUrl')");
+      });
+    });
   }
 }
