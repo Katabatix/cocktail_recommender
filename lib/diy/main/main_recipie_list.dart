@@ -34,6 +34,7 @@ class _RecipieListState extends State<RecipieList> {
     for (var ingredient in currentVaultIngredients) {
       if (ingredient.status) listOfVaultItems.add(ingredient.name);
     }
+    print("LIST IN FETCH");
     print(listOfVaultItems);
   }
 
@@ -99,8 +100,7 @@ class _RecipieListState extends State<RecipieList> {
   bool queryingFromVault = false;
 
   void toggleVault() async {
-    _fetchVaultDataList();
-    setState(() {});
+    print("TOGGLE TRIGGERD");
     print("LIST OF VAULT ITEMS");
     for (var x in listOfVaultItems) {
       print(x);
