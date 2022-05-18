@@ -8,6 +8,7 @@ class DrinkData {
   late String lowQualityImageUrl;
   late RecipieData recipie;
   late String description;
+  late String comibnedFieldsForSearch;
   late List<String> tags;
   late int score;
 
@@ -18,6 +19,8 @@ class DrinkData {
 
   DrinkData.fromBackend(
       _name, _description, _ingredientsString, _recipeSteps, _id) {
+    comibnedFieldsForSearch =
+        _name + _description + _ingredientsString + _recipeSteps;
     name = _name;
     id = _id;
     description = _description;

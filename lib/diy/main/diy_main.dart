@@ -74,11 +74,11 @@ class _DiyMainPageState extends State<DiyMainPage> {
 }
 
 class DiyRecipieQuery extends ChangeNotifier {
-  String _query = '';
+  List<String> _query = [''];
 
-  String get query => _query;
+  List<String> get query => _query;
 
-  void updateQuery(String newQuery) {
+  void updateQuery(List<String> newQuery) {
     debugPrint('[DiyRecipieQuery] Query Updated: $newQuery');
     _query = newQuery;
     notifyListeners();

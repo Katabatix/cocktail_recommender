@@ -29,8 +29,8 @@ class RecipieSearchBar extends StatelessWidget {
       child: TextFormField(
         onChanged: (value) {
           var query = context.read<DiyRecipieQuery>();
-          query.updateQuery(value);
-          debugPrint('[Recipie Mian] query: ' + query.query);
+          query.updateQuery([value]);
+          debugPrint('[Recipie Mian] query: ' + query.query[0]);
         },
       ),
     );
