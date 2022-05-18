@@ -1,5 +1,5 @@
 import 'package:cocktail_recommender/discover/bar_details.dart';
-import 'package:cocktail_recommender/discover/menu_details.dart';
+import 'package:cocktail_recommender/discover/menu_details.dart' as m;
 import 'package:flutter/material.dart';
 import 'package:cocktail_recommender/diy/main/diy_main.dart';
 import 'package:cocktail_recommender/diy/recipie/diy_recipie.dart';
@@ -25,7 +25,12 @@ class MainRouter {
           for (DrinkData drink in args as List<DrinkData>) {
             debugPrint('[Router] Drink name: ${drink.name}');
           }
-          return MaterialPageRoute(builder: (_) => DiyPage(drinkList: args));
+          return MaterialPageRoute(
+            builder: (_) => DiyPage(
+              drinkList: args,
+              updateBottomNavBar: true,
+            ),
+          );
         } else {
           debugPrint('[Router] Routing to: /diy without arguments');
           return MaterialPageRoute(
@@ -43,10 +48,16 @@ class MainRouter {
         return MaterialPageRoute(builder: (_) => DiscoverMain());
       case BarDetails.routeName:
         debugPrint('[Router] Routing to: $BarDetails.routeName');
-        return MaterialPageRoute(builder: (_) => BarDetails(data: args as BarInfo,));
-      case MenuDetails.routeName:
-        debugPrint('[Router] Routing to: $MenuDetails.routeName');
-        return MaterialPageRoute(builder: (_) => MenuDetails(data: args as List<MenuItem>,));
+        return MaterialPageRoute(
+            builder: (_) => BarDetails(
+                  data: args as BarInfo,
+                ));
+      case m.MenuDetails.routeName:
+        debugPrint('[Router] Routing to: ${m.MenuDetails}.routeName');
+        return MaterialPageRoute(
+            builder: (_) => m.MenuDetails(
+                  data: args as List<m.MenuItem>,
+                ));
       case '/setting':
         debugPrint('[Router] Routing to: /setting');
         return MaterialPageRoute(builder: (_) => TinderPage());

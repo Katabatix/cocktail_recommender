@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cocktail_recommender/utils/vault_ingredient_data.dart';
 import 'package:provider/provider.dart';
 import 'package:cocktail_recommender/diy/vault/diy_vault.dart';
+import 'package:cocktail_recommender/utils/database_helper.dart';
 
 class VaultIngredientList extends StatefulWidget {
   const VaultIngredientList({Key? key}) : super(key: key);
@@ -15,18 +16,29 @@ class _VaultIngredientListState extends State<VaultIngredientList> {
   bool initialized = false;
   void _getDataListFromDB() {
     //todo Get datalist
-    _dataList = <VaultIngredientData>[
-      VaultIngredientData(name: 'ingredient 1', id: 1, status: true),
-      VaultIngredientData(name: 'ingredient 2', id: 2, status: true),
-      VaultIngredientData(name: 'ingredient 3', id: 3, status: true),
-      VaultIngredientData(name: 'ingredient 4', id: 4, status: false),
-      VaultIngredientData(name: 'ingredient 5', id: 5, status: false),
-      VaultIngredientData(name: 'ingredient 6', id: 6, status: false),
-      VaultIngredientData(name: 'ingredient 7', id: 7, status: true),
-      VaultIngredientData(name: 'ingredient 8', id: 8, status: true),
-      VaultIngredientData(name: 'ingredient 9', id: 9, status: true),
-      VaultIngredientData(name: 'ingredient 10', id: 10, status: true),
-    ];
+    // _dataList = <VaultIngredientData>[
+    //   VaultIngredientData(name: 'ingredient 1', id: 1, status: true),
+    //   VaultIngredientData(name: 'ingredient 2', id: 2, status: true),
+    //   VaultIngredientData(name: 'ingredient 3', id: 3, status: true),
+    //   VaultIngredientData(name: 'ingredient 4', id: 4, status: false),
+    //   VaultIngredientData(name: 'ingredient 5', id: 5, status: false),
+    //   VaultIngredientData(name: 'ingredient 6', id: 6, status: false),
+    //   VaultIngredientData(name: 'ingredient 7', id: 7, status: true),
+    //   VaultIngredientData(name: 'ingredient 8', id: 8, status: true),
+    //   VaultIngredientData(name: 'ingredient 9', id: 9, status: true),
+    //   VaultIngredientData(name: 'ingredient 10', id: 10, status: true),
+    // ];
+  }
+  @override
+  void initState() {
+    super.initState();
+    _fetchDataList();
+  }
+
+  void _fetchDataList() async {
+    var dbHelper = DBHelper();
+    Future<List<VaultIngredientData>> futureList = dbHelper.getAllIngredients();
+    _dataList = await futureList;
   }
 
   void _handleItemStateChanged(int id) {
@@ -80,6 +92,7 @@ class _VaultIngredientListState extends State<VaultIngredientList> {
 
   @override
   Widget build(BuildContext context) {
+    var dbHelper = DBHelper();
     if (!initialized) {
       _getDataListFromDB();
       initialized = true;
@@ -87,9 +100,14 @@ class _VaultIngredientListState extends State<VaultIngredientList> {
     _printDataList();
     var query = context.watch<VaultIngredientQuery>();
     return Expanded(
-      child: ListView(
-        padding: const EdgeInsets.all(8),
-        children: _filterList(query: query.query),
+      child: FutureBuilder(
+        future: dbHelper.getAllIngredients(),
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          return ListView(
+            padding: const EdgeInsets.all(8),
+            children: _filterList(query: query.query),
+          );
+        },
       ),
     );
   }

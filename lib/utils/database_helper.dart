@@ -48,17 +48,16 @@ class DBHelper {
     await db.execute(
         "CREATE TABLE IF NOT EXISTS cocktails_bars ( cocktails_id INTEGER NOT NULL, bars_id INTEGER, price STRING NOT NULL, FOREIGN KEY(cocktails_id) REFERENCES bars(id), FOREIGN KEY(bars_id) REFERENCES cocktails(id));");
     await db.execute(
-        "CREATE TABLE IF NOT EXISTS vault_ingredients ( id INTEGER NOT NULL, name STRING NOT NULL, isThere BOOLEAN NOT NULL, iconUrl STRING NOT NULL);");
+        "CREATE TABLE IF NOT EXISTS vault_ingredients ( id INTEGER NOT NULL, name STRING NOT NULL, isThere INT NOT NULL, iconUrl STRING NOT NULL);");
 
     await dmap["vault_ingredients"].forEach((ingredient) async {
       await db.transaction((txn) async {
         final int id = ingredient["id"];
         final String name = ingredient["name"];
-        final bool isThere = ingredient["isThere"];
         final String iconUrl = ingredient["iconUrl"];
         print("inserting" + name);
         return await txn.rawInsert(
-            "INSERT INTO vault_ingredients(id,name,isThere,iconUrl) VALUES ('$id','$name','$isThere','$iconUrl')");
+            "INSERT INTO vault_ingredients(id,name,isThere,iconUrl) VALUES ('$id','$name',0,'$iconUrl')");
       });
     });
 
@@ -173,15 +172,18 @@ class DBHelper {
     List<VaultIngredientData> list = [];
     List<Map> rawList =
         await dbClient!.rawQuery("SELECT * FROM vault_ingredients");
+    print(rawList);
     if (rawList != null) {
       rawList.forEach((ing) {
         list.add(VaultIngredientData(
             id: ing["id"],
             name: ing["name"],
-            status: ing["status"],
+            status: ing["isThere"] == 0 ? false : true,
             iconUrl: ing["iconUrl"]));
       });
     }
+    print("LIST IS");
+    print(list);
     return list;
   }
 
@@ -192,7 +194,7 @@ class DBHelper {
       await dbClient.transaction((txn) async {
         final int id = element.id;
         final String name = element.name;
-        final bool isThere = element.status;
+        final int isThere = element.status ? 1 : 0;
         final String iconUrl = element.iconUrl;
         print("inserting" + name);
         return await txn.rawInsert(

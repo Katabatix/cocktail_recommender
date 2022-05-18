@@ -1,4 +1,4 @@
-import 'package:cocktail_recommender/discover/menu_details.dart';
+import 'package:cocktail_recommender/discover/menu_details.dart' as m;
 import 'package:flutter/material.dart';
 
 class BarInfo {
@@ -8,7 +8,7 @@ class BarInfo {
   late int rating;
   late int id;
   late String contact;
-  late List<MenuItem> menu;
+  late List<m.MenuItem> menu;
 
   BarInfo(this.name, this.description, this.location, this.rating, this.id,
       this.contact, this.menu);
@@ -40,7 +40,7 @@ class BarInfo {
 
 class BarDetails extends StatelessWidget {
   final BarInfo data;
-  const BarDetails({Key? key, required this.data}) : super (key: key);
+  const BarDetails({Key? key, required this.data}) : super(key: key);
 
   static const routeName = '/discover/bardetails';
 
@@ -60,7 +60,10 @@ class BarDetails extends StatelessWidget {
                   padding: const EdgeInsets.all(10.0),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
-                    child: Image.network("http://10.0.2.2:3000/images/high%20quality/bars/${data.id+1}.jpg", height: 250,),
+                    child: Image.network(
+                      "http://10.0.2.2:3000/images/high%20quality/bars/${data.id + 1}.jpg",
+                      height: 250,
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -114,9 +117,9 @@ class BarDetails extends StatelessWidget {
               child: TextButton(
                 onPressed: () {
                   Navigator.pushNamed(
-                      context,
-                      MenuDetails.routeName,
-                      arguments: data.menu,
+                    context,
+                    m.MenuDetails.routeName,
+                    arguments: data.menu,
                   );
                 },
                 child: const Text(
