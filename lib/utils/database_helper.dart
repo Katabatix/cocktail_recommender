@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io' as io;
 import 'package:cocktail_recommender/utils/drink_data.dart';
-import 'package:cocktail_recommender/utils/recipie_data.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
@@ -10,7 +9,6 @@ import 'dart:convert';
 import 'package:cocktail_recommender/discover/bar_details.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import '/discover/menu_details.dart' as menu;
-import 'package:flutter/src/widgets/platform_menu_bar.dart' hide MenuItem;
 import 'package:cocktail_recommender/utils/vault_ingredient_data.dart';
 
 //...
@@ -129,7 +127,7 @@ class DBHelper {
     return list;
   }
 
-  Future<menu.MenuInfo> getMenuItemsWithBarId(int _barID) async {
+  Future<List<menu.MenuItem>> getMenuItemsWithBarId(int _barID) async {
     var dbClient = await db;
     List<Map> rawList = await dbClient!
         .rawQuery('SELECT * FROM cocktails_bars WHERE bars_id = $_barID ');
@@ -147,10 +145,8 @@ class DBHelper {
           listPopulated = true;
         }
       }
-      ;
     }
-    final temp = menu.MenuInfo(cocktailsMenu);
-    return temp;
+    return cocktailsMenu;
   }
 
   Future<DrinkData> getCocktailById(int _cocktailID) async {

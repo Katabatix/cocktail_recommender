@@ -30,6 +30,7 @@ class Cocktail {
         current += 1;
       }
     });
+
     //parse recipe
     steps = _recipe.split("|");
   }

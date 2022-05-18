@@ -11,8 +11,7 @@ class VaultIngredientList extends StatefulWidget {
 }
 
 class _VaultIngredientListState extends State<VaultIngredientList> {
-  List<VaultIngredientData> _dataList = <VaultIngredientData>[];
-  // static List<VaultIngredientData> _dataList = <VaultIngredientData>[];
+  static List<VaultIngredientData> _dataList = <VaultIngredientData>[];
   bool initialized = false;
   void _getDataListFromDB() {
     //todo Get datalist
