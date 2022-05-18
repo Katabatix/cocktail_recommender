@@ -167,6 +167,44 @@ class DBHelper {
     return list[0];
   }
 
+  Future<BarInfo> getBarById(int _barID) async {
+    var dbClient = await db;
+    List<BarInfo> list = [];
+    List<Map> rawList =
+        await dbClient!.rawQuery("SELECT * FROM bars WHERE id = $_barID");
+    if (rawList != null) {
+      rawList.forEach((bar) {
+        list.add(BarInfo.fromBackendWithoutMenu(bar["name"], bar["description"],
+            bar["address"], bar["rating"], bar["contact"], bar["id"]));
+      });
+    }
+    return list[0];
+  }
+
+  Future<List<BarInfo>> getAllBarsWithDrinksIds(List<DrinkData> drinks) async {
+    var dbClient = await db;
+    String requestedIds = '';
+    List<int> idsOfBarsAlreadyLoaded = [];
+    List<BarInfo> resultingBars = [];
+    for (var drink in drinks) {
+      requestedIds += (drink.id.toString() + ',');
+    }
+    requestedIds = requestedIds.substring(0, requestedIds.length - 1);
+    List<Map> rawList = await dbClient!.rawQuery(
+        'SELECT * FROM cocktails_bars WHERE cocktails_id IN (' +
+            requestedIds +
+            ')');
+    for (var element in rawList) {
+      final bar_id = element["bars_id"];
+      if (!idsOfBarsAlreadyLoaded.contains(bar_id)) {
+        BarInfo currentBar = await getBarById(bar_id);
+        resultingBars.add(currentBar);
+        idsOfBarsAlreadyLoaded.add(bar_id);
+      }
+    }
+    return resultingBars;
+  }
+
   Future<List<VaultIngredientData>> getAllIngredients() async {
     var dbClient = await db;
     List<VaultIngredientData> list = [];
