@@ -1,14 +1,11 @@
-import 'package:cocktail_recommender/diy/vault/vault_ingredient_list.dart';
 import 'package:cocktail_recommender/utils/vault_ingredient_data.dart';
 import 'package:cocktail_recommender/utils/database_helper.dart';
-import 'package:cocktail_recommender/utils/vault_ingredient_data.dart';
 import 'package:flutter/material.dart';
 import 'package:cocktail_recommender/utils/recipie_data.dart';
 import 'package:cocktail_recommender/utils/drink_data.dart';
 import 'package:provider/provider.dart';
 import 'package:cocktail_recommender/diy/main/diy_main.dart';
 import 'package:cocktail_recommender/utils/global_vars.dart' as global;
-import 'package:cocktail_recommender/utils/database_helper.dart';
 
 class RecipieList extends StatefulWidget {
   final List<DrinkData> drinkList;
@@ -25,7 +22,6 @@ class RecipieList extends StatefulWidget {
 class _RecipieListState extends State<RecipieList> {
   // static List<RecipieData> _dataList = <RecipieData>[];
   List<DrinkData> _dataList = <DrinkData>[];
-  List<VaultIngredientData> vaultIngredients = [];
 
   List<String> listOfVaultItems = [];
 
@@ -43,6 +39,7 @@ class _RecipieListState extends State<RecipieList> {
     return listOfVaultItems.isNotEmpty ? listOfVaultItems[0] : "no data";
   }
 
+  ///deprecated testData function
   void _getDataListFromDB() {
     for (int i = 0; i < 30; i++) {
       String name = 'Sample Drink ' + i.toString();
@@ -86,14 +83,9 @@ class _RecipieListState extends State<RecipieList> {
   List<Widget> _createList(List<DrinkData> dataList) {
     List<Widget> outputList = [];
     for (int i = 0; i < dataList.length; i++) {
-      outputList.add(RecipieListItem(data: dataList[i], vaultIngredients: vaultIngredients,));
+      outputList.add(RecipieListItem(data: dataList[i], vaultIngredients: listOfVaultItems,));
     }
     return outputList;
-  }
-
-  void getVaultIngredients() {
-    var dbHelper = DBHelper();
-    dbHelper.getAllIngredients().then((ingredients) => vaultIngredients = ingredients);
   }
 
   @override
@@ -103,8 +95,6 @@ class _RecipieListState extends State<RecipieList> {
     } else {
       _dataList = widget.drinkList;
     }
-    getVaultIngredients();
-    //v idk
     _fetchVaultDataList();
     super.initState();
   }
@@ -154,7 +144,7 @@ class _RecipieListState extends State<RecipieList> {
 
 class RecipieListItem extends StatelessWidget {
   final DrinkData data;
-  List<VaultIngredientData> vaultIngredients;
+  List<String> vaultIngredients;
 
   RecipieListItem({
     Key? key,
@@ -192,7 +182,7 @@ class RecipieListItem extends StatelessWidget {
         ),
       ),
       color: data.recipie.ingredients.any((rIngredient) =>
-        vaultIngredients.any((vIngredient) => vIngredient.name == rIngredient.name)
+        vaultIngredients.any((vIngredient) => vIngredient == rIngredient.name)
       ) ? Colors.white: Colors.pink[200],
     );
   }

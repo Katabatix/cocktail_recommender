@@ -4,74 +4,82 @@
             "id":1,
             "name": "Scotch on the Rocks",
             "description": "Scotch whisky served with ice: a classic",
-            "ingredients": "Scotch whisky(2 oz",
-            "recipe": "Fill a rocks glass to the top with ice cubes|Pour in 2 oz of Scotch whisky"
+            "ingredients": "Scotch Whisky(2 oz",
+            "recipe": "Fill a rocks glass to the top with ice cubes.|Pour in 2 oz of Scotch whisky."
         },
         {
             "id":2,
             "name": "Cosmopolitan",
             "description": "Lipsmackingly sweet and sour, the Cosmopolitan cocktail of vodka, cranberry, orange liqueur and citrus is a good-time in a glass.",
-            "ingredients": "Vodka(2 oz|Cointreau(1 oz|Cranberry Juice(1/2 oz|Fresh Sour Mix(1/2 oz|Lemon Twist (1",
-            "recipe": "Shake ingredients in a cocktail shaker with ice and strain into a cocktail glass.|To make the garnish: hold a 3cm round piece of orange zest about 10cm above your cosmo and very carefully wave it over a lit match or lighter flame. Bend the outer edge of the zest in towards the flame so that the orange oils are released, then drop the zest into your drink."
+            "ingredients": "Vodka(2 oz|Orange Liqueur(1 oz|Cranberry Juice(1/2 oz|Fresh Sour Mix(1/2 oz|Lemon Twist (1",
+            "recipe": "Shake ingredients in a cocktail shaker with ice and strain into a cocktail glass|To make the garnish: hold a 3cm round piece of orange zest about 10cm above your cosmo and very carefully wave it over a lit match or lighter flame. Bend the outer edge of the zest in towards the flame so that the orange oils are released, then drop the zest into your drink."
         },
         {
             "id":3,
-            "name": "Drink 3",
-            "description": "This one is really nice ajndsajoj wbfoqw joqw",
-            "ingredients": "Whiskey(30ml|Lemon(2 wedges|Honey(1tbsp|Soda(150ml",
-            "recipe": "Do step 1| do step 2| do step 3| do step 4"
+            "name": "Margarita",
+            "description": "A fan-favorite for its simplicity - tequila, orange liqueur for sweetness, and tart lime juice.",
+            "ingredients": "Blanco Tequila(2 oz|Orange Liqueur(6 fl oz|Lime Juice(1 oz|Agave Syrup(1/2 oz|Lime Wheel (Garnish|Kosher Salt (Garnish",
+            "recipe": "Add tequila, orange liqueur, lime juice and agave syrup to a cocktail shaker filled with ice|Shake until well-chilled.|Strain into a rocks glass over fresh ice.|Garnish with a lime wheel and kosher salt rim (optional)."
         },
         {
             "id":4,
-            "name": "Drink 4",
-            "description": "This one is really nice ajndsajoj wbfoqw joqw",
-            "ingredients": "Whiskey(30ml|Lemon(2 wedges|Honey(1tbsp|Soda(150ml",
-            "recipe": "Do step 1| do step 2| do step 3| do step 4"
+            "name": "Piña Colada",
+            "description": "If you like Piña coladas and getting caught in the rain ...",
+            "ingredients": "Pineapple Juice(120ml|White Rum(60 ml|Coconut Cream(60 ml|Pineapple(Garnish",
+            "recipe": "Pulse all the ingredients along with a handful of ice in a blender until smooth.|Pour into a tall glass and garnish as you like."
         },
         {
             "id":5,
-            "name": "Drink 5 hahaho",
-            "description": "This one is really nice ajndsajoj wbfoqw joqw",
-            "ingredients": "Whiskey(30ml|Lemon(2 wedges|Honey(1tbsp|Soda(150ml",
-            "recipe": "Do step 1| do step 2| do step 3| do step 4"
+            "name": "Mojito",
+            "description": "The national drink of Cuba!",
+            "ingredients": "Lime Juice(1 lime|Granulated Sugar(1 tsp|Mint Leaves(1-3|White Rum(60ml|Soda Water(",
+            "recipe": "Crush the mint leaves.|Muddle the lime juice, sugar, and mint leaves in a small jug.|Pour into a tall glass and add a handful of ice.|Pour over the rum, stirring with a long-handled spoon.|Top up with soda water, garnish with mint and serve."
         }    
     ],
     "bars":[
         {
             "id":0,
-            "name": "Bar 1",
-            "description": "This one is really nice ajndsajoj wbfoqw joqw",
-            "address": "3213 asmfi amsd dq mqwm diqwdp qmdiqw qwdqdm qp",
+            "name": "COA",
+            "description": "Mexican Inspired Craft Cocktail Bar",
+            "address": "Shop A, LG/F Wah Shin House, 6-10 Shin Hing Street, Central, Hong Kong, Central",
             "rating": 5,
-            "location": "abceofmqpefmq",
-            "contact": "1212421412",
+            "location": "Shop A, LG/F Wah Shin House, 6-10 Shin Hing Street, Central, Hong Kong, Central",
+            "contact": "(+852) 2813 5787",
             "cocktails": [
                 {
                     "id":1,
-                    "price":"50 HKD"
+                    "price":"80 HKD"
                 },
                 {
                     "id":2,
-                    "price":"75 HKD"
+                    "price":"100 HKD"
+                },
+                {
+                    "id":3,
+                    "price":"115 HKD"
                 }
             ]
         },
         {
             "id":1,
-            "name": "Bar 2",
-            "description": "This one is really nice ajndsajoj wbfoqw joqw",
+            "name": "Stockton",
+            "description": "A secret whisky bar on Wyndham Street in Hong Kong",
             "rating": 4,
-            "address": "3213 asmfi amsd dq mqwm diqwdp qmdiqw qwdqdm qp",
-            "location": "abceofmqpefmq",
-            "contact": "1212421412",
+            "address": "32 Wyndham St, Central",
+            "location": "32 Wyndham St, Central",
+            "contact": "(+852) 2724 3828",
             "cocktails": [
                 {
-                    "id":3,
-                    "price":"50 HKD"
+                    "id":1,
+                    "price":"80 HKD"
                 },
                 {
                     "id":4,
-                    "price":"75 HKD"
+                    "price":"100 HKD"
+                },
+                {
+                    "id":5,
+                    "price":"120 HKD"
                 }
             ]
         }
@@ -79,21 +87,99 @@
     "vault_ingredients":[
         {
             "id":1,
-            "name":"Scotch whisky",
+            "name":"Scotch Whisky",
             "isThere": false,
             "iconUrl":"https://cdn.britannica.com/71/192771-050-CEF9CEC3/Glass-scotch-whiskey-ice.jpg"
         },
         {
             "id":2,
-            "name":"vodka",
+            "name":"Vodka",
             "isThere": false,
-            "iconUrl":"https://cdn.britannica.com/71/192771-050-CEF9CEC3/Glass-scotch-whiskey-ice.jpg"
+            "iconUrl":"https://www.absolut.com/globalassets/images/products/absolut-vodka/atlas/atlas_absolut-vodka_1000ml_4x.jpg"
         },
         {
             "id":3,
-            "name": "gin",
+            "name": "Orange Liqueur",
             "isThere": false,
-            "iconUrl":"https://cdn.britannica.com/71/192771-050-CEF9CEC3/Glass-scotch-whiskey-ice.jpg"
+            "iconUrl":"https://images-svetnapojov-cdn.rshop.sk/default/products/40fb40decf02dc19e59862fb542c81dc.jpg"
+        },
+        {
+            "id":4,
+            "name": "Blanco Tequila",
+            "isThere": false,
+            "iconUrl":"https://cdn.shoplightspeed.com/shops/607989/files/9063823/casamigos-casamigos-blanco-tequila.jpg"
+        },
+        {
+            "id":5,
+            "name": "White Rum",
+            "isThere": false,
+            "iconUrl":"https://cdn.webshopapp.com/shops/300732/files/335669349/1500x4000x3/bacardi-bacardi-white-rum-1l.jpg"
+        },
+        {
+            "id":6,
+            "name": "Lemon Twist",
+            "isThere": false,
+            "iconUrl":"https://previews.123rf.com/images/domnicky/domnicky1808/domnicky180800020/105672310-twist-de-lim%C3%B3n-sobre-un-fondo-blanco-c%C3%A1scara-de-lim%C3%B3n-.jpg"
+        },
+        {
+            "id":7,
+            "name": "Cranberry Juice",
+            "isThere": false,
+            "iconUrl":"https://i0.wp.com/cdn-prod.medicalnewstoday.com/content/images/articles/322/322731/cranberry-juice-in-a-glass.jpg?w=1575"
+        },
+        {
+            "id":8,
+            "name": "Lime Juice",
+            "isThere": false,
+            "iconUrl":"https://cdn.healthyrecipes101.com/wp-content/uploads/2021/04/how-long-does-freh-lime-juice-last.jpg"
+        },
+        {
+            "id":9,
+            "name": "Agave Syrup",
+            "isThere": false,
+            "iconUrl":"https://i0.wp.com/post.healthline.com/wp-content/uploads/2020/04/agave-syrup-1296x728-feature.jpg?h=1528"
+        },
+        {
+            "id":10,
+            "name": "Kosher Salt",
+            "isThere": false,
+            "iconUrl":"https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F43%2F2021%2F01%2F08%2FGettyImages-1291435922-2000.jpg"
+        },
+        {
+            "id":11,
+            "name": "Pineapple Juice",
+            "isThere": false,
+            "iconUrl":"https://cdn-ajoff.nitrocdn.com/MfBtiKrHPKfgKNRtEhpzkYnprjWplyNI/assets/static/optimized/rev-cad1956/wp-content/uploads/2021/06/what-is-pineapple-juice.jpg"
+        },
+        {
+            "id":12,
+            "name": "Fresh Sour Mix",
+            "isThere": false,
+            "iconUrl":"https://www.umami.site/wp-content/uploads/2015/12/sour-mix-recipe.jpg"
+        },
+        {
+            "id":13,
+            "name": "Coconut Cream",
+            "isThere": false,
+            "iconUrl":"https://thecoconutmama.com/wp-content/uploads/2021/02/coconut-cream-blog.jpg"
+        },
+        {
+            "id":14,
+            "name": "Pineapple",
+            "isThere": false,
+            "iconUrl":"https://images.unsplash.com/photo-1589820296156-2454bb8a6ad1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGluZWFwcGxlfGVufDB8fDB8fA%3D%3D&w=1000&q=80"
+        },
+        {
+            "id":15,
+            "name": "Granulated Sugar",
+            "isThere": false,
+            "iconUrl":"https://media.istockphoto.com/photos/white-sugar-in-wood-spoon-on-white-background-picture-id905404410?k=20&m=905404410&s=612x612&w=0&h=eTR075AKpg2VBWT4w_UpmHZipxw8Es6QaO_9bhd6QwM="
+        },
+        {
+            "id":13,
+            "name": "Mint Leaves",
+            "isThere": false,
+            "iconUrl":"https://media.istockphoto.com/photos/fresh-leaf-mint-green-herbs-ingredient-picture-id1131562141?k=20&m=1131562141&s=612x612&w=0&h=qyQ0PHAqEF6crk4_72WVQVcgaYkOC6oiJ7xODQ64D0k="
         }
     ]
 }
