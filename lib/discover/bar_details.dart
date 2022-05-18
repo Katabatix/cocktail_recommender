@@ -33,7 +33,7 @@ class BarDetails extends StatelessWidget {
                   padding: const EdgeInsets.all(10.0),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
-                    child: Image.network("http://10.0.2.2:3000/images/high%20quality/bars/${data.id+1}.jpg"),
+                    child: Image.network("http://10.0.2.2:3000/images/high%20quality/bars/${data.id+1}.jpg", height: 250,),
                   ),
                 ),
                 const SizedBox(
@@ -49,7 +49,7 @@ class BarDetails extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  height: 20.0,
+                  height: 10.0,
                 ),
                 Text(
                   data.location,
@@ -64,19 +64,19 @@ class BarDetails extends StatelessWidget {
                 Row(
                   children: [
                     ReviewIcons(data.rating),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-                      child: TextButton(
-                          onPressed: () {}, //Add routing to ReviewDetails
-                          child: const Text(
-                              'See Reviews',
-                              style: TextStyle(
-                                color: Colors.black, //THEME LATER
-                                fontSize: 20,
-                              )
-                          )
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+                    //   child: TextButton(
+                    //       onPressed: () {}, //Add routing to ReviewDetails
+                    //       child: const Text(
+                    //           'See Reviews',
+                    //           style: TextStyle(
+                    //             color: Colors.black, //THEME LATER
+                    //             fontSize: 20,
+                    //           )
+                    //       )
+                    //   ),
+                    // ),
                   ],
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 ),
