@@ -35,11 +35,6 @@ class _VaultIngredientListState extends State<VaultIngredientList> {
     _fetchDataList();
   }
 
-  // Future<List<VaultIngredientData>> _fetchDataList() async {
-  //   var dbHelper = DBHelper();
-  //   return dbHelper.getAllIngredients();
-  // }
-
   void _fetchDataList() async {
     var dbHelper = DBHelper();
     Future<List<VaultIngredientData>> futureList = dbHelper.getAllIngredients();
@@ -97,6 +92,7 @@ class _VaultIngredientListState extends State<VaultIngredientList> {
 
   @override
   Widget build(BuildContext context) {
+    var dbHelper = DBHelper();
     if (!initialized) {
       _getDataListFromDB();
       initialized = true;
@@ -104,9 +100,14 @@ class _VaultIngredientListState extends State<VaultIngredientList> {
     _printDataList();
     var query = context.watch<VaultIngredientQuery>();
     return Expanded(
-      child: ListView(
-        padding: const EdgeInsets.all(8),
-        children: _filterList(query: query.query),
+      child: FutureBuilder(
+        future: dbHelper.getAllIngredients(),
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          return ListView(
+            padding: const EdgeInsets.all(8),
+            children: _filterList(query: query.query),
+          );
+        },
       ),
     );
   }
