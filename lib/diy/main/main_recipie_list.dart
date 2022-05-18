@@ -1,4 +1,3 @@
-import 'package:cocktail_recommender/diy/recipie/ingredient_list.dart';
 import 'package:cocktail_recommender/utils/database_helper.dart';
 import 'package:cocktail_recommender/utils/vault_ingredient_data.dart';
 import 'package:flutter/material.dart';
@@ -134,7 +133,7 @@ class RecipieListItem extends StatelessWidget {
       ),
       color: data.recipie.ingredients.any((rIngredient) =>
         vaultIngredients.any((vIngredient) => vIngredient.name == rIngredient.name)
-      ) == true ? Colors.white: Colors.pink[200],
+      ) ? Colors.white: Colors.pink[200],
     );
   }
 }
