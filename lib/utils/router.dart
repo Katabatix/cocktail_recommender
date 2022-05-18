@@ -25,7 +25,12 @@ class MainRouter {
           for (DrinkData drink in args as List<DrinkData>) {
             debugPrint('[Router] Drink name: ${drink.name}');
           }
-          return MaterialPageRoute(builder: (_) => DiyPage(drinkList: args));
+          return MaterialPageRoute(
+            builder: (_) => DiyPage(
+              drinkList: args,
+              updateBottomNavBar: true,
+            ),
+          );
         } else {
           debugPrint('[Router] Routing to: /diy without arguments');
           return MaterialPageRoute(
