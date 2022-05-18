@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io' as io;
 import 'package:cocktail_recommender/utils/drink_data.dart';
-import 'package:cocktail_recommender/utils/recipie_data.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
@@ -10,7 +9,6 @@ import 'dart:convert';
 import 'package:cocktail_recommender/discover/bar_details.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import '/discover/menu_details.dart' as menu;
-// import 'package:flutter/src/widgets/platform_menu_bar.dart' hide MenuItem;
 import 'package:cocktail_recommender/utils/vault_ingredient_data.dart';
 
 //...
@@ -50,17 +48,16 @@ class DBHelper {
     await db.execute(
         "CREATE TABLE IF NOT EXISTS cocktails_bars ( cocktails_id INTEGER NOT NULL, bars_id INTEGER, price STRING NOT NULL, FOREIGN KEY(cocktails_id) REFERENCES bars(id), FOREIGN KEY(bars_id) REFERENCES cocktails(id));");
     await db.execute(
-        "CREATE TABLE IF NOT EXISTS vault_ingredients ( id INTEGER NOT NULL, name STRING NOT NULL, isThere BOOLEAN NOT NULL, iconUrl STRING NOT NULL);");
+        "CREATE TABLE IF NOT EXISTS vault_ingredients ( id INTEGER NOT NULL, name STRING NOT NULL, isThere INT NOT NULL, iconUrl STRING NOT NULL);");
 
     await dmap["vault_ingredients"].forEach((ingredient) async {
       await db.transaction((txn) async {
         final int id = ingredient["id"];
         final String name = ingredient["name"];
-        final bool isThere = ingredient["isThere"];
         final String iconUrl = ingredient["iconUrl"];
         print("inserting" + name);
         return await txn.rawInsert(
-            "INSERT INTO vault_ingredients(id,name,isThere,iconUrl) VALUES ('$id','$name','$isThere','$iconUrl')");
+            "INSERT INTO vault_ingredients(id,name,isThere,iconUrl) VALUES ('$id','$name',0,'$iconUrl')");
       });
     });
 
@@ -130,7 +127,7 @@ class DBHelper {
     return list;
   }
 
-  Future<menu.MenuInfo> getMenuItemsWithBarId(int _barID) async {
+  Future<List<menu.MenuItem>> getMenuItemsWithBarId(int _barID) async {
     var dbClient = await db;
     List<Map> rawList = await dbClient!
         .rawQuery('SELECT * FROM cocktails_bars WHERE bars_id = $_barID ');
@@ -148,10 +145,8 @@ class DBHelper {
           listPopulated = true;
         }
       }
-      ;
     }
-    final temp = menu.MenuInfo(cocktailsMenu);
-    return temp;
+    return cocktailsMenu;
   }
 
   Future<DrinkData> getCocktailById(int _cocktailID) async {
@@ -177,15 +172,18 @@ class DBHelper {
     List<VaultIngredientData> list = [];
     List<Map> rawList =
         await dbClient!.rawQuery("SELECT * FROM vault_ingredients");
+    print(rawList);
     if (rawList != null) {
       rawList.forEach((ing) {
         list.add(VaultIngredientData(
             id: ing["id"],
             name: ing["name"],
-            status: ing["status"],
+            status: ing["isThere"] == 0 ? false : true,
             iconUrl: ing["iconUrl"]));
       });
     }
+    print("LIST IS");
+    print(list);
     return list;
   }
 
@@ -196,7 +194,7 @@ class DBHelper {
       await dbClient.transaction((txn) async {
         final int id = element.id;
         final String name = element.name;
-        final bool isThere = element.status;
+        final int isThere = element.status ? 1 : 0;
         final String iconUrl = element.iconUrl;
         print("inserting" + name);
         return await txn.rawInsert(

@@ -3,7 +3,6 @@ import 'package:cocktail_recommender/diy/main/main_recipie_list.dart';
 import 'package:cocktail_recommender/diy/main/main_search_field.dart';
 import 'package:provider/provider.dart';
 import 'package:cocktail_recommender/main.dart';
-import 'package:cocktail_recommender/utils/global_vars.dart' as global;
 import 'package:cocktail_recommender/utils/drink_data.dart';
 
 class DiyPage extends StatelessWidget {

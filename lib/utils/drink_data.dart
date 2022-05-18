@@ -1,6 +1,5 @@
 import 'package:cocktail_recommender/utils/recipie_data.dart';
 import 'recipie_data.dart';
-import 'package:flutter/material.dart';
 
 class DrinkData {
   late String name;

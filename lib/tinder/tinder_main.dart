@@ -1,9 +1,7 @@
 import 'package:swipe_cards/swipe_cards.dart';
 import 'package:flutter/material.dart';
 import 'package:cocktail_recommender/utils/drink_data.dart';
-import 'package:cocktail_recommender/utils/recipie_data.dart';
 import 'package:cocktail_recommender/utils/global_vars.dart' as global;
-import 'package:cocktail_recommender/utils/database_helper.dart';
 
 class TinderPage extends StatefulWidget {
   final List<String> tagList;
@@ -20,6 +18,7 @@ class _TinderPageState extends State<TinderPage> {
   List<DrinkData> _preferredDrinkDataList = <DrinkData>[];
   List<SwipeItem> _swipeItems = <SwipeItem>[];
   late MatchEngine _matchEngine;
+
   @override
   void initState() {
     debugPrint('[Tinder] initState');
@@ -123,7 +122,12 @@ class _TinderPageState extends State<TinderPage> {
               child: const Text('DIY'),
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                global.navigatorKey.currentState?.pushReplacementNamed(
+                  '/discover',
+                  arguments: _preferredDrinkDataList,
+                );
+              },
               child: const Text('BUY'),
             ),
           ]),
