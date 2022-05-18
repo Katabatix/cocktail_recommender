@@ -2,13 +2,40 @@ import 'package:cocktail_recommender/discover/menu_details.dart';
 import 'package:flutter/material.dart';
 
 class BarInfo {
-  String name;
-  String location;
-  int rating;
-  int id;
-  List<MenuItem> menu;
+  late String name;
+  late String description;
+  late String location;
+  late int rating;
+  late int id;
+  late String contact;
+  late List<MenuItem> menu;
 
-  BarInfo(this.name, this.location, this.rating, this.id, this.menu);
+  BarInfo(this.name, this.description, this.location, this.rating, this.id,
+      this.contact, this.menu);
+
+  BarInfo.fromBackendWithoutMenu(
+      _name, _description, _location, _rating, _contact, _id) {
+    name = _name;
+    description = _description;
+    location = _location;
+    rating = _rating;
+    id = _id;
+    contact = _contact;
+  }
+
+  BarInfo.withMenu(_name, _description, _location, _rating, _id, _menuItems) {
+    name = _name;
+    description = _description;
+    location = _location;
+    rating = _rating;
+    id = _id;
+  }
+
+  String getName() {
+    return name;
+  }
+
+  void populateMenuItems() async {}
 }
 
 class BarDetails extends StatelessWidget {
@@ -84,7 +111,7 @@ class BarDetails extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(10),
-              child:TextButton(
+              child: TextButton(
                 onPressed: () {
                   Navigator.pushNamed(
                       context,
@@ -92,7 +119,8 @@ class BarDetails extends StatelessWidget {
                       arguments: data.menu,
                   );
                 },
-                child: const Text('See Menu',
+                child: const Text(
+                  'See Menu',
                   style: TextStyle(
                     color: Colors.black, //THEME LATER
                     fontSize: 20.0,
@@ -121,10 +149,10 @@ class ReviewIcons extends StatelessWidget {
     children.add(const Padding(
       padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
     ));
-    for(int i = 0; i < 5; i++){
+    for (int i = 0; i < 5; i++) {
       children.add(Icon(
         Icons.star,
-        color: (rating > i)? Colors.yellow: Colors.grey[300],
+        color: (rating > i) ? Colors.yellow : Colors.grey[300],
         size: 24.0,
       ));
     }

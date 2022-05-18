@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:cocktail_recommender/utils/router.dart';
 import 'package:cocktail_recommender/utils/theme.dart';
+import 'package:cocktail_recommender/utils/drink_data.dart';
 import 'package:cocktail_recommender/utils/global_vars.dart' as global;
 import 'package:provider/provider.dart';
-import 'DatabaseHelper.dart';
+import 'utils/database_helper.dart';
 
 void main() {
   runApp(const CocktailRecommender());
@@ -64,8 +65,16 @@ class _MainPageState extends State<MainPage> {
   // }
 
   void addElementToDatabase() async {}
+
+  void _getDataListFromDB() async {
+    var dbHelper = DBHelper();
+    List<DrinkData> drinkListNow = await dbHelper.getAllDrinks();
+    global.allDrinkList = drinkListNow;
+  }
+
   @override
   Widget build(BuildContext context) {
+    _getDataListFromDB();
     var currentIndex = context.watch<NavBarIndex>();
     return Scaffold(
       body: Navigator(

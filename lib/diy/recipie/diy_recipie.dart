@@ -33,16 +33,19 @@ class DiyRecipieTop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.amber[100],
+    return SizedBox(
+      height: MediaQuery.of(context).size.width / 2.8,
       child: Padding(
-        padding: const EdgeInsets.only(top: 5, bottom: 5),
+        padding: const EdgeInsets.all(5),
         child: Row(
           children: [
             IngredientList(ingredientList: data.recipie.ingredients),
-            Image.network(
-              data.imageUrl,
-              width: MediaQuery.of(context).size.width / 3,
+            AspectRatio(
+              aspectRatio: 1,
+              child: Image.network(
+                data.lowQualityImageUrl,
+                fit: BoxFit.cover,
+              ),
             )
           ],
         ),

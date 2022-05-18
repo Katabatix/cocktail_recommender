@@ -1,6 +1,6 @@
 import 'package:cocktail_recommender/discover/bar_details.dart';
 import 'package:cocktail_recommender/discover/menu_details.dart';
-import 'package:cocktail_recommender/DatabaseHelper.dart';
+import 'package:cocktail_recommender/utils/database_helper.dart';
 import 'package:cocktail_recommender/utils/drink_data.dart';
 import 'package:cocktail_recommender/utils/recipie_data.dart';
 import 'package:flutter/material.dart';
@@ -21,8 +21,8 @@ class _BarScrollerState extends State<BarScroller> {
   List<BarInfo> _createBarItems() {
     List<BarInfo> temp = [];
     for (var i = 0; i < 4; i++) {
-      temp.add(BarInfo("Name$i", "location$i", i % 6, i,
-          [MenuItem(DrinkData(name: "name", id: 0, imageUrl: "imgUrl", recipie: RecipieData(), description: "desc", tags: ["tag1"]), "100 HKD")]));
+      temp.add(BarInfo("Name$i", "desc", "location$i", i % 6, i, "contact",
+          [MenuItem(DrinkData(name: "name", id: 0, highQualityImageUrl: "imgUrl", lowQualityImageUrl: "lowQImgUrl", recipie: RecipieData(), description: "desc", tags: ["tag1"]), "100 HKD")]));
     }
     return temp;
   }

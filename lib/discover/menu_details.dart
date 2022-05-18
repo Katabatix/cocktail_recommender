@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cocktail_recommender/utils/drink_data.dart';
 
 import '../utils/drink_data.dart';
 
@@ -19,7 +20,10 @@ class MenuDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Menu', style: TextStyle(color: Colors.white),),
+        title: const Text(
+          'Menu',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(8.0),
