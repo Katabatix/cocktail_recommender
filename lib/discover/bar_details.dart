@@ -1,6 +1,6 @@
 import 'package:cocktail_recommender/discover/menu_details.dart' as m;
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+//import 'package:url_launcher/url_launcher.dart';
 
 class BarInfo {
   late String name;
