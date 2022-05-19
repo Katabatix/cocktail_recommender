@@ -19,7 +19,7 @@ class _DiscoverMainState extends State<DiscoverMain> {
       appBar: AppBar(
         title: const Text('Cocktail Recommender - Discover', style: TextStyle(color: Colors.white),),
       ),
-      body: BarScroller(tagList: widget.tagList),
+      body: BarScroller(),
     );
   }
 }
