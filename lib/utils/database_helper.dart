@@ -10,6 +10,7 @@ import 'package:cocktail_recommender/discover/bar_details.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import '/discover/menu_details.dart' as menu;
 import 'package:cocktail_recommender/utils/vault_ingredient_data.dart';
+import 'dart:math';
 
 //...
 class DBHelper {
@@ -42,7 +43,7 @@ class DBHelper {
 
     // When creating the db, create the table
     await db.execute(
-        "CREATE TABLE IF NOT EXISTS cocktails (id INTEGER PRIMARY KEY, name TEXT NOT NULL, description TEXT NOT NULL, ingredients TEXT NOT NULL, recipe TEXT NOT NULL);");
+        "CREATE TABLE IF NOT EXISTS cocktails (id INTEGER PRIMARY KEY, name TEXT NOT NULL, description TEXT NOT NULL, ingredients TEXT NOT NULL, recipe TEXT NOT NULL, tags TEXT NOT NULL);");
     await db.execute(
         "CREATE TABLE IF NOT EXISTS  bars (id INTEGER PRIMARY KEY, name TEXT NOT NULL, description TEXT NOT NULL, contact TEXT NOT NULL, address TEXT NOT NULL, rating INTEGER NOT NULL);");
     await db.execute(
@@ -68,8 +69,12 @@ class DBHelper {
         final String descripton = cocktail["description"];
         final String ingredients = cocktail["ingredients"];
         final String recipe = cocktail["recipe"];
+        String tags = '';
+        for (var tag in cocktail['tags']) {
+          tags += tag;
+        }
         return await txn.rawInsert(
-            "INSERT INTO cocktails(id,name,description,ingredients,recipe) VALUES ('$id','$name','$descripton','$ingredients','$recipe')");
+            "INSERT INTO cocktails(id,name,description,ingredients,recipe,tags) VALUES ('$id','$name','$descripton','$ingredients','$recipe','$tags')");
       });
     });
     await dmap["bars"].forEach((bar) async {
@@ -103,12 +108,12 @@ class DBHelper {
     if (rawList != null) {
       rawList.forEach((cocktail) {
         list.add(DrinkData.fromBackend(
-          cocktail["name"],
-          cocktail["description"],
-          cocktail["ingredients"],
-          cocktail["recipe"],
-          cocktail["id"],
-        ));
+            cocktail["name"],
+            cocktail["description"],
+            cocktail["ingredients"],
+            cocktail["recipe"],
+            cocktail["id"],
+            cocktail["tags"]));
       });
     }
     return list;
@@ -125,6 +130,39 @@ class DBHelper {
       });
     }
     return list;
+  }
+
+  Future<DrinkData> getCocktailById(int _cocktailID) async {
+    var dbClient = await db;
+    List<DrinkData> list = [];
+    List<Map> rawList = await dbClient!
+        .rawQuery("SELECT * FROM cocktails WHERE id = $_cocktailID");
+    if (rawList != null) {
+      rawList.forEach((cocktail) {
+        list.add(DrinkData.fromBackend(
+            cocktail["name"],
+            cocktail["description"],
+            cocktail["ingredients"],
+            cocktail["recipe"],
+            cocktail["id"],
+            cocktail["tags"]));
+      });
+    }
+    return list[0];
+  }
+
+  Future<BarInfo> getBarById(int _barID) async {
+    var dbClient = await db;
+    List<BarInfo> list = [];
+    List<Map> rawList =
+        await dbClient!.rawQuery("SELECT * FROM bars WHERE id = $_barID");
+    if (rawList != null) {
+      rawList.forEach((bar) {
+        list.add(BarInfo.fromBackendWithoutMenu(bar["name"], bar["description"],
+            bar["address"], bar["rating"], bar["contact"], bar["id"]));
+      });
+    }
+    return list[0];
   }
 
   Future<List<menu.MenuItem>> getMenuItemsWithBarId(int _barID) async {
@@ -149,22 +187,62 @@ class DBHelper {
     return cocktailsMenu;
   }
 
-  Future<DrinkData> getCocktailById(int _cocktailID) async {
-    var dbClient = await db;
-    List<DrinkData> list = [];
-    List<Map> rawList = await dbClient!
-        .rawQuery("SELECT * FROM cocktails WHERE id = $_cocktailID");
-    if (rawList != null) {
-      rawList.forEach((cocktail) {
-        list.add(DrinkData.fromBackend(
-            cocktail["name"],
-            cocktail["description"],
-            cocktail["ingredients"],
-            cocktail["recipe"],
-            cocktail["id"]));
-      });
+  Future<List<DrinkData>> getCocktailWithTags(List<String> wantedTags) async {
+    print("INSIDE");
+    print(wantedTags);
+    int maxDrinks = 10;
+    List<DrinkData> allDrinks = await getAllDrinks();
+    List<DrinkData> recommendedDrinks = [];
+    List<DrinkData> finalRecommendedDrinks = [];
+    List<String> uniqueWantedTags = wantedTags.toSet().toList();
+    for (var drink in allDrinks) {
+      for (var tag in uniqueWantedTags) {
+        if (drink.tags.contains(tag)) {
+          recommendedDrinks.add(drink);
+          break;
+        }
+      }
     }
-    return list[0];
+    if (recommendedDrinks.length < 10) {
+      finalRecommendedDrinks = recommendedDrinks;
+    } else {
+      var rand = Random();
+      int count = 0;
+      List<int> addedIndices = [];
+      while (count < 10) {
+        int randomIndex = rand.nextInt(recommendedDrinks.length);
+        if (!addedIndices.contains(randomIndex)) {
+          finalRecommendedDrinks.add(recommendedDrinks[randomIndex]);
+          addedIndices.add(randomIndex);
+          ++count;
+        }
+      }
+    }
+    return finalRecommendedDrinks;
+  }
+
+  Future<List<BarInfo>> getAllBarsWithDrinksIds(List<DrinkData> drinks) async {
+    var dbClient = await db;
+    String requestedIds = '';
+    List<int> idsOfBarsAlreadyLoaded = [];
+    List<BarInfo> resultingBars = [];
+    for (var drink in drinks) {
+      requestedIds += (drink.id.toString() + ',');
+    }
+    requestedIds = requestedIds.substring(0, requestedIds.length - 1);
+    List<Map> rawList = await dbClient!.rawQuery(
+        'SELECT * FROM cocktails_bars WHERE cocktails_id IN (' +
+            requestedIds +
+            ')');
+    for (var element in rawList) {
+      final bar_id = element["bars_id"];
+      if (!idsOfBarsAlreadyLoaded.contains(bar_id)) {
+        BarInfo currentBar = await getBarById(bar_id);
+        resultingBars.add(currentBar);
+        idsOfBarsAlreadyLoaded.add(bar_id);
+      }
+    }
+    return resultingBars;
   }
 
   Future<List<VaultIngredientData>> getAllIngredients() async {

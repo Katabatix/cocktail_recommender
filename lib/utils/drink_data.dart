@@ -9,7 +9,7 @@ class DrinkData {
   late RecipieData recipie;
   late String description;
   late String comibnedFieldsForSearch;
-  late List<String> tags;
+  late String tags;
   late int score;
 
   @override
@@ -18,7 +18,7 @@ class DrinkData {
   }
 
   DrinkData.fromBackend(
-      _name, _description, _ingredientsString, _recipeSteps, _id) {
+      _name, _description, _ingredientsString, _recipeSteps, _id, _tags) {
     comibnedFieldsForSearch =
         _name + _description + _ingredientsString + _recipeSteps;
     name = _name;
@@ -32,7 +32,7 @@ class DrinkData {
     // "http://10.0.2.2:3000/images/low%20quality/cocktails/1.jpg";
     List<String> unformattedIngredients = _ingredientsString.split("|");
     recipie = RecipieDatafromLongStrings(unformattedIngredients, _recipeSteps);
-    tags = ["tag1", "tag2"];
+    tags = _tags;
     score = 0;
   }
 

@@ -1,7 +1,7 @@
-import 'package:cocktail_recommender/discover/menu_details.dart';
+import 'package:cocktail_recommender/discover/bar_details.dart';
 import 'package:cocktail_recommender/recommender/recommender_questionnaire.dart';
 import 'package:cocktail_recommender/utils/drink_data.dart';
-import 'package:cocktail_recommender/utils/vault_ingredient_data.dart';
+import 'package:cocktail_recommender/utils/recipie_data.dart';
 import 'package:flutter/material.dart';
 import 'package:cocktail_recommender/utils/database_helper.dart';
 
@@ -9,7 +9,8 @@ class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
   Future<List<String>> fetchTestingFromDatabase() async {
     var dbHelper = DBHelper();
-    List<VaultIngredientData> test = await dbHelper.getAllIngredients();
+    List<DrinkData> test =
+        await dbHelper.getCocktailWithTags(["modern", "sad", 'excited']);
     List<String> temp = [];
     test.forEach((element) {
       String curr = element.name;
@@ -18,12 +19,78 @@ class Home extends StatelessWidget {
     return temp;
   }
 
-  Future<List<String>> fetchTestingFromDatabaseAllDrinks() async {
+  Future<List<String>> fetchTestingFromDatabase2() async {
     var dbHelper = DBHelper();
-    List<DrinkData> test = await dbHelper.getAllDrinks();
+    List<DrinkData> testDrinks = [];
+    testDrinks.add(DrinkData(
+        name: "name",
+        id: 1,
+        highQualityImageUrl: "highQualityImageUrl",
+        lowQualityImageUrl: "lowQualityImageUrl",
+        recipie: RecipieData(ingredients: const [
+          RecipieIngredient(name: 'ing 1'),
+          RecipieIngredient(name: 'ing 2', amount: "1"),
+          RecipieIngredient(name: 'ing 3', amount: "1"),
+          RecipieIngredient(
+              name: 'ing 444 444444444 444444 444444444444 444444',
+              amount: "1"),
+          RecipieIngredient(name: 'ing 5', amount: "1"),
+          RecipieIngredient(name: 'ing 6', amount: "1"),
+          RecipieIngredient(name: 'ing 7', amount: "1"),
+          RecipieIngredient(name: 'ing 8', amount: "1"),
+          RecipieIngredient(name: 'ing 9', amount: "1"),
+          RecipieIngredient(name: 'ing 10', amount: 'tons')
+        ], steps: const [
+          'step1',
+          'step2',
+          'step3',
+          'step4',
+          'step5',
+          'step6',
+          'step7',
+          'step88888888888888888888888888888888888888888888888888888888888',
+          'step9',
+          'step10'
+        ]),
+        description: "description",
+        tags: "tags"));
+
+    testDrinks.add(DrinkData(
+        name: "name",
+        id: 3,
+        highQualityImageUrl: "highQualityImageUrl",
+        lowQualityImageUrl: "lowQualityImageUrl",
+        recipie: RecipieData(ingredients: const [
+          RecipieIngredient(name: 'ing 1'),
+          RecipieIngredient(name: 'ing 2', amount: "1"),
+          RecipieIngredient(name: 'ing 3', amount: "1"),
+          RecipieIngredient(
+              name: 'ing 444 444444444 444444 444444444444 444444',
+              amount: "1"),
+          RecipieIngredient(name: 'ing 5', amount: "1"),
+          RecipieIngredient(name: 'ing 6', amount: "1"),
+          RecipieIngredient(name: 'ing 7', amount: "1"),
+          RecipieIngredient(name: 'ing 8', amount: "1"),
+          RecipieIngredient(name: 'ing 9', amount: "1"),
+          RecipieIngredient(name: 'ing 10', amount: 'tons')
+        ], steps: const [
+          'step1',
+          'step2',
+          'step3',
+          'step4',
+          'step5',
+          'step6',
+          'step7',
+          'step88888888888888888888888888888888888888888888888888888888888',
+          'step9',
+          'step10'
+        ]),
+        description: "description",
+        tags: "tags"));
+    List<BarInfo> test = await dbHelper.getAllBarsWithDrinksIds(testDrinks);
     List<String> temp = [];
     test.forEach((element) {
-      String curr = element.getName();
+      String curr = element.name;
       temp.add(curr);
     });
     return temp;

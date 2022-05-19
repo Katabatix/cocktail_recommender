@@ -5,36 +5,41 @@
             "name": "Scotch on the Rocks",
             "description": "Scotch whisky served with ice: a classic",
             "ingredients": "Scotch Whisky(2 oz",
-            "recipe": "Fill a rocks glass to the top with ice cubes.|Pour in 2 oz of Scotch whisky."
+            "recipe": "Fill a rocks glass to the top with ice cubes.|Pour in 2 oz of Scotch whisky.",
+            "tags": ["excited","calm","happy"]
         },
         {
             "id":2,
             "name": "Cosmopolitan",
             "description": "Lipsmackingly sweet and sour, the Cosmopolitan cocktail of vodka, cranberry, orange liqueur and citrus is a good-time in a glass.",
             "ingredients": "Vodka(2 oz|Orange Liqueur(1 oz|Cranberry Juice(1/2 oz|Fresh Sour Mix(1/2 oz|Lemon Twist (1",
-            "recipe": "Shake ingredients in a cocktail shaker with ice and strain into a cocktail glass|To make the garnish: hold a 3cm round piece of orange zest about 10cm above your cosmo and very carefully wave it over a lit match or lighter flame. Bend the outer edge of the zest in towards the flame so that the orange oils are released, then drop the zest into your drink."
+            "recipe": "Shake ingredients in a cocktail shaker with ice and strain into a cocktail glass|To make the garnish: hold a 3cm round piece of orange zest about 10cm above your cosmo and very carefully wave it over a lit match or lighter flame. Bend the outer edge of the zest in towards the flame so that the orange oils are released, then drop the zest into your drink.",
+            "tags": ["sad","formal","casual"]
         },
         {
             "id":3,
             "name": "Margarita",
             "description": "A fan-favorite for its simplicity - tequila, orange liqueur for sweetness, and tart lime juice.",
             "ingredients": "Blanco Tequila(2 oz|Orange Liqueur(6 fl oz|Lime Juice(1 oz|Agave Syrup(1/2 oz|Lime Wheel (Garnish|Kosher Salt (Garnish",
-            "recipe": "Add tequila, orange liqueur, lime juice and agave syrup to a cocktail shaker filled with ice|Shake until well-chilled.|Strain into a rocks glass over fresh ice.|Garnish with a lime wheel and kosher salt rim (optional)."
+            "recipe": "Add tequila, orange liqueur, lime juice and agave syrup to a cocktail shaker filled with ice|Shake until well-chilled.|Strain into a rocks glass over fresh ice.|Garnish with a lime wheel and kosher salt rim (optional).",
+            "tags": ["modern","oldschool","excited"]
         },
         {
             "id":4,
             "name": "Piña Colada",
             "description": "If you like Piña coladas and getting caught in the rain ...",
             "ingredients": "Pineapple Juice(120ml|White Rum(60 ml|Coconut Cream(60 ml|Pineapple(Garnish",
-            "recipe": "Pulse all the ingredients along with a handful of ice in a blender until smooth.|Pour into a tall glass and garnish as you like."
+            "recipe": "Pulse all the ingredients along with a handful of ice in a blender until smooth.|Pour into a tall glass and garnish as you like.",
+            "tags": ["sad","formal","oldschool"]
         },
         {
             "id":5,
             "name": "Mojito",
             "description": "The national drink of Cuba!",
             "ingredients": "Lime Juice(1 lime|Granulated Sugar(1 tsp|Mint Leaves(1-3|White Rum(60ml|Soda Water(",
-            "recipe": "Crush the mint leaves.|Muddle the lime juice, sugar, and mint leaves in a small jug.|Pour into a tall glass and add a handful of ice.|Pour over the rum, stirring with a long-handled spoon.|Top up with soda water, garnish with mint and serve."
-        }    
+            "recipe": "Crush the mint leaves.|Muddle the lime juice, sugar, and mint leaves in a small jug.|Pour into a tall glass and add a handful of ice.|Pour over the rum, stirring with a long-handled spoon.|Top up with soda water, garnish with mint and serve.",
+            "tags": ["sad","modern","excited"]
+        }
     ],
     "bars":[
         {

@@ -16,7 +16,7 @@ class _BarScrollerState extends State<BarScroller> {
   @override
   @protected
   @mustCallSuper
-  void initState(){
+  void initState() {
     getAllBars();
     super.initState();
   }
@@ -31,9 +31,7 @@ class _BarScrollerState extends State<BarScroller> {
     dbHelper.getAllBars().then((allBars) => barInfo = allBars);
   }
 
-  void getBarsFromDB() {
-
-  }
+  void getBarsFromDB() {}
 
   @override
   Widget build(BuildContext context) {

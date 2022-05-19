@@ -52,7 +52,7 @@ class _RecipieListState extends State<RecipieList> {
             'https://cdn.icon-icons.com/icons2/2596/PNG/512/check_one_icon_155665.png',
         recipie: RecipieData(),
         description: 'Description for $name',
-        tags: ['tag1', 'tag2', 'tag3'],
+        tags: 'tag1 tag2 tag3',
       );
       _dataList.add(drink);
     }
@@ -83,7 +83,10 @@ class _RecipieListState extends State<RecipieList> {
   List<Widget> _createList(List<DrinkData> dataList) {
     List<Widget> outputList = [];
     for (int i = 0; i < dataList.length; i++) {
-      outputList.add(RecipieListItem(data: dataList[i], vaultIngredients: listOfVaultItems,));
+      outputList.add(RecipieListItem(
+        data: dataList[i],
+        vaultIngredients: listOfVaultItems,
+      ));
     }
     return outputList;
   }
@@ -181,9 +184,10 @@ class RecipieListItem extends StatelessWidget {
           ),
         ),
       ),
-      color: data.recipie.ingredients.any((rIngredient) =>
-        vaultIngredients.any((vIngredient) => vIngredient == rIngredient.name)
-      ) ? Colors.white: Colors.pink[200],
+      color: data.recipie.ingredients.any((rIngredient) => vaultIngredients
+              .any((vIngredient) => vIngredient == rIngredient.name))
+          ? Colors.white
+          : Colors.pink[200],
     );
   }
 }
