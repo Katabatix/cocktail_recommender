@@ -184,10 +184,11 @@ class RecipieListItem extends StatelessWidget {
           ),
         ),
       ),
-      color: data.recipie.ingredients.any((rIngredient) => vaultIngredients
-              .any((vIngredient) => vIngredient == rIngredient.name))
-          ? Colors.white
-          : Colors.pink[200],
+      color: Colors.white,
+      // color: data.recipie.ingredients.any((rIngredient) => vaultIngredients
+      //         .any((vIngredient) => vIngredient == rIngredient.name))
+      //     ? Colors.white
+      //     : Colors.pink[200],
     );
   }
 }
