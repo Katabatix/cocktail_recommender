@@ -109,7 +109,7 @@ class BarDetails extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                 ),
                 const SizedBox(
-                  height: 13.0,
+                  height: 25.0,
                 ),
                 Container(
                     width: MediaQuery.of(context).size.width * 0.8,
@@ -121,7 +121,7 @@ class BarDetails extends StatelessWidget {
                       ),
                     )),
                 SizedBox(
-                  height: 20,
+                  height: 40,
                 ),
                 Row(
                   children: [
