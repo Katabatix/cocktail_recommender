@@ -12,14 +12,20 @@ class DiscoverMain extends StatefulWidget {
 }
 
 class _DiscoverMainState extends State<DiscoverMain> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Cocktail Recommender - Discover', style: TextStyle(color: Colors.white),),
-      ),
-      body: BarScroller(),
-    );
+        appBar: AppBar(
+          title: const Text(
+            'Discover Bars Around You',
+            style: TextStyle(color: Colors.white),
+          ),
+          automaticallyImplyLeading: false,
+        ),
+        body: SafeArea(
+          child: Container(
+              color: Theme.of(context).colorScheme.background,
+              child: BarScroller()),
+        ));
   }
 }

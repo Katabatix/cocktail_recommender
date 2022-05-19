@@ -16,11 +16,13 @@ class RecipieStepList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
+        child: Container(
+      color: Theme.of(context).colorScheme.background,
       child: ListView(
         padding: const EdgeInsets.all(8),
         children: constructList(),
       ),
-    );
+    ));
   }
 }
 
@@ -33,8 +35,10 @@ class RecipieStepListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      color: Theme.of(context).colorScheme.background,
       child: Card(
+        color: Theme.of(context).colorScheme.onBackground,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,9 +47,10 @@ class RecipieStepListItem extends StatelessWidget {
               padding: const EdgeInsets.only(top: 8, left: 8),
               child: Text(
                 'Step ' + id.toString(),
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.primary,
                 ),
               ),
             ),
@@ -55,7 +60,7 @@ class RecipieStepListItem extends StatelessWidget {
                 step,
                 style: const TextStyle(
                     fontSize: 15,
-                    color: Colors.black54,
+                    color: Colors.white,
                     overflow: TextOverflow.fade),
               ),
             ),

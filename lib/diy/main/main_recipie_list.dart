@@ -6,6 +6,7 @@ import 'package:cocktail_recommender/utils/drink_data.dart';
 import 'package:provider/provider.dart';
 import 'package:cocktail_recommender/diy/main/diy_main.dart';
 import 'package:cocktail_recommender/utils/global_vars.dart' as global;
+import 'dart:async';
 
 class RecipieList extends StatefulWidget {
   final List<DrinkData> drinkList;
@@ -82,6 +83,20 @@ class _RecipieListState extends State<RecipieList> {
 
   List<Widget> _createList(List<DrinkData> dataList) {
     List<Widget> outputList = [];
+    if (dataList.isEmpty) {
+      outputList.add(Column(children: [
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.15,
+        ),
+        Center(
+          child: Text(
+            "Sorry we found no matches :(",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+        ),
+      ]));
+      return outputList;
+    }
     for (int i = 0; i < dataList.length; i++) {
       outputList.add(RecipieListItem(
         data: dataList[i],
@@ -129,12 +144,32 @@ class _RecipieListState extends State<RecipieList> {
     var query = context.watch<DiyRecipieQuery>();
     return CustomScrollView(
       slivers: [
-        SliverToBoxAdapter(
-          child: ElevatedButton(
-            child: Text("Recommend based on Vault"),
+        // SliverToBoxAdapter(
+        //     child: ElevatedButton(
+        //   child: Text(
+        //     "Recommend Based on Vault Ingredients",
+        //     style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        //   ),
+        //   onPressed: toggleVault,
+        // ),
+
+        // ),
+        SliverAppBar(
+          automaticallyImplyLeading: false,
+          title: ElevatedButton(
+            child: const Text(
+              "Recommend Based on Vault Ingredients",
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
             onPressed: toggleVault,
+            style: ButtonStyle(
+                fixedSize: MaterialStateProperty.all(Size(400, 40))),
           ),
+          pinned: true,
+          backgroundColor: Theme.of(context).colorScheme.background,
         ),
+
         SliverList(
           delegate: SliverChildListDelegate(
             _filterList(query: query.query),
@@ -159,13 +194,13 @@ class RecipieListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: InkWell(
-        splashColor: Colors.blue.withAlpha(30),
+        splashColor: Theme.of(context).colorScheme.primary,
         onTap: () {
           global.navigatorKey.currentState
               ?.pushNamed('/diy/recipie', arguments: data);
         },
         child: SizedBox(
-          height: 70,
+          height: 90,
           child: Row(
             children: <Widget>[
               Padding(
@@ -179,12 +214,22 @@ class RecipieListItem extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 8),
-              Text(data.name),
+              Container(
+                  width: MediaQuery.of(context).size.width * 0.65,
+                  //color: Colors.orange,
+                  child: Text(
+                    data.name,
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        //color: Theme.of(context).colorScheme.primary,
+                        color: Colors.white.withOpacity(0.9)),
+                  )),
             ],
           ),
         ),
       ),
-      color: Colors.white,
+      color: Theme.of(context).colorScheme.onBackground,
       // color: data.recipie.ingredients.any((rIngredient) => vaultIngredients
       //         .any((vIngredient) => vIngredient == rIngredient.name))
       //     ? Colors.white

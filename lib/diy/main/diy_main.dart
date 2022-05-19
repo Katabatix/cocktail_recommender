@@ -53,14 +53,18 @@ class _DiyMainPageState extends State<DiyMainPage> {
     }
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cocktail Recommender - DIY'),
+        title: Text(
+          'DIY Cocktail Recipes',
+          style: TextStyle(color: Colors.white),
+        ),
+        automaticallyImplyLeading: false,
       ),
       body: Container(
-        color: const Color(0xffC4DFCB),
+        color: Theme.of(context).colorScheme.background,
         child: Column(
           children: <Widget>[
-            const SearchField(),
-            Expanded(child: RecipieList(drinkList: widget.drinkList)),
+            SearchField(),
+            Expanded(child: RecipieList(drinkList: widget.drinkList))
           ],
         ),
       ),

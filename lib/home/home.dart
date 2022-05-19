@@ -19,113 +19,46 @@ class Home extends StatelessWidget {
     return temp;
   }
 
-  Future<List<String>> fetchTestingFromDatabase2() async {
-    var dbHelper = DBHelper();
-    List<DrinkData> testDrinks = [];
-    testDrinks.add(DrinkData(
-        name: "name",
-        id: 1,
-        highQualityImageUrl: "highQualityImageUrl",
-        lowQualityImageUrl: "lowQualityImageUrl",
-        recipie: RecipieData(ingredients: const [
-          RecipieIngredient(name: 'ing 1'),
-          RecipieIngredient(name: 'ing 2', amount: "1"),
-          RecipieIngredient(name: 'ing 3', amount: "1"),
-          RecipieIngredient(
-              name: 'ing 444 444444444 444444 444444444444 444444',
-              amount: "1"),
-          RecipieIngredient(name: 'ing 5', amount: "1"),
-          RecipieIngredient(name: 'ing 6', amount: "1"),
-          RecipieIngredient(name: 'ing 7', amount: "1"),
-          RecipieIngredient(name: 'ing 8', amount: "1"),
-          RecipieIngredient(name: 'ing 9', amount: "1"),
-          RecipieIngredient(name: 'ing 10', amount: 'tons')
-        ], steps: const [
-          'step1',
-          'step2',
-          'step3',
-          'step4',
-          'step5',
-          'step6',
-          'step7',
-          'step88888888888888888888888888888888888888888888888888888888888',
-          'step9',
-          'step10'
-        ]),
-        description: "description",
-        tags: "tags"));
-
-    testDrinks.add(DrinkData(
-        name: "name",
-        id: 3,
-        highQualityImageUrl: "highQualityImageUrl",
-        lowQualityImageUrl: "lowQualityImageUrl",
-        recipie: RecipieData(ingredients: const [
-          RecipieIngredient(name: 'ing 1'),
-          RecipieIngredient(name: 'ing 2', amount: "1"),
-          RecipieIngredient(name: 'ing 3', amount: "1"),
-          RecipieIngredient(
-              name: 'ing 444 444444444 444444 444444444444 444444',
-              amount: "1"),
-          RecipieIngredient(name: 'ing 5', amount: "1"),
-          RecipieIngredient(name: 'ing 6', amount: "1"),
-          RecipieIngredient(name: 'ing 7', amount: "1"),
-          RecipieIngredient(name: 'ing 8', amount: "1"),
-          RecipieIngredient(name: 'ing 9', amount: "1"),
-          RecipieIngredient(name: 'ing 10', amount: 'tons')
-        ], steps: const [
-          'step1',
-          'step2',
-          'step3',
-          'step4',
-          'step5',
-          'step6',
-          'step7',
-          'step88888888888888888888888888888888888888888888888888888888888',
-          'step9',
-          'step10'
-        ]),
-        description: "description",
-        tags: "tags"));
-    List<BarInfo> test = await dbHelper.getAllBarsWithDrinksIds(testDrinks);
-    List<String> temp = [];
-    test.forEach((element) {
-      String curr = element.name;
-      temp.add(curr);
-    });
-    return temp;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text(
-          'Cocktail Recommender - Home',
-          style: TextStyle(color: Colors.white),
+          'Happy Hours!',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
       body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
         color: Theme.of(context).colorScheme.background,
-        child: Center(
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.pushNamed(
-                  context, RecommenderQuestionnaireMain.routeName);
-            },
-            child: const Text(
-              "Recommend me a Drink!",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.w500,
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  child: Image.asset("assets/images/app_logo")),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(
+                      context, RecommenderQuestionnaireMain.routeName);
+                },
+                child: const Text(
+                  "Recommend me a Drink!",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                style: ElevatedButton.styleFrom(
+                    primary: Theme.of(context).colorScheme.primary),
               ),
-              textAlign: TextAlign.center,
-            ),
-            style: ElevatedButton.styleFrom(primary: Colors.blueGrey),
-          ),
-        ),
+            ]),
       ),
     );
   }

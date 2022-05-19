@@ -57,37 +57,54 @@ class _TinderPageState extends State<TinderPage> {
   Widget _swipeCardItemBuilder(BuildContext context, int index) {
     return Container(
       alignment: Alignment.center,
-      color: Colors.white,
+      color: Theme.of(context).colorScheme.background,
       child: Column(
         children: [
+          SizedBox(
+            height: 20,
+          ),
           Flexible(
-            flex: 5,
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: Image.network(
-                _swipeItems[index].content.highQualityImageUrl,
-                fit: BoxFit.cover,
-              ),
-            ),
+              flex: 5,
+              // child: AspectRatio(
+              //     aspectRatio: 1,
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.6,
+                height: MediaQuery.of(context).size.width * 0.6,
+                child: Image.network(
+                  _swipeItems[index].content.highQualityImageUrl,
+                  fit: BoxFit.cover,
+                ),
+              )),
+          SizedBox(
+            height: 10,
           ),
           Flexible(
             flex: 1,
             child: Text(
               _swipeItems[index].content.name,
               textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 30),
+              style: TextStyle(
+                  fontSize: 30,
+                  color: Theme.of(context).colorScheme.primary, //Colors.white,
+                  fontWeight: FontWeight.bold),
             ),
+          ),
+          SizedBox(
+            height: 10,
           ),
           Flexible(
             flex: 1,
             child: Text(
               _swipeItems[index].content.description,
               textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 20),
             ),
           ),
-          Flexible(
-            flex: 1,
-            child: Text(_swipeItems[index].content.tags),
+          SizedBox(
+            height: 10,
           )
         ],
       ),
@@ -98,38 +115,74 @@ class _TinderPageState extends State<TinderPage> {
     for (DrinkData drink in _preferredDrinkDataList) {
       debugPrint('[Tinder] List: ${drink.id} ${drink.name}');
     }
-    showDialog(
-      context: context,
-      builder: (BuildContext context) => AlertDialog(
-          title: const Text('It\'s time'),
-          content: const Text('You would like to DIY or BUY?'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-                if (global.navigatorKey.currentState != null) {
-                  global.navigatorKey.currentState?.pushReplacementNamed(
-                    '/diy',
-                    arguments: _preferredDrinkDataList,
-                  );
-                }
-              },
-              child: const Text('DIY'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-                if (global.navigatorKey.currentState != null) {
-                  global.navigatorKey.currentState?.pushReplacementNamed(
-                    '/discover',
-                    arguments: _preferredDrinkDataList,
-                  );
-                }
-              },
-              child: const Text('BUY'),
-            ),
-          ]),
-    );
+    if (_preferredDrinkDataList.isNotEmpty) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+            title: const Text('It\'s time for Happy Hours!'),
+            content: const Text('Would you like to DIY or BUY?'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  if (global.navigatorKey.currentState != null) {
+                    global.navigatorKey.currentState?.pushReplacementNamed(
+                      '/diy',
+                      arguments: _preferredDrinkDataList,
+                    );
+                  }
+                },
+                child: const Text('DIY'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  if (global.navigatorKey.currentState != null) {
+                    global.navigatorKey.currentState?.pushReplacementNamed(
+                      '/discover',
+                      arguments: _preferredDrinkDataList,
+                    );
+                  }
+                },
+                child: const Text('BUY'),
+              ),
+            ]),
+      );
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+            title: const Text('Oh no! You did not like any of the drinks :('),
+            content: Text('Retry the quiz for better recommendations'),
+            //const Text('Would like to go back to HOME or REDO the quiz?'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  if (global.navigatorKey.currentState != null) {
+                    global.navigatorKey.currentState?.pushReplacementNamed(
+                      '/',
+                      arguments: _preferredDrinkDataList,
+                    );
+                  }
+                },
+                child: const Text('Okay'),
+              ),
+              // TextButton(
+              //   onPressed: () {
+              //     Navigator.pop(context);
+              //     if (global.navigatorKey.currentState != null) {
+              //       global.navigatorKey.currentState?.pushReplacementNamed(
+              //         '/discover',
+              //         arguments: _preferredDrinkDataList,
+              //       );
+              //     }
+              //   },
+              //   child: const Text('REDO'),
+              // ),
+            ]),
+      );
+    }
   }
 
   @override
@@ -144,47 +197,64 @@ class _TinderPageState extends State<TinderPage> {
     }
     _initSwipeItems();
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Do you like these?'),
-      ),
-      body: Column(
-        children: [
-          Flexible(
-            flex: 9,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SwipeCards(
-                matchEngine: _matchEngine,
-                itemBuilder: _swipeCardItemBuilder,
-                onStackFinished: _stackFinished,
-              ),
-            ),
-          ),
-          Flexible(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                  child: const Text('Nope'),
-                  onPressed: () {
-                    if (_matchEngine.currentItem != null) {
-                      _matchEngine.currentItem!.nope();
-                    }
-                  },
+        appBar: AppBar(
+          title: const Text('Do you like this Drink?',
+              style: TextStyle(
+                color: Colors.white,
+              )),
+        ),
+        body: Container(
+          color: Theme.of(context).colorScheme.background,
+          child: Column(
+            children: [
+              Flexible(
+                flex: 9,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SwipeCards(
+                    matchEngine: _matchEngine,
+                    itemBuilder: _swipeCardItemBuilder,
+                    onStackFinished: _stackFinished,
+                  ),
                 ),
-                ElevatedButton(
-                  child: const Text('Like'),
-                  onPressed: () {
-                    if (_matchEngine.currentItem != null) {
-                      _matchEngine.currentItem!.like();
-                    }
-                  },
-                )
-              ],
-            ),
-          )
-        ],
-      ),
-    );
+              ),
+              Flexible(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      child: Text(
+                        'Nope',
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700),
+                      ),
+                      onPressed: () {
+                        if (_matchEngine.currentItem != null) {
+                          _matchEngine.currentItem!.nope();
+                        }
+                      },
+                    ),
+                    ElevatedButton(
+                      child: const Text(
+                        'Like',
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w800),
+                      ),
+                      onPressed: () {
+                        if (_matchEngine.currentItem != null) {
+                          _matchEngine.currentItem!.like();
+                        }
+                      },
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
+        ));
   }
 }
