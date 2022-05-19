@@ -72,93 +72,93 @@ class _Question extends StatelessWidget {
   const _Question(this._qNum, {required this.callback});
 
   static List<QuestionPrompt> questionPrompts = [
-    QuestionPrompt("How was your day1", [
+    QuestionPrompt("How was your day", [
       "Great",
       "Could have been better",
       "Let's see after a few drinks",
-      "Stressed out",
+      "Tiring",
     ], [
-      "tag1",
-      "tag2",
-      "tag3",
-      "tag4",
+      "happy",
+      "sad",
+      "excited",
+      "calm",
     ]),
-    QuestionPrompt("How are you feeling?2", [
-      "Looking for a good time!",
-      "Overwhelming giddiness",
-      "Feeling a little quieter",
-      "Stressed out",
+    QuestionPrompt("Are you a party person?", [
+      "YES!",
+      "Not really",
+      "Sometimes",
+      "Too busy to party",
     ], [
-      "tag1",
-      "tag2",
-      "tag3",
-      "tag4",
+      "excited",
+      "calm",
+      "casual",
+      "formal",
     ]),
-    QuestionPrompt("How are you feeling?3", [
-      "Looking for a good time!",
-      "Overwhelming giddiness",
-      "Feeling a little quieter",
-      "Stressed out",
+    QuestionPrompt("Do you pray often?", [
+      "Everyday",
+      "Sometimes",
+      "What's that got to do with cocktails?",
+      "None of your business",
     ], [
-      "tag1",
-      "tag2",
-      "tag3",
-      "tag4",
+      "oldschool",
+      "casual",
+      "modern",
+      "sad",
     ]),
-    QuestionPrompt("How are you feeling?4", [
-      "Looking for a good time!",
-      "Overwhelming giddiness",
-      "Feeling a little quieter",
-      "Stressed out",
+    QuestionPrompt("What are your plans for tonight?", [
+      "Partying",
+      "Dinner at a restaurant",
+      "Watch some Netflix",
+      "Work",
     ], [
-      "tag1",
-      "tag2",
-      "tag3",
-      "tag4",
+      "excited",
+      "casual",
+      "calm",
+      "sad",
     ]),
-    QuestionPrompt("How are you feeling?5", [
-      "Looking for a good time!",
-      "Overwhelming giddiness",
-      "Feeling a little quieter",
-      "Stressed out",
+    QuestionPrompt("Do you like our Cocktail Recommender App?", [
+      "YES!",
+      "It's nice",
+      "Could have been better",
+      "Let's see after a few drinks",
     ], [
-      "tag1",
-      "tag2",
-      "tag3",
-      "tag4",
+      "excited",
+      "casual",
+      "sad",
+      "modern",
     ]),
-    QuestionPrompt("How are you feeling?6", [
-      "Looking for a good time!",
-      "Overwhelming giddiness",
-      "Feeling a little quieter",
-      "Stressed out",
+    QuestionPrompt("What do you prefer to wear to work?", [
+      "Formal Suits or Dresses",
+      "Semi Formal",
+      "Shorts and Hoodies",
+      "Whatever the work requires",
     ], [
-      "tag1",
-      "tag2",
-      "tag3",
-      "tag4",
+      "formal",
+      "modern",
+      "casual",
+      "oldschool",
     ]),
-    QuestionPrompt("How are you feeling?7", [
-      "Looking for a good time!",
-      "Overwhelming giddiness",
-      "Feeling a little quieter",
-      "Stressed out",
+    QuestionPrompt("Which of these do you like doing the most?", [
+      "Adventure Sports",
+      "Gym and Sports",
+      "Yoga",
+      "No time for leisure",
     ], [
-      "tag1",
-      "tag2",
-      "tag3",
-      "tag4",
+      "excited",
+      "modern",
+      "calm",
+      "sad",
     ]),
-    QuestionPrompt("How are you feeling?8", [
-      "Looking for a good time!",
-      "Overwhelming giddiness",
-      "Feeling a little quieter",
-      "Stressed out",
+    QuestionPrompt("Which is your favourite social media?", [
+      "Instagram",
+      "Facebook",
+      "LinkedIn",
+      "TikTok",
     ], [
-      "tag1",
-      "tag2",
-      "tag3",
-      "tag4",
+      "modern",
+      "oldschool",
+      "formal",
+      "happy",
     ]),
   ];
 
@@ -191,13 +191,15 @@ class _Question extends StatelessWidget {
       child: Center(
         child: Column(
           children: [
-            const SizedBox(height: 150),
+            const SizedBox(height: 100),
             Column(
               children: [
                 Text(questionPrompts[_qNum].prompt,
                     style: const TextStyle(
                       fontSize: 30,
-                    )),
+                    ),
+                  textAlign: TextAlign.center,
+                ),
                 const SizedBox(height: 30),
                 Row(
                   children: [
