@@ -1,13 +1,11 @@
-import 'package:cocktail_recommender/diy/vault/vault_ingredient_list.dart';
-import 'package:cocktail_recommender/utils/database_helper.dart';
 import 'package:cocktail_recommender/utils/vault_ingredient_data.dart';
+import 'package:cocktail_recommender/utils/database_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:cocktail_recommender/utils/recipie_data.dart';
 import 'package:cocktail_recommender/utils/drink_data.dart';
 import 'package:provider/provider.dart';
 import 'package:cocktail_recommender/diy/main/diy_main.dart';
 import 'package:cocktail_recommender/utils/global_vars.dart' as global;
-import 'package:cocktail_recommender/utils/database_helper.dart';
 
 class RecipieList extends StatefulWidget {
   final List<DrinkData> drinkList;
@@ -24,6 +22,7 @@ class RecipieList extends StatefulWidget {
 class _RecipieListState extends State<RecipieList> {
   // static List<RecipieData> _dataList = <RecipieData>[];
   List<DrinkData> _dataList = <DrinkData>[];
+
   List<String> listOfVaultItems = [];
 
   Future<String> _fetchVaultDataList() async {
@@ -40,6 +39,7 @@ class _RecipieListState extends State<RecipieList> {
     return listOfVaultItems.isNotEmpty ? listOfVaultItems[0] : "no data";
   }
 
+  ///deprecated testData function
   void _getDataListFromDB() {
     for (int i = 0; i < 30; i++) {
       String name = 'Sample Drink ' + i.toString();
