@@ -1,3 +1,5 @@
+import 'package:cocktail_recommender/utils/database_helper.dart';
+import 'package:cocktail_recommender/utils/recipie_data.dart';
 import 'package:swipe_cards/swipe_cards.dart';
 import 'package:flutter/material.dart';
 import 'package:cocktail_recommender/utils/drink_data.dart';
@@ -6,7 +8,7 @@ import 'package:cocktail_recommender/utils/global_vars.dart' as global;
 class TinderPage extends StatefulWidget {
   final List<String> tagList;
   TinderPage({Key? key, List<String>? tagList})
-      : tagList = tagList ?? <String>['tag1', 'tag2'],
+      : tagList = tagList ?? <String>['calm', 'happy'],
         super(key: key);
 
   @override
@@ -18,36 +20,28 @@ class _TinderPageState extends State<TinderPage> {
   List<DrinkData> _preferredDrinkDataList = <DrinkData>[];
   List<SwipeItem> _swipeItems = <SwipeItem>[];
   late MatchEngine _matchEngine;
+  bool loadedItems = false;
 
   @override
   void initState() {
     debugPrint('[Tinder] initState');
     _getDrinkDataList();
-    _filterDrinkDataListWithTags();
-    _initSwipeItems();
+    //_filterDrinkDataListWithTags();
+    //_initSwipeItems();
     _matchEngine = MatchEngine(swipeItems: _swipeItems);
     super.initState();
   }
 
-  void _getDrinkDataList() {
-    _drinkDataList = global.allDrinkList;
-  }
-
-  void _filterDrinkDataListWithTags() {
-    List<DrinkData> filteredList = <DrinkData>[];
-    for (DrinkData drink in _drinkDataList) {
-      drink.rateTags(widget.tagList);
-      if (drink.score > 0) {
-        filteredList.add(drink);
-      }
-    }
-    filteredList.sort((p1, p2) {
-      return Comparable.compare(p2.score, p1.score);
-    });
-    _drinkDataList = filteredList;
+  Future<String> _getDrinkDataList() async {
+    var dbhelper = DBHelper();
+    _drinkDataList = await dbhelper.getCocktailWithTags(widget.tagList);
+    loadedItems = true;
+    setState(() {});
+    return "temp";
   }
 
   void _initSwipeItems() {
+    //String temp = await _getDrinkDataList();
     for (int i = 0; i < _drinkDataList.length; i++) {
       _swipeItems.add(SwipeItem(
           content: _drinkDataList[i],
@@ -94,7 +88,7 @@ class _TinderPageState extends State<TinderPage> {
           ),
           Flexible(
             flex: 1,
-            child: Text(_swipeItems[index].content.tags.join(', ').toString()),
+            child: Text(_swipeItems[index].content.tags),
           )
         ],
       ),
@@ -114,19 +108,23 @@ class _TinderPageState extends State<TinderPage> {
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
-                global.navigatorKey.currentState?.pushReplacementNamed(
-                  '/diy',
-                  arguments: _preferredDrinkDataList,
-                );
+                if (global.navigatorKey.currentState != null) {
+                  global.navigatorKey.currentState?.pushReplacementNamed(
+                    '/diy',
+                    arguments: _preferredDrinkDataList,
+                  );
+                }
               },
               child: const Text('DIY'),
             ),
             TextButton(
               onPressed: () {
-                global.navigatorKey.currentState?.pushReplacementNamed(
-                  '/discover',
-                  arguments: _preferredDrinkDataList,
-                );
+                if (global.navigatorKey.currentState != null) {
+                  global.navigatorKey.currentState?.pushReplacementNamed(
+                    '/discover',
+                    arguments: _preferredDrinkDataList,
+                  );
+                }
               },
               child: const Text('BUY'),
             ),
@@ -136,6 +134,15 @@ class _TinderPageState extends State<TinderPage> {
 
   @override
   Widget build(BuildContext context) {
+    //String temp = await _getDrinkDataList();
+    if (!loadedItems) {
+      return Container(
+        height: 50,
+        width: 50,
+        color: Colors.amber,
+      );
+    }
+    _initSwipeItems();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Do you like these?'),
@@ -160,13 +167,17 @@ class _TinderPageState extends State<TinderPage> {
                 ElevatedButton(
                   child: const Text('Nope'),
                   onPressed: () {
-                    _matchEngine.currentItem?.nope();
+                    if (_matchEngine.currentItem != null) {
+                      _matchEngine.currentItem!.nope();
+                    }
                   },
                 ),
                 ElevatedButton(
                   child: const Text('Like'),
                   onPressed: () {
-                    _matchEngine.currentItem?.like();
+                    if (_matchEngine.currentItem != null) {
+                      _matchEngine.currentItem!.like();
+                    }
                   },
                 )
               ],
