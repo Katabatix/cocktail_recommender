@@ -218,6 +218,9 @@ class DBHelper {
         }
       }
     }
+    print("final");
+    print(finalRecommendedDrinks);
+    print(finalRecommendedDrinks[0].tags);
     return finalRecommendedDrinks;
   }
 
