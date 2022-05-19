@@ -94,10 +94,10 @@ class _MainPageState extends State<MainPage> {
             label: 'Discover',
             icon: Icon(Icons.map),
           ),
-          BottomNavigationBarItem(
-            label: 'Settings',
-            icon: Icon(Icons.settings),
-          ),
+          // BottomNavigationBarItem(
+          //   label: 'Settings',
+          //   icon: Icon(Icons.settings),
+          // ),
         ],
         currentIndex: currentIndex.index,
         onTap: (int index) {

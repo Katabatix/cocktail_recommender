@@ -1,5 +1,4 @@
 import 'package:cocktail_recommender/utils/database_helper.dart';
-import 'package:cocktail_recommender/utils/recipie_data.dart';
 import 'package:swipe_cards/swipe_cards.dart';
 import 'package:flutter/material.dart';
 import 'package:cocktail_recommender/utils/drink_data.dart';
@@ -119,6 +118,7 @@ class _TinderPageState extends State<TinderPage> {
             ),
             TextButton(
               onPressed: () {
+                Navigator.pop(context);
                 if (global.navigatorKey.currentState != null) {
                   global.navigatorKey.currentState?.pushReplacementNamed(
                     '/discover',
