@@ -137,34 +137,49 @@ class VaultIngredientListItem extends StatefulWidget {
 class _VaultIngredientListItemState extends State<VaultIngredientListItem> {
   @override
   Widget build(BuildContext context) {
+    // return Container(
+    //     padding: EdgeInsets.all(10),
+    //     color: Theme.of(context).colorScheme.background,
+    //     child:
     return Card(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Flexible(
-            flex: 1,
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: Image.network(
-                widget.data.iconUrl,
-                fit: BoxFit.cover,
+            color: Theme.of(context).colorScheme.background.withOpacity(0.5),
+            child: Container(
+              padding: EdgeInsets.all(10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(
+                    flex: 1,
+                    child: AspectRatio(
+                      aspectRatio: 1,
+                      child: Image.network(
+                        widget.data.iconUrl,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  Flexible(
+                    flex: 3,
+                    child: Text(
+                      widget.data.name,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 20),
+                    ),
+                  ),
+                  Flexible(
+                    flex: 1,
+                    child: VaultIngredientListItemButton(
+                      data: widget.data,
+                      onChanged: widget.onChanged,
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ),
-          Flexible(
-            flex: 3,
-            child: Text(widget.data.name),
-          ),
-          Flexible(
-            flex: 1,
-            child: VaultIngredientListItemButton(
-              data: widget.data,
-              onChanged: widget.onChanged,
-            ),
-          ),
-        ],
-      ),
-    );
+            ))
+        //)
+        ;
   }
 }
 

@@ -19,7 +19,7 @@ class _BarScrollerState extends State<BarScroller> {
   @protected
   @mustCallSuper
   void initState() {
-    if(widget.drinksList.isEmpty){
+    if (widget.drinksList.isEmpty) {
       getAllBars();
     } else {
       getBarsFromDB();
@@ -52,7 +52,7 @@ class _BarScrollerState extends State<BarScroller> {
   @override
   Widget build(BuildContext context) {
     var dbHelper = DBHelper();
-    if(widget.drinksList.isEmpty){
+    if (widget.drinksList.isEmpty) {
       return FutureBuilder(
         future: dbHelper.getAllBars(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
@@ -63,11 +63,50 @@ class _BarScrollerState extends State<BarScroller> {
               return Card(
                 child: ListTile(
                   onTap: () {
-                    Navigator.pushNamed(
-                        context, BarDetails.routeName, arguments: barInfo[i]);
+                    Navigator.pushNamed(context, BarDetails.routeName,
+                        arguments: barInfo[i]);
                   },
-                  title: Text(barInfo[i].name),
-                  subtitle: Text(barInfo[i].location),
+                  title: Text(
+                    barInfo[i].name,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: Theme.of(context).colorScheme.primary),
+                  ),
+                  subtitle: Column(children: [
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      barInfo[i].description,
+                      style: TextStyle(fontSize: 13.5),
+                    ),
+                    SizedBox(
+                      height: 7.5,
+                    ),
+                    // Icon(
+                    //   Icons.location_city,
+                    //   size: 10,
+                    //   color: Theme.of(context).colorScheme.primary,
+                    // ),
+                    //Text(barInfo[i].location),
+                    // Row(children: [
+                    //   // Stack(children: [
+                    //   //   Align(
+                    //   //       alignment: Alignment.topCenter,
+                    //   //       child: Icon(
+                    //   //         Icons.location_city,
+                    //   //         size: 10,
+                    //   //         color: Theme.of(context).colorScheme.primary,
+                    //   //       ))
+                    //   // ]),
+                    //   Container(
+                    //       width: MediaQuery.of(context).size.width * 0.5,
+                    //       height: 500,
+                    //       child: RichText(
+                    //           text: TextSpan(text: barInfo[i].location)))
+                    // ])
+                  ]),
                   trailing: ConstrainedBox(
                     constraints: const BoxConstraints(
                       minWidth: 44,
@@ -79,6 +118,8 @@ class _BarScrollerState extends State<BarScroller> {
                         "http://10.0.2.2:3000/images/low%20quality/bars/${barInfo[i].id + 1}.jpg"),
                   ),
                   isThreeLine: true,
+                  tileColor: Theme.of(context).colorScheme.onBackground,
+                  textColor: Colors.white,
                 ),
               );
             },
@@ -96,8 +137,8 @@ class _BarScrollerState extends State<BarScroller> {
               return Card(
                 child: ListTile(
                   onTap: () {
-                    Navigator.pushNamed(
-                        context, BarDetails.routeName, arguments: barInfo[i]);
+                    Navigator.pushNamed(context, BarDetails.routeName,
+                        arguments: barInfo[i]);
                   },
                   title: Text(barInfo[i].name),
                   subtitle: Text(barInfo[i].location),

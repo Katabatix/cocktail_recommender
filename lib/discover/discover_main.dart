@@ -14,7 +14,6 @@ class DiscoverMain extends StatefulWidget {
 }
 
 class _DiscoverMainState extends State<DiscoverMain> {
-
   @override
   Widget build(BuildContext context) {
     print(widget.drinksList);
@@ -22,17 +21,37 @@ class _DiscoverMainState extends State<DiscoverMain> {
       // debugPrint(widget.drinksList?[0].name);
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Cocktail Recommender - Discover', style: TextStyle(color: Colors.white),),
+          title: const Text(
+            'Discover Bars Near You',
+            style: TextStyle(color: Colors.white),
+          ),
+          automaticallyImplyLeading: false,
         ),
         body: BarScroller(drinksList: widget.drinksList),
       );
     } else{
       return Scaffold(
         appBar: AppBar(
-          title: const Text('Cocktail Recommender - Discover', style: TextStyle(color: Colors.white),),
+          title: const Text(
+            'Discover Bars Near You',
+            style: TextStyle(color: Colors.white),
+          ),
         ),
         body: BarScroller(),
       );
     }
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text(
+            'Discover Bars Around You',
+            style: TextStyle(color: Colors.white),
+          ),
+          automaticallyImplyLeading: false,
+        ),
+        body: SafeArea(
+          child: Container(
+              color: Theme.of(context).colorScheme.background,
+              child: BarScroller()),
+        ));
   }
 }

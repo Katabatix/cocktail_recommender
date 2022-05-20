@@ -2,17 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cocktail_recommender/diy/main/diy_main.dart';
 import 'package:cocktail_recommender/utils/global_vars.dart' as global;
+import 'main_recipie_list.dart';
+import 'dart:async';
 
 class SearchField extends StatelessWidget {
-  const SearchField({Key? key}) : super(key: key);
-
+  SearchField({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
       child: Row(
-        children: const <Widget>[
+        children: <Widget>[
+          Icon(
+            Icons.search,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+          SizedBox(
+            width: 10,
+          ),
           Expanded(child: RecipieSearchBar()),
+          SizedBox(
+            width: 10,
+          ),
           ButtonVault(),
         ],
       ),
@@ -25,15 +36,21 @@ class RecipieSearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      child: TextFormField(
-        onChanged: (value) {
-          var query = context.read<DiyRecipieQuery>();
-          query.updateQuery([value]);
-          debugPrint('[Recipie Mian] query: ' + query.query[0]);
-        },
-      ),
-    );
+    return Container(
+        height: 30,
+        color: Theme.of(context).colorScheme.onBackground.withOpacity(0.3),
+        child: Form(
+          child: TextFormField(
+            onChanged: (value) {
+              var query = context.read<DiyRecipieQuery>();
+              query.updateQuery([value]);
+              debugPrint('[Recipie Mian] query: ' + query.query[0]);
+            },
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ));
   }
 }
 

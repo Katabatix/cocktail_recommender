@@ -37,6 +37,7 @@ class IngredientListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Theme.of(context).colorScheme.onBackground,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
@@ -51,12 +52,14 @@ class IngredientListItem extends StatelessWidget {
               child: Text(
                 ingredient.name,
                 overflow: TextOverflow.ellipsis,
+                style: TextStyle(color: Colors.white),
               ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
-            child: Text(ingredient.amount.toString()),
+            child: Text(ingredient.amount.toString(),
+                style: TextStyle(color: Theme.of(context).colorScheme.primary)),
           ),
         ],
       ),

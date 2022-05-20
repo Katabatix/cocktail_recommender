@@ -8,7 +8,8 @@ class Cocktail {
   Cocktail(_name, _description, _ingredientsString, _recipe, _id) {
     name = _name;
     description = _description;
-    imageURL = "http://localhost:3000/images/high%20quality/cocktails/$_id.jpg";
+    //imageURL = "http://localhost:3000/images/high%20quality/cocktails/$_id.jpg";
+    imageURL = "http://10.0.2.2:3000/images/high%20quality/cocktails/$_id.jpg";
     //parse ingredients
     List<String> unformattedIngredients = _ingredientsString.split("|");
     //in1(11)|in2(12)|in3(13)

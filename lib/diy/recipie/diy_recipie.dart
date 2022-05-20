@@ -12,7 +12,10 @@ class DiyRecipiePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(data.name),
+        title: Text(
+          data.name,
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
       ),
       body: Column(
         children: [
@@ -33,8 +36,9 @@ class DiyRecipieTop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.width / 2.8,
+    return Container(
+      color: Theme.of(context).colorScheme.background,
+      height: MediaQuery.of(context).size.width / 2.5,
       child: Padding(
         padding: const EdgeInsets.all(5),
         child: Row(

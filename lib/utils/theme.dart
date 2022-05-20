@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+//Color.fromARGB(1, 42, 42, 55) background grey
+//
 ThemeData getThemeData() {
   return ThemeData(
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
@@ -17,13 +19,13 @@ ThemeData getThemeData() {
     ),
     colorScheme: ColorScheme(
       brightness: Brightness.light,
-      primary: Colors.deepPurple.shade400,
+      primary: Color.fromARGB(255, 245, 126, 182),
       onPrimary: Colors.grey.shade900,
       secondary: Colors.indigo.shade900,
       onSecondary: Colors.white,
       error: Colors.red,
       onError: Colors.black,
-      background: Colors.blueGrey.shade100,
+      background: Color.fromARGB(255, 42, 42, 55),
       onBackground: Colors.grey.shade900,
       surface: Colors.blueGrey.shade100,
       onSurface: Colors.grey.shade900,

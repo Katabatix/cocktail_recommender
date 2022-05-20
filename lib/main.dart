@@ -125,6 +125,9 @@ class _MainPageState extends State<MainPage> {
           //   navBarIndex.updateIndex(index);
           // });
         },
+        selectedItemColor: Theme.of(context).colorScheme.primary,
+        unselectedItemColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.onBackground,
       ),
     );
   }
