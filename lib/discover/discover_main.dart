@@ -1,11 +1,13 @@
 import 'package:cocktail_recommender/discover/bar_scroller.dart';
+import 'package:cocktail_recommender/utils/drink_data.dart';
 import 'package:flutter/material.dart';
 
 class DiscoverMain extends StatefulWidget {
-  final List<String> tagList;
-  DiscoverMain({Key? key, List<String>? tagList})
-      : tagList = tagList ?? <String>['tag1', 'tag2'],
-        super(key: key);
+  List<DrinkData>? drinksList;
+  DiscoverMain(
+      {Key? key,
+      this.drinksList = const <DrinkData>[]
+      }) : super(key: key);
 
   @override
   State<DiscoverMain> createState() => _DiscoverMainState();
@@ -15,11 +17,22 @@ class _DiscoverMainState extends State<DiscoverMain> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Cocktail Recommender - Discover', style: TextStyle(color: Colors.white),),
-      ),
-      body: BarScroller(),
-    );
+    print(widget.drinksList);
+    if(widget.drinksList != null){
+      // debugPrint(widget.drinksList?[0].name);
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text('Cocktail Recommender - Discover', style: TextStyle(color: Colors.white),),
+        ),
+        body: BarScroller(drinksList: widget.drinksList),
+      );
+    } else{
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text('Cocktail Recommender - Discover', style: TextStyle(color: Colors.white),),
+        ),
+        body: BarScroller(),
+      );
+    }
   }
 }

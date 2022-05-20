@@ -29,13 +29,23 @@ class _BarScrollerState extends State<BarScroller> {
 
   void getAllBars() async {
     var dbHelper = DBHelper();
-    dbHelper.getAllBars().then((allBars) => barInfo = allBars);
+    dbHelper.getAllBars().then((allBars) {
+      barInfo = allBars;
+      for (var bar in barInfo) {
+        dbHelper.getMenuItemsWithBarId(bar.id).then((menu) => bar.menu = menu);
+      }
+    });
   }
 
   void getBarsFromDB() {
     var dbHelper = DBHelper();
     if(widget.drinksList.isNotEmpty) {
-      dbHelper.getAllBarsWithDrinksIds(widget.drinksList).then((bars) => barInfo = bars);
+      dbHelper.getAllBarsWithDrinksIds(widget.drinksList).then((bars) {
+        barInfo = bars;
+        for (var bar in barInfo) {
+          dbHelper.getMenuItemsWithBarId(bar.id).then((menu) => bar.menu = menu);
+        }
+      });
     }
   }
 
