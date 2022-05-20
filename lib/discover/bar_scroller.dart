@@ -5,8 +5,12 @@ import 'package:flutter/material.dart';
 import '../utils/drink_data.dart';
 
 class BarScroller extends StatefulWidget {
-  List<DrinkData> drinksList = [];
-  BarScroller({Key? key, List<DrinkData>? drinksList}) : super(key: key);
+  final List<DrinkData> drinkList;
+  BarScroller({
+    Key? key,
+    List<DrinkData>? drinkList,
+  })  : drinkList = drinkList ?? <DrinkData>[],
+        super(key: key);
 
   @override
   State<BarScroller> createState() => _BarScrollerState();
@@ -19,7 +23,7 @@ class _BarScrollerState extends State<BarScroller> {
   @protected
   @mustCallSuper
   void initState() {
-    if (widget.drinksList.isEmpty) {
+    if (widget.drinkList.isEmpty) {
       getAllBars();
     } else {
       getBarsFromDB();
@@ -39,8 +43,8 @@ class _BarScrollerState extends State<BarScroller> {
 
   void getBarsFromDB() {
     var dbHelper = DBHelper();
-    if(widget.drinksList.isNotEmpty) {
-      dbHelper.getAllBarsWithDrinksIds(widget.drinksList).then((bars) {
+    if(widget.drinkList.isNotEmpty) {
+      dbHelper.getAllBarsWithDrinksIds(widget.drinkList).then((bars) {
         barInfo = bars;
         for (var bar in barInfo) {
           dbHelper.getMenuItemsWithBarId(bar.id).then((menu) => bar.menu = menu);
@@ -52,7 +56,7 @@ class _BarScrollerState extends State<BarScroller> {
   @override
   Widget build(BuildContext context) {
     var dbHelper = DBHelper();
-    if (widget.drinksList.isEmpty) {
+    if (widget.drinkList.isEmpty) {
       return FutureBuilder(
         future: dbHelper.getAllBars(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
@@ -126,9 +130,10 @@ class _BarScrollerState extends State<BarScroller> {
           );
         },
       );
-    } else {
+    }
+    else {
       return FutureBuilder(
-        future: dbHelper.getAllBarsWithDrinksIds(widget.drinksList),
+        future: dbHelper.getAllBarsWithDrinksIds(widget.drinkList),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           return ListView.builder(
             padding: const EdgeInsets.symmetric(vertical: 5.0),
@@ -153,6 +158,8 @@ class _BarScrollerState extends State<BarScroller> {
                         "http://10.0.2.2:3000/images/low%20quality/bars/${barInfo[i].id + 1}.jpg"),
                   ),
                   isThreeLine: true,
+                  tileColor: Theme.of(context).colorScheme.onBackground,
+                  textColor: Colors.white,
                 ),
               );
             },
