@@ -1,7 +1,6 @@
 import 'package:cocktail_recommender/discover/menu_details.dart' as m;
 import 'package:flutter/material.dart';
 import 'dart:io';
-//import 'package:url_launcher/url_launcher.dart';
 
 class BarInfo {
   late String name;
@@ -44,7 +43,7 @@ class BarInfo {
     } else if (Platform.isIOS) {
       base = "http://localhost:3000/";
     }
-    return base + "images/high%20quality/bars/" + "$id.jpg";
+    return base + "images/high%20quality/bars/" + "${id+1}.jpg";
   }
 
   void populateMenuItems() async {}
@@ -220,7 +219,8 @@ class BarDetails extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
         ),
-      )),
+            ),
+      ),
     );
   }
 }

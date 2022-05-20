@@ -35,6 +35,7 @@ class _CocktailRecommenderState extends State<CocktailRecommender> {
       child: MaterialApp(
         home: const MainPage(),
         theme: getThemeData(),
+        debugShowCheckedModeBanner: false,
       ),
     );
   }

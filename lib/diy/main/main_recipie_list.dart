@@ -127,7 +127,7 @@ class _RecipieListState extends State<RecipieList> {
       print(x);
     }
     if (listOfVaultItems.isEmpty) {
-      final snackBar = SnackBar(
+      const snackBar = SnackBar(
           content: Text("Your Vault is Empty! Please update it first"));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
       return;

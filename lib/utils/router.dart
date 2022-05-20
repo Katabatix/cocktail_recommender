@@ -45,7 +45,16 @@ class MainRouter {
             builder: (_) => DiyRecipiePage(data: args as DrinkData));
       case '/discover':
         debugPrint('[Router] Routing to: /discover');
-        return MaterialPageRoute(builder: (_) => DiscoverMain());
+        if(args != null){
+          return MaterialPageRoute(builder: (_) => DiscoverMain(
+            drinkList: args as List<DrinkData>,
+          ));
+        }
+        else {
+          return MaterialPageRoute(builder: (_) => DiscoverMain(
+            drinkList: const <DrinkData>[],
+          ));
+        }
       case BarDetails.routeName:
         debugPrint('[Router] Routing to: $BarDetails.routeName');
         return MaterialPageRoute(
