@@ -29,15 +29,23 @@ class _BarScrollerState extends State<BarScroller> {
 
   void getAllBars() async {
     var dbHelper = DBHelper();
-    dbHelper.getAllBars().then((allBars) => barInfo = allBars);
+    dbHelper.getAllBars().then((allBars) {
+      barInfo = allBars;
+      for (var bar in barInfo) {
+        dbHelper.getMenuItemsWithBarId(bar.id).then((menu) => bar.menu = menu);
+      }
+    });
   }
 
   void getBarsFromDB() {
     var dbHelper = DBHelper();
-    if (widget.drinksList.isNotEmpty) {
-      dbHelper
-          .getAllBarsWithDrinksIds(widget.drinksList)
-          .then((bars) => barInfo = bars);
+    if(widget.drinksList.isNotEmpty) {
+      dbHelper.getAllBarsWithDrinksIds(widget.drinksList).then((bars) {
+        barInfo = bars;
+        for (var bar in barInfo) {
+          dbHelper.getMenuItemsWithBarId(bar.id).then((menu) => bar.menu = menu);
+        }
+      });
     }
   }
 
@@ -107,7 +115,6 @@ class _BarScrollerState extends State<BarScroller> {
                       maxHeight: 100,
                     ),
                     child: Image.network(
-                        //"http://localhost:3000/images/low%20quality/bars/${barInfo[i].id + 1}.jpg"
                         "http://10.0.2.2:3000/images/low%20quality/bars/${barInfo[i].id + 1}.jpg"),
                   ),
                   isThreeLine: true,
@@ -143,7 +150,6 @@ class _BarScrollerState extends State<BarScroller> {
                       maxHeight: 100,
                     ),
                     child: Image.network(
-                        //"http://localhost:3000/images/low%20quality/bars/${barInfo[i].id + 1}.jpg"
                         "http://10.0.2.2:3000/images/low%20quality/bars/${barInfo[i].id + 1}.jpg"),
                   ),
                   isThreeLine: true,
