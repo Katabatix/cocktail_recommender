@@ -43,7 +43,7 @@
     ],
     "bars":[
         {
-            "id":0,
+            "id":1,
             "name": "COA",
             "description": "Mexican Inspired Craft Cocktail Bar",
             "address": "Shop A, LG/F Wah Shin House, 6-10 Shin Hing Street, Central, Hong Kong, Central",
@@ -66,7 +66,7 @@
             ]
         },
         {
-            "id":1,
+            "id":2,
             "name": "Stockton",
             "description": "A secret whisky bar on Wyndham Street in Hong Kong",
             "rating": 4,
