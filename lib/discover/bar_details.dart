@@ -74,7 +74,8 @@ class BarDetails extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
                     child: Image.network(
-                      "http://localhost:3000/images/high%20quality/bars/${data.id + 1}.jpg",
+                      "http://10.0.2.2:3000/images/high%20quality/bars/${data.id + 1}.jpg",
+                      //"http://localhost:3000/images/high%20quality/bars/${data.id + 1}.jpg",
                       height: 200,
                     ),
                   ),

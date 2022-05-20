@@ -25,12 +25,12 @@ class DrinkData {
     id = _id;
     description = _description;
     highQualityImageUrl =
-        "http://localhost:3000/images/high%20quality/cocktails/$_id.jpg";
-    //"http://10.0.2.2:3000/images/high%20quality/cocktails/$_id.jpg";
+        //"http://localhost:3000/images/high%20quality/cocktails/$_id.jpg";
+        "http://10.0.2.2:3000/images/high%20quality/cocktails/$_id.jpg";
     // "http://10.0.2.2:3000/images/high%20quality/cocktails/1.jpg";
     lowQualityImageUrl =
-        "http://localhost:3000/images/low%20quality/cocktails/$_id.jpg";
-    // "http://10.0.2.2:3000/images/low%20quality/cocktails/1.jpg";
+        //"http://localhost:3000/images/low%20quality/cocktails/$_id.jpg";
+        "http://10.0.2.2:3000/images/low%20quality/cocktails/1.jpg";
     List<String> unformattedIngredients = _ingredientsString.split("|");
     recipie = RecipieDatafromLongStrings(unformattedIngredients, _recipeSteps);
     tags = _tags;
