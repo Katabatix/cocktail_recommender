@@ -1,5 +1,6 @@
 import 'package:cocktail_recommender/discover/menu_details.dart' as m;
 import 'package:flutter/material.dart';
+import 'dart:io';
 //import 'package:url_launcher/url_launcher.dart';
 
 class BarInfo {
@@ -34,6 +35,16 @@ class BarInfo {
 
   String getName() {
     return name;
+  }
+
+  String getImageUrl() {
+    String base = '';
+    if (Platform.isAndroid) {
+      base = "http://10.0.2.2:3000/";
+    } else if (Platform.isIOS) {
+      base = "http://localhost:3000/";
+    }
+    return base + "images/high%20quality/bars/" + "$id.jpg";
   }
 
   void populateMenuItems() async {}
@@ -74,7 +85,7 @@ class BarDetails extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
                     child: Image.network(
-                      "http://10.0.2.2:3000/images/high%20quality/bars/${data.id + 1}.jpg",
+                      data.getImageUrl(),
                       //"http://localhost:3000/images/high%20quality/bars/${data.id + 1}.jpg",
                       height: 200,
                     ),

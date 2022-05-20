@@ -1,5 +1,6 @@
 import 'package:cocktail_recommender/utils/recipie_data.dart';
 import 'recipie_data.dart';
+import 'dart:io';
 
 class DrinkData {
   late String name;
@@ -24,13 +25,20 @@ class DrinkData {
     name = _name;
     id = _id;
     description = _description;
-    highQualityImageUrl =
-        //"http://localhost:3000/images/high%20quality/cocktails/$_id.jpg";
-        "http://10.0.2.2:3000/images/high%20quality/cocktails/$_id.jpg";
+
+    String base = '';
+    if (Platform.isAndroid) {
+      base = "http://10.0.2.2:3000/";
+    } else if (Platform.isIOS) {
+      base = "http://localhost:3000/";
+    }
+    String imgUrl = base + "images/high%20quality/cocktails/" + "$id.jpg";
+
+    highQualityImageUrl = imgUrl;
     // "http://10.0.2.2:3000/images/high%20quality/cocktails/1.jpg";
     lowQualityImageUrl =
         //"http://localhost:3000/images/low%20quality/cocktails/$_id.jpg";
-        "http://10.0.2.2:3000/images/low%20quality/cocktails/1.jpg";
+        imgUrl;
     List<String> unformattedIngredients = _ingredientsString.split("|");
     recipie = RecipieDatafromLongStrings(unformattedIngredients, _recipeSteps);
     tags = _tags;
