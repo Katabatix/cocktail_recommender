@@ -27,7 +27,9 @@ class _DiscoverMainState extends State<DiscoverMain> {
           ),
           automaticallyImplyLeading: false,
         ),
-        body: BarScroller(drinksList: widget.drinksList),
+        body: Container(
+            color: Theme.of(context).colorScheme.background,
+            child: BarScroller(drinksList: widget.drinksList)),
       );
     } else{
       return Scaffold(
@@ -37,7 +39,9 @@ class _DiscoverMainState extends State<DiscoverMain> {
             style: TextStyle(color: Colors.white),
           ),
         ),
-        body: BarScroller(),
+        body: Container(
+            color: Theme.of(context).colorScheme.background,
+            child: BarScroller()),
       );
     }
     return Scaffold(
