@@ -100,12 +100,9 @@ class _TinderPageState extends State<TinderPage> {
               style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w700,
-                  fontSize: 20),
+                  fontSize: 18),
             ),
           ),
-          SizedBox(
-            height: 10,
-          )
         ],
       ),
     );
@@ -208,14 +205,11 @@ class _TinderPageState extends State<TinderPage> {
           child: Column(
             children: [
               Flexible(
-                flex: 9,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SwipeCards(
-                    matchEngine: _matchEngine,
-                    itemBuilder: _swipeCardItemBuilder,
-                    onStackFinished: _stackFinished,
-                  ),
+                flex: 10,
+                child: SwipeCards(
+                  matchEngine: _matchEngine,
+                  itemBuilder: _swipeCardItemBuilder,
+                  onStackFinished: _stackFinished,
                 ),
               ),
               Flexible(
