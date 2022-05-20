@@ -40,7 +40,7 @@ class Home extends StatelessWidget {
             children: [
               Container(
                   width: MediaQuery.of(context).size.width * 0.9,
-                  child: Image.asset("assets/images/app_logo")),
+                  child: Image.asset("assets/images/app_logo_png.png")),
               ElevatedButton(
                 onPressed: () {
                   Navigator.pushNamed(

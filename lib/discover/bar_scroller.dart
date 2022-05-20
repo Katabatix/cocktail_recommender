@@ -118,8 +118,7 @@ class _BarScrollerState extends State<BarScroller> {
                       maxWidth: 100,
                       maxHeight: 100,
                     ),
-                    child: Image.network(
-                        "http://10.0.2.2:3000/images/low%20quality/bars/${barInfo[i].id + 1}.jpg"),
+                    child: Image.network(barInfo[i].getImageUrl()),
                   ),
                   isThreeLine: true,
                   tileColor: Theme.of(context).colorScheme.onBackground,
@@ -154,8 +153,7 @@ class _BarScrollerState extends State<BarScroller> {
                       maxWidth: 100,
                       maxHeight: 100,
                     ),
-                    child: Image.network(
-                        "http://10.0.2.2:3000/images/low%20quality/bars/${barInfo[i].id + 1}.jpg"),
+                    child: Image.network(barInfo[i].getImageUrl()),
                   ),
                   isThreeLine: true,
                   tileColor: Theme.of(context).colorScheme.onBackground,
