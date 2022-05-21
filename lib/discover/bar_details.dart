@@ -43,7 +43,7 @@ class BarInfo {
     } else if (Platform.isIOS) {
       base = "http://localhost:3000/";
     }
-    return base + "images/high%20quality/bars/" + "${id+1}.jpg";
+    return base + "images/high%20quality/bars/" + "${id}.jpg";
   }
 
   void populateMenuItems() async {}
