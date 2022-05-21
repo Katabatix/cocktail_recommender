@@ -72,154 +72,155 @@ class BarDetails extends StatelessWidget {
                 color: Colors.white, fontWeight: FontWeight.bold)),
       ),
       body: SafeArea(
-          child: Container(
-        height: MediaQuery.of(context).size.height * 2,
-        color: Theme.of(context).colorScheme.background,
-        child: Column(
-          children: [
-            Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0),
-                    child: Image.network(
-                      data.getImageUrl(),
-                      //"http://localhost:3000/images/high%20quality/bars/${data.id + 1}.jpg",
-                      height: 200,
-                    ),
-                  ),
-                ),
-                Text(
-                  data.name,
-                  style: TextStyle(
-                    fontFamily: 'Merriweather',
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                ),
-                Row(
-                  children: [
-                    ReviewIcons(data.rating),
-                    // Padding(
-                    //   padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-                    //   child: TextButton(
-                    //       onPressed: () {}, //Add routing to ReviewDetails
-                    //       child: const Text(
-                    //           'See Reviews',
-                    //           style: TextStyle(
-                    //             color: Colors.black, //THEME LATER
-                    //             fontSize: 20,
-                    //           )
-                    //       )
-                    //   ),
-                    // ),
-                  ],
-                  mainAxisAlignment: MainAxisAlignment.center,
-                ),
-                const SizedBox(
-                  height: 25.0,
-                ),
-                Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    child: Text(
-                      data.description,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                      ),
-                    )),
-                SizedBox(
-                  height: 40,
-                ),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.location_pin,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Container(
-                        //color: Colors.orange,
-                        width: MediaQuery.of(context).size.width * 0.7,
-                        child: Text(
-                          data.location,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                          ),
-                        ))
-                  ],
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                // InkWell(
-                //     onTap: hasCallSupport
-                //     ? () => setState(() {
-                //           _launched = _makePhoneCall(_phone);
-                //         })
-                //     : null,
-                // child:
-                Row(
-                  children: [
-                    Icon(
-                      Icons.call,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Container(
-                        //color: Colors.orange,
-                        width: MediaQuery.of(context).size.width * 0.7,
-                        child: Text(
-                          data.contact,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
-                          ),
-                        ))
-                  ],
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                ),
-                const SizedBox(
-                  height: 20.0,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.pushNamed(
-                        context,
-                        m.MenuDetails.routeName,
-                        arguments: data.menu,
-                      );
-                    },
-                    child: Text(
-                      'See Menu',
-                      style: TextStyle(
-                        color:
-                            Theme.of(context).colorScheme.primary, //THEME LATER
-                        fontSize: 20.0,
+        child: Container(
+          height: MediaQuery.of(context).size.height * 2,
+          color: Theme.of(context).colorScheme.background,
+          child: Column(
+            children: [
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Image.network(
+                        data.getImageUrl(),
+                        //"http://localhost:3000/images/high%20quality/bars/${data.id + 1}.jpg",
+                        height: 200,
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ],
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
+                  Text(
+                    data.name,
+                    style: TextStyle(
+                      fontFamily: 'Merriweather',
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      ReviewIcons(data.rating),
+                      // Padding(
+                      //   padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+                      //   child: TextButton(
+                      //       onPressed: () {}, //Add routing to ReviewDetails
+                      //       child: const Text(
+                      //           'See Reviews',
+                      //           style: TextStyle(
+                      //             color: Colors.black, //THEME LATER
+                      //             fontSize: 20,
+                      //           )
+                      //       )
+                      //   ),
+                      // ),
+                    ],
+                    mainAxisAlignment: MainAxisAlignment.center,
+                  ),
+                  const SizedBox(
+                    height: 25.0,
+                  ),
+                  Container(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      child: Text(
+                        data.description,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                        ),
+                      )),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.location_pin,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Container(
+                          //color: Colors.orange,
+                          width: MediaQuery.of(context).size.width * 0.7,
+                          child: Text(
+                            data.location,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                            ),
+                          ))
+                    ],
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  // InkWell(
+                  //     onTap: hasCallSupport
+                  //     ? () => setState(() {
+                  //           _launched = _makePhoneCall(_phone);
+                  //         })
+                  //     : null,
+                  // child:
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.call,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Container(
+                          //color: Colors.orange,
+                          width: MediaQuery.of(context).size.width * 0.7,
+                          child: Text(
+                            data.contact,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15,
+                            ),
+                          ))
+                    ],
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                  ),
+                  const SizedBox(
+                    height: 20.0,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(
+                          context,
+                          m.MenuDetails.routeName,
+                          arguments: data.menu,
+                        );
+                      },
+                      child: Text(
+                        'See Menu',
+                        style: TextStyle(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .primary, //THEME LATER
+                          fontSize: 20.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+          ),
         ),
-            ),
       ),
     );
   }
