@@ -1,16 +1,8 @@
-# cocktail_recommender
+# Cocktail Recommender
 
-A new Flutter project.
+This is a Cocktail Recommender App created for the Mobile Application Development Course at HKUST (COMP4521).
 
-## Getting Started
+Whether you are out with friends, meeting someone important for business, or just in the mood for a drink, cocktails intertwine into many different facets of our lives. However, when it is time to order, it’s not always easy to know what to drink. Whether it’s indecision or inexperience, the Cocktail Recommender aims to solve this problem by recommending cocktails based on user preferences and moods. Additionally, for those at home, the Cocktail Recommender takes into account ingredients on hand as well as the aforementioned user preferences and mood before recommending recipes.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Demo Video:
+![Demo Video of Cocktail Recommender](cocktail_recommender_trailer.gif)
